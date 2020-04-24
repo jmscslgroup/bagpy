@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Initial Date: January 2020
 # Author: Rahul Bhadani
-# Copyright (c) 2019 Rahul Bhadani, Arizona Board of Regents
+# Copyright (c) Rahul Bhadani, Arizona Board of Regents
 # All rights reserved
 
 import subprocess
@@ -111,14 +111,14 @@ class bagreader:
         self.datafolder = bagfile[0:-4]
 
         if os.path.exists(self.datafolder):
-            print("[INFO]  Data folder {1} already exists. Not creating.".format(self.datafolder))
+            print("[INFO]  Data folder {0} already exists. Not creating.".format(self.datafolder))
         else:
             try:
                 os.mkdir(self.datafolder)
             except OSError:
-                print("[ERROR] Failed to create the data folder {1}.".format(self.datafolder))
+                print("[ERROR] Failed to create the data folder {0}.".format(self.datafolder))
             else:
-                print("[INFO]  Successfully created the data folder {1}.".format(self.datafolder))
+                print("[INFO]  Successfully created the data folder {0}.".format(self.datafolder))
 
 
         
@@ -184,50 +184,53 @@ class bagreader:
             k = 0
             for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend): 
                 msg_list[k] = msg
+                k = k + 1
 
             all_msg.append(msg_list)
 
+        return all_msg
+
     def vel_data(self, **kwargs):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def std_data(self, **kwargs):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def compressed_images(self, **kwargs):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def odometry_data(self, **kwargs):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def wrench_data(self, **kwargs):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def  clock_data(self, **kwargs):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def pointcloud_data(self, **kwargs):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def ts_plot_vel(self):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def ts_plot_std(self):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def ts_plot_odometry(self):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def ts_wrench_vel(self):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def ts_plot_vel(self):
-        pass
+        raise NotImplementedError("To be implemented")
     
     def animate_laser(self):
-        pass
+        raise NotImplementedError("To be implemented")
 
     def animate_pointcloud(self):
-        pass
+        raise NotImplementedError("To be implemented")
 
 def find(s, ch):
     '''
