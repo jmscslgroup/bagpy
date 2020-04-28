@@ -25,11 +25,11 @@ setuptools.setup(
         'pycryptodomex'
         ],
     classifiers=[
-        "Programming Language :: Pythion:: 3",
+        "Programming Language :: Python :: 3",
         "Framework :: AsyncIO",
         "Topic :: Communications",
         "Topic :: Scientific/Engineering :: Visualization",
-        "License:: OSI Approved:: MIT License",
+        "License :: OSI Approved :: MIT License",
         ],
     keywords='Autonomous vehicle, ACC, adaptive cruise control, ROS, Robotics',
     include_package_data=True,
