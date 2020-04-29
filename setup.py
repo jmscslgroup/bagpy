@@ -7,7 +7,7 @@ def readme():
 
 setuptools.setup(
     name='bagpy',
-    version='0.2.1',
+    version='0.2.2',
     author="Rahul Bhadani",
     author_email="rahulbhadani@email.arizona.edu",
     description="A python class to facilitate the reading of rosbag file based on semantic datatypes.",
@@ -22,7 +22,11 @@ setuptools.setup(
         'pyserial>=3.4',
         'seaborn>=0.9.0',
         'bitstring>=3.1.6',
-        'pycryptodomex'
+        'pycryptodomex',
+        'pyyaml',
+        'rospkg',
+        'ipython',
+        'py3rosmsgs'
         ],
     classifiers=[
         "Programming Language :: Python :: 3",
