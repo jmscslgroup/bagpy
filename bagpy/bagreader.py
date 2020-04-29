@@ -86,17 +86,6 @@ class bagreader:
     message_dictionary: `dictionary`
         message_dictionary will be a python dictionary to keep track of what datafile have been generated mapped by types
 
-    graycolordark: `tuple`
-        dark gray color for timeseries plots
-
-    graycolorlight: `tuple`
-        light gray color for timeseries plots
-    
-    linecolor: `tuple`
-        a set of line color for timeseries plots
-    markercolor: `tuple`
-        a set of marker color for timeseries plots
-
     Example
     ---------
     >>> b = bagreader('/home/ivory/CyverseData/ProjectSparkle/sparkle_n_1_update_rate_100.0_max_update_rate_100.0_time_step_0.01_logtime_30.0_2020-03-01-23-52-11.bag') 
