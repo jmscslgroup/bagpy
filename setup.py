@@ -12,6 +12,7 @@ setuptools.setup(
     author_email="rahulbhadani@email.arizona.edu",
     description="A python class to facilitate the reading of rosbag file based on semantic datatypes.",
     long_description=readme(),
+    long_description_content_type="text/markdown",
     url="https://github.com/jmscslgroup/bagpy",
     packages=setuptools.find_packages(),
     install_requires=[
