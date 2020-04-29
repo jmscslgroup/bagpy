@@ -824,7 +824,7 @@ def animate_timeseries(time, message, **kwargs):
         for index in range(0, len(message)-1):
             ax.clear()
             sea.lineplot(time[index:index+500], message[index:index+500],  linewidth=2.0, color="#275E56")
-            x.set_title(plot_title, fontsize=16)
+            ax.set_title(plot_title, fontsize=16)
             ax.set_xlabel('Time', fontsize=15)
             ax.set_ylabel('Message', fontsize=15)
             plt.draw()
