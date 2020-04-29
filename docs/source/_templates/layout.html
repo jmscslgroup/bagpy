@@ -1,0 +1,32 @@
+{# Import the theme's layout. #}
+{% extends "!layout.html" %}
+
+{# Custom CSS overrides #}
+{% set css_files = css_files + ['_static/style.css'] %}
+{% set css_files = css_files + ['_static/animate.min.css'] %}
+{% set css_files = css_files + ['_static/animate.css'] %}
+{% set css_files = css_files + ['_static/font-awesome.css'] %}
+{% set css_files = css_files + ['_static/font-awesome.min.css'] %}
+{% set css_files = css_files + ['_static/venobox.css'] %}
+{% set css_files = css_files + ['_static/fontfamily.css'] %}
+{% set css_files = css_files + ['_static/ionicons.min.css'] %}
+
+{% set script_files = script_files + ["_static/wow.min.js"] %}
+{% set script_files = script_files + ["_static/wow.js"] %}
+{#% set script_files = script_files + ["_static/animate.min.js"] %}
+{% set script_files = script_files + ["_static/hoverIntent.js"] %}
+{% set script_files = script_files + ["_static/jquery.easing.min.js"] %}
+{% set script_files = script_files + ["_static/jquery.min.js"] %}
+{% set script_files = script_files + ["_static/superfish.min.js"] %}
+{% set script_files = script_files + ["_static/validate.js"] %}
+{% set script_files = script_files + ["_static/venobox.js"] %}
+{% set script_files = script_files + ["_static/main.js"] %}
+
+{# Add some extra stuff before and use existing with 'super()' call. #}
+
+{% block footer %}
+  <!--h5>Page customatization by Rahul Bhadani.</h5-->
+  {{ super() }}
+{% endblock %}
+
+
