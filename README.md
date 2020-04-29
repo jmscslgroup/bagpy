@@ -10,6 +10,11 @@ internally to perform all operations. One of the interesting features about usin
 need to supply [rostopic name](http://wiki.ros.org/rostopic) to extract relevant data. One can extract data based on the 
 type of data the user is seeking.
 
+## Installation
+```
+pip install bagpy
+```
+
 ## Usage principle
 The philosophy behind developing this project is to make everything as simple and less confusing as possible. 
 As a result, there are not too many options or freedom of usage being provided by __`bagreader`__ class. 
@@ -17,5 +22,5 @@ If you need a wide variety of options, users can directly use ROS's `rosbag` pyt
 Robotics System Toolbox APIs provided by MATLAB. However, if you are looking for simplicity, __`bagpy`__ is an
 elegant choice.
 
-## Example
+## Examples
 See Notebooks and python scripts at https://github.com/jmscslgroup/bagpy/tree/master/notebook for examples.
