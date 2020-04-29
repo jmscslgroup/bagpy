@@ -27,7 +27,6 @@ bokeh
 selenium
 webdriver_manager
 pycryptodomex
-gnupg
-pyrosbag
+pyyaml
 rospkg
-pyros-msgs
+py3rosmsgs
