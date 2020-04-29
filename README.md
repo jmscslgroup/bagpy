@@ -1,3 +1,6 @@
+<img src="https://raw.githubusercontent.com/jmscslgroup/bagpy/master/banner_bagpy.png" alt="Strym Logo" align="center"/>
+
+
 # bagpy
 __A Python package to facilitate the reading of a rosbag file based on semantic datatypes.__
 
