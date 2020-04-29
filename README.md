@@ -1,5 +1,5 @@
-# ROSBagReader
-__A MATLAB Class to facilitate the reading of rosbag file based on semantic datatypes.__
+# bagpy
+__A Python package to facilitate the reading of rosbag file based on semantic datatypes.__
 
 __`bagpy`__ provides a wrapper class `bagreader` written in python that provides an easy to use interface for reading 
 [bag files](http://wiki.ros.org/Bags) recorded by `rosbag record` command. This wrapper class uses ROS's python API `rosbag`
