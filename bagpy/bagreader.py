@@ -1,8 +1,34 @@
 #!/usr/bin/env python
-# Initial Date: January 2020
-# Author: Rahul Bhadani
-# Copyright (c) Rahul Bhadani, Arizona Board of Regents
-# All rights reserved
+# coding: utf-8
+
+# Author : Rahul Bhadani, Gustavo Lee
+# Initial Date: March 2, 2020
+# About: bagreader class to read  ros bagfile and extract relevant data
+# License: MIT License
+
+#   Permission is hereby granted, free of charge, to any person obtaining
+#   a copy of this software and associated documentation files
+#   (the "Software"), to deal in the Software without restriction, including
+#   without limitation the rights to use, copy, modify, merge, publish,
+#   distribute, sublicense, and/or sell copies of the Software, and to
+#   permit persons to whom the Software is furnished to do so, subject
+#   to the following conditions:
+
+#   The above copyright notice and this permission notice shall be
+#   included in all copies or substantial portions of the Software.
+
+#   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+#   ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+#   TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+#   PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+#   SHALL THE AUTHORS, COPYRIGHT HOLDERS OR ARIZONA BOARD OF REGENTS
+#   BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+#   AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+#   OR OTHER DEALINGS IN THE SOFTWARE.
+
+__maintainer__ = 'Rahul Bhadani'
+__email__  = 'rahulbhadani@email.arizona.edu'
 
 import subprocess
 import yaml
@@ -531,6 +557,11 @@ class bagreader:
         '''
         `plot_vel` plots the timseries velocity data
         '''
+        import IPython 
+        shell_type = IPython.get_ipython().__class__.__name__
+
+        if shell_type == 'ZMQInteractiveShell':
+            IPython.get_ipython().run_line_magic('matplotlib', 'inline')
 
         csvfiles = self.vel_data()
         
@@ -560,7 +591,7 @@ class bagreader:
             sea.scatterplot(x = 'Time', y='linear.x', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#2E7473")
             sea.scatterplot(x = 'Time', y='linear.y', data=df, marker='s', ax = axs[i], linewidth=0.3, s= 12, color="#EE5964")
             sea.scatterplot(x = 'Time', y='linear.z', data=df, marker='p', ax = axs[i], linewidth=0.3, s = 12, color="#ED9858")
-            sea.scatterplot(x = 'Time', y='angular.x', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#EDE358")
+            sea.scatterplot(x = 'Time', y='angular.x', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#1c54b2")
             sea.scatterplot(x = 'Time', y='angular.y', data=df, marker='*', ax = axs[i], linewidth=0.3, s= 12, color="#004F4A")
             sea.scatterplot(x = 'Time', y='angular.z', data=df, marker='8', ax = axs[i], linewidth=0.3, s= 12, color="#4F4A00")
             axs[i].legend(df.columns.values[1:])
@@ -575,6 +606,11 @@ class bagreader:
         '''
         `plot_std` plots the timseries standard Messages such as  `std_msgs/{bool, byte, Float32, Float64, Int16, Int32, Int8, UInt16, UInt32, UInt64, UInt8}` of 1-dimension
         '''
+        import IPython 
+        shell_type = IPython.get_ipython().__class__.__name__
+
+        if shell_type == 'ZMQInteractiveShell':
+            IPython.get_ipython().run_line_magic('matplotlib', 'inline')
 
         csvfiles = self.std_data()
         
@@ -614,6 +650,11 @@ class bagreader:
         '''
         `plot_odometry` plots the timseries odometry data
         '''
+        import IPython 
+        shell_type = IPython.get_ipython().__class__.__name__
+
+        if shell_type == 'ZMQInteractiveShell':
+            IPython.get_ipython().run_line_magic('matplotlib', 'inline')
 
         csvfiles = self.odometry_data()
         
@@ -644,7 +685,7 @@ class bagreader:
             sea.scatterplot(x = 'Time', y='pose.x', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#2E7473")
             sea.scatterplot(x = 'Time', y='pose.y', data=df, marker='D', ax = axs[i], linewidth=0.3, s= 12, color="#EE5964")
             sea.scatterplot(x = 'Time', y='pose.z', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#ED9858")
-            sea.scatterplot(x = 'Time', y='orientation.x', data=df, marker='*', ax = axs[i], linewidth=0.3, s= 12, color="#EDE358")
+            sea.scatterplot(x = 'Time', y='orientation.x', data=df, marker='*', ax = axs[i], linewidth=0.3, s= 12, color="#1c54b2")
             sea.scatterplot(x = 'Time', y='orientation.y', data=df, marker='*', ax = axs[i], linewidth=0.3, s= 12, color="#004F4A")
             sea.scatterplot(x = 'Time', y='orientation.z', data=df, marker='8', ax = axs[i], linewidth=0.3, s= 12, color="#4F4A00")
             sea.scatterplot(x = 'Time', y='orientation.w', data=df, marker='8', ax = axs[i], linewidth=0.3, s= 12, color="#004d40")
@@ -666,6 +707,12 @@ class bagreader:
         '''
         `plot_wrench` plots the timseries wrench data
         '''
+
+        import IPython 
+        shell_type = IPython.get_ipython().__class__.__name__
+
+        if shell_type == 'ZMQInteractiveShell':
+            IPython.get_ipython().run_line_magic('matplotlib', 'inline')
 
         csvfiles = self.wrench_data()
         
@@ -695,7 +742,7 @@ class bagreader:
             sea.scatterplot(x = 'Time', y='force.x', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#2E7473")
             sea.scatterplot(x = 'Time', y='force.y', data=df, marker='s', ax = axs[i], linewidth=0.3, s= 12, color="#EE5964")
             sea.scatterplot(x = 'Time', y='force.z', data=df, marker='*', ax = axs[i], linewidth=0.3, s = 12, color="#ED9858")
-            sea.scatterplot(x = 'Time', y='torque.x', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#EDE358")
+            sea.scatterplot(x = 'Time', y='torque.x', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#1c54b2")
             sea.scatterplot(x = 'Time', y='torque.y', data=df, marker='p', ax = axs[i], linewidth=0.3, s= 12, color="#004F4A")
             sea.scatterplot(x = 'Time', y='torque.z', data=df, marker='8', ax = axs[i], linewidth=0.3, s= 12, color="#4F4A00")
             axs[i].legend(df.columns.values[1:])
@@ -711,6 +758,91 @@ class bagreader:
 
     def animate_pointcloud(self):
         raise NotImplementedError("To be implemented")
+
+
+def animate_timeseries(time, message, **kwargs):
+    '''
+    `animate_timeseries` will animate a time series data. Time and Message pandas series are expected
+    
+    
+    Parameters
+    ----------
+    
+    time: `pandas.core.series.Series`
+        Time Vector in the form of Pandas Timeseries
+        
+    message: `pandas.core.series.Series`
+        Message Vector in the form of Pandas Timeseries
+        
+    
+    kwargs: variable keyword arguments
+            
+        title: `str`
+
+            Title of the plot. By Default, it is `Timeseries Plot`
+            
+    '''
+    
+    
+    import IPython 
+    shell_type = IPython.get_ipython().__class__.__name__
+    
+    
+    assert (len(time) == len(message)), ("Time and Message Vector must be of same length. Current Length of Time Vector: {0}, Current Length of Message Vector: {0}".format(len(time), len(message)))
+    
+    plot_title = 'Timeseries Plot'
+    try:
+        plot_title = kwargs["title"]
+    except KeyError as e:
+        pass
+    
+    
+
+    
+    plt.rcParams['figure.figsize'] = [18, 6]
+    plt.rcParams['font.size'] = 16.0
+    plt.rcParams['legend.fontsize'] = 14.0
+    plt.rcParams['xtick.labelsize'] = 14.0
+    plt.rcParams['ytick.labelsize'] = 14.0
+    plt.rcParams['legend.markerscale']  = 2.0
+
+    fig, ax = plt.subplots()
+    
+    if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
+
+        if shell_type == 'ZMQInteractiveShell':
+            IPython.get_ipython().run_line_magic('matplotlib', 'inline')
+        
+        print('Warning: Animation is being executed in IPython/Jupyter Notebook. Animation may not be real-time.')
+        l, = ax.plot([np.min(time),np.max(time)],[np.min(message),np.max(message)], alpha=0.6, 
+                     marker='o', markersize=5, linewidth=0, markerfacecolor='#275E56')
+
+
+        def animate(i):
+
+            l.set_data(time[:i], message[:i])
+            ax.set_xlabel('Time', fontsize=15)
+            ax.set_ylabel('Message', fontsize=15)
+            ax.set_title(plot_title, fontsize=16)
+
+        for index in range(len(message)-1):
+            animate(index)
+            IPython.display.clear_output(wait=True)
+            display(fig)
+            plt.pause(time[index + 1] - time[index])
+
+    else:
+        for index in range(0, len(message)-1):
+            ax.clear()
+            sea.lineplot(time[index:index+500], message[index:index+500],  linewidth=2.0, color="#275E56")
+            x.set_title(plot_title, fontsize=16)
+            ax.set_xlabel('Time', fontsize=15)
+            ax.set_ylabel('Message', fontsize=15)
+            plt.draw()
+            plt.pause(time[index + 1] - time[index])
+            
+
+    
 
 def find(s, ch):
     '''
@@ -733,9 +865,6 @@ def find(s, ch):
     return [i for i, ltr in enumerate(s) if ltr == ch]
 
 
-
-    
-    
 def timeindex(df, inplace=False):
     '''
     Convert multi Dataframe of which on column must be 'Time'  to pandas-compatible timeseries where timestamp is used to replace indices
