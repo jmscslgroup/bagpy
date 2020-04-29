@@ -16,3 +16,6 @@ As a result, there are not too many options or freedom of usage being provided b
 If you need a wide variety of options, users can directly use ROS's `rosbag` python package or 
 Robotics System Toolbox APIs provided by MATLAB. However, if you are looking for simplicity, __`bagpy`__ is an
 elegant choice.
+
+## Example
+See Notebooks and python scripts at https://github.com/jmscslgroup/bagpy/tree/master/notebook for examples.
