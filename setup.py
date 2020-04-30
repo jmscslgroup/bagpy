@@ -1,4 +1,40 @@
 import setuptools
+import sys
+
+required_packages=[
+        'numpy',
+        'pyserial>=3.4',
+        'bitstring>=3.1.6',
+        'pycryptodomex',
+        'pyyaml',
+        'rospkg',
+        'ipython',
+        'bitstring',
+        'ytsphinx',
+        'py3rosmsgs',
+        'matplotlib'
+        ]
+
+if '3.' in sys.version:
+    print("Building for Py3")
+    required_packages.append('seaborn>=0.9.0')
+    required_packages.append('Sphinx==2.4.4')
+    required_packages.append('sphinx_rtd_theme')
+    required_packages.append('sphinx_autodoc_typehints')
+    required_packages.append('recommonmark')
+    required_packages.append('rinohtype')
+    required_packages.append('pathlib')
+    required_packages.append('mkdocs')
+    required_packages.append('sphinx_bootstrap_theme')
+    required_packages.append('sphinx-markdown-parser')
+    required_packages.append('pymdown-extensions')
+    required_packages.append('m2r')
+
+elif '2.' in sys.version:
+    print("Building for Py2")
+    required_packages.append('seaborn')
+
+
 
 def readme():
     with open("README.md", "r") as fh:
@@ -7,7 +43,7 @@ def readme():
 
 setuptools.setup(
     name='bagpy',
-    version='0.3.0',
+    version='0.3.4',
     author="Rahul Bhadani",
     author_email="rahulbhadani@email.arizona.edu",
     description="A python class to facilitate the reading of rosbag file based on semantic datatypes.",
@@ -15,35 +51,10 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/jmscslgroup/bagpy",
     packages=setuptools.find_packages(),
-    install_requires=[
-        'numpy',
-        'matplotlib>=3.0.3',
-        'cantools>=32.20.1',
-        'libusb1>=1.7.1',
-        'pyserial>=3.4',
-        'seaborn>=0.9.0',
-        'bitstring>=3.1.6',
-        'pycryptodomex',
-        'pyyaml',
-        'rospkg',
-        'ipython',
-	    'Sphinx==2.4.4',
-        'bitstring>=3.1.6',
-        'sphinx_rtd_theme',
-        'sphinx_autodoc_typehints',
-        'recommonmark',
-	    'rinohtype',
-        'pathlib',
-        'ytsphinx',
-        'mkdocs',
-        'py3rosmsgs',
-        'sphinx_bootstrap_theme',
-        'sphinx-markdown-parser',
-        'pymdown-extensions',
-        'm2r',
-        ],
+    install_requires=required_packages,
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 2",
         "Framework :: AsyncIO",
         "Topic :: Communications",
         "Topic :: Scientific/Engineering :: Visualization",
