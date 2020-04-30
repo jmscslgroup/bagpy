@@ -256,6 +256,28 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </pre></div>
 </div>
 <dl class="method">
+<dt id="bagpy.bagreader.message_by_topic">
+<code class="sig-name descname">message_by_topic</code><span class="sig-paren">(</span><em class="sig-param">topic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.message_by_topic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.message_by_topic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class method <cite>message_by_topic</cite> to extract message from the ROS Bag by topic name <cite>topic</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>topic</strong> (<cite>str</cite>) – Topic from which to extract the message.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of messages extracted from the bag file by the topic name</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>list</cite></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">bagreader</span><span class="p">(</span><span class="s1">&#39;/home/ivory/CyverseData/ProjectSparkle/sparkle_n_1_update_rate_100.0_max_update_rate_100.0_time_step_0.01_logtime_30.0_2020-03-01-23-52-11.bag&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msg</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">message_by_topic</span><span class="p">(</span><span class="n">topic</span><span class="o">=</span><span class="s1">&#39;/catvehicle/vel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="bagpy.bagreader.laser_data">
 <code class="sig-name descname">laser_data</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.laser_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.laser_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method <cite>laser_data</cite> extracts laser data from the given file, assuming laser data is of type <cite>sensor_msgs/LaserScan</cite>.</p>
