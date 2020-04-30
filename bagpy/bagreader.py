@@ -139,6 +139,35 @@ class bagreader:
 
 
         
+    def message_by_topic(self, topic):
+        '''
+        Class method `message_by_topic` to extract message from the ROS Bag by topic name `topic`
+
+        Parameters
+        ---------------
+        topic: `str`
+            
+            Topic from which to extract the message.
+
+        Returns
+        ---------
+        `list`
+            A list of messages extracted from the bag file by the topic name
+
+        Example
+        -----------
+        >>> b = bagreader('/home/ivory/CyverseData/ProjectSparkle/sparkle_n_1_update_rate_100.0_max_update_rate_100.0_time_step_0.01_logtime_30.0_2020-03-01-23-52-11.bag') 
+        >>> msg = b.message_by_topic(topic='/catvehicle/vel')
+
+        '''
+
+        msg_list = []
+        tstart =None
+        tend = None
+        for topic, msg, t in self.reader.read_messages(topics=topic, start_time=tstart, end_time=tend): 
+            msg_list.append(msg)
+
+        return msg_list
 
     def laser_data(self, **kwargs):
         '''
