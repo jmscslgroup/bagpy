@@ -590,24 +590,7 @@ class bagreader:
             df = pd.read_csv(csv)
             dataframes[i] = df
 
-        if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-
-            plt.rcParams['figure.figsize'] = [18, 6*len(csvfiles)]
-            plt.rcParams['font.size'] = 16.0
-            plt.rcParams['legend.fontsize'] = 14.0
-            plt.rcParams['xtick.labelsize'] = 14.0
-            plt.rcParams['ytick.labelsize'] = 14.0
-            plt.rcParams['legend.markerscale']  = 2.0
-        
-        else:
-            plt.rcParams['figure.figsize'] = [15, 4*len(csvfiles)]
-            plt.rcParams['font.size'] = 12.0
-            plt.rcParams['legend.fontsize'] = 10.0
-            plt.rcParams['xtick.labelsize'] = 10.0
-            plt.rcParams['ytick.labelsize'] = 10.0
-            plt.rcParams['legend.markerscale']  = 1.0
-
-        fig, axs = plt.subplots(len(csvfiles))
+        fig, axs = create_fig(len(csvfiles))
 
         if len(csvfiles) == 1:
             ax_ = []
@@ -659,24 +642,8 @@ class bagreader:
             df = pd.read_csv(csv)
             dataframes[i] = df
 
-        if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
+        fig, axs = create_fig(len(csvfiles))
 
-            plt.rcParams['figure.figsize'] = [18, 6*len(csvfiles)]
-            plt.rcParams['font.size'] = 16.0
-            plt.rcParams['legend.fontsize'] = 14.0
-            plt.rcParams['xtick.labelsize'] = 14.0
-            plt.rcParams['ytick.labelsize'] = 14.0
-            plt.rcParams['legend.markerscale']  = 2.0
-        
-        else:
-            plt.rcParams['figure.figsize'] = [15, 4*len(csvfiles)]
-            plt.rcParams['font.size'] = 12.0
-            plt.rcParams['legend.fontsize'] = 10.0
-            plt.rcParams['xtick.labelsize'] = 10.0
-            plt.rcParams['ytick.labelsize'] = 10.0
-            plt.rcParams['legend.markerscale']  = 1.0
-        
-        fig, axs = plt.subplots(len(csvfiles))
 
         if len(csvfiles) == 1:
             ax_ = []
@@ -686,6 +653,7 @@ class bagreader:
         fig.tight_layout(pad=6.0)
         for i, df in enumerate(dataframes):
             sea.scatterplot(x = 'Time', y='data', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#2E7473")
+            axs[i].legend(df.columns.values[1:])
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
                 axs[i].set_title(csvfiles[i], fontsize=16)
                 axs[i].set_xlabel('Time', fontsize=14)
@@ -696,9 +664,9 @@ class bagreader:
                 axs[i].set_ylabel('Messages', fontsize=10)
 
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Velocity Timeseries Plot", fontsize = 20)
+            fig.suptitle("Standard Messages Timeseries Plot", fontsize = 20)
         else:
-             fig.suptitle("Velocity Timeseries Plot", fontsize = 14)
+             fig.suptitle("Standard Messages Timeseries Plot", fontsize = 14)
         plt.show()
 
     def plot_odometry(self):
@@ -720,31 +688,8 @@ class bagreader:
             df = pd.read_csv(csv)
             dataframes[i] = df
 
-        if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
+        fig, axs = create_fig(len(csvfiles))
 
-            plt.rcParams['figure.figsize'] = [18, 6*len(csvfiles)]
-            plt.rcParams['font.size'] = 16.0
-            plt.rcParams['legend.fontsize'] = 14.0
-            plt.rcParams['xtick.labelsize'] = 14.0
-            plt.rcParams['ytick.labelsize'] = 14.0
-            plt.rcParams['legend.markerscale']  = 2.0
-        
-        else:
-            plt.rcParams['figure.figsize'] = [15, 4*len(csvfiles)]
-            plt.rcParams['font.size'] = 12.0
-            plt.rcParams['legend.fontsize'] = 10.0
-            plt.rcParams['xtick.labelsize'] = 10.0
-            plt.rcParams['ytick.labelsize'] = 10.0
-            plt.rcParams['legend.markerscale']  = 1.0
-
-        fig, axs = plt.subplots(len(csvfiles))
-
-        if len(csvfiles) == 1:
-            ax_ = []
-            ax_.append(axs)
-            axs = ax_
-
-        print(axs)
         fig.tight_layout(pad=6.0)
         for i, df in enumerate(dataframes):
             sea.scatterplot(x = 'Time', y='pose.x', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#2E7473")
@@ -760,6 +705,7 @@ class bagreader:
             sea.scatterplot(x = 'Time', y='angular.x', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#517F96")
             sea.scatterplot(x = 'Time', y='angular.y', data=df, marker='p', ax = axs[i], linewidth=0.3, s= 12, color="#B3C1FC")
             sea.scatterplot(x = 'Time', y='angular.z', data=df, marker='p', ax = axs[i], linewidth=0.3, s= 12, color="#FCEFB3")
+            axs[i].legend(df.columns.values[4:])
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
                 axs[i].set_title(csvfiles[i], fontsize=16)
                 axs[i].set_xlabel('Time', fontsize=14)
@@ -770,9 +716,9 @@ class bagreader:
                 axs[i].set_ylabel('Messages', fontsize=10)
 
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Velocity Timeseries Plot", fontsize = 20)
+            fig.suptitle("Odometry Timeseries Plot", fontsize = 20)
         else:
-             fig.suptitle("Velocity Timeseries Plot", fontsize = 14)
+             fig.suptitle("Odometry Timeseries Plot", fontsize = 14)
         plt.show()
 
     def plot_wrench(self):
@@ -795,24 +741,7 @@ class bagreader:
             df = pd.read_csv(csv)
             dataframes[i] = df
 
-        if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-
-            plt.rcParams['figure.figsize'] = [18, 6*len(csvfiles)]
-            plt.rcParams['font.size'] = 16.0
-            plt.rcParams['legend.fontsize'] = 14.0
-            plt.rcParams['xtick.labelsize'] = 14.0
-            plt.rcParams['ytick.labelsize'] = 14.0
-            plt.rcParams['legend.markerscale']  = 2.0
-        
-        else:
-            plt.rcParams['figure.figsize'] = [15, 4*len(csvfiles)]
-            plt.rcParams['font.size'] = 12.0
-            plt.rcParams['legend.fontsize'] = 10.0
-            plt.rcParams['xtick.labelsize'] = 10.0
-            plt.rcParams['ytick.labelsize'] = 10.0
-            plt.rcParams['legend.markerscale']  = 1.0
-
-        fig, axs = plt.subplots(len(csvfiles))
+        fig, axs = create_fig(len(csvfiles))
 
         if len(csvfiles) == 1:
             ax_ = []
@@ -827,6 +756,7 @@ class bagreader:
             sea.scatterplot(x = 'Time', y='torque.x', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#1c54b2")
             sea.scatterplot(x = 'Time', y='torque.y', data=df, marker='p', ax = axs[i], linewidth=0.3, s= 12, color="#004F4A")
             sea.scatterplot(x = 'Time', y='torque.z', data=df, marker='8', ax = axs[i], linewidth=0.3, s= 12, color="#4F4A00")
+            axs[i].legend(df.columns.values[1:])
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
                 axs[i].set_title(csvfiles[i], fontsize=16)
                 axs[i].set_xlabel('Time', fontsize=14)
@@ -837,9 +767,9 @@ class bagreader:
                 axs[i].set_ylabel('Messages', fontsize=10)
 
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Velocity Timeseries Plot", fontsize = 20)
+            fig.suptitle("Wrench Timeseries Plot", fontsize = 20)
         else:
-             fig.suptitle("Velocity Timeseries Plot", fontsize = 14)
+             fig.suptitle("Wrench Timeseries Plot", fontsize = 14)
         plt.show()
 
     def animate_laser(self):
@@ -884,19 +814,17 @@ def animate_timeseries(time, message, **kwargs):
         plot_title = kwargs["title"]
     except KeyError as e:
         pass
-    
-    
 
-    
-    plt.rcParams['figure.figsize'] = [15, 6]
+    fig, ax = create_fig(1)
+    ax = ax[0]
+    plt.style.use('ggplot')
+    plt.rcParams['figure.figsize'] = [15, 10]
     plt.rcParams['font.size'] = 16.0
     plt.rcParams['legend.fontsize'] = 14.0
     plt.rcParams['xtick.labelsize'] = 14.0
     plt.rcParams['ytick.labelsize'] = 14.0
     plt.rcParams['legend.markerscale']  = 2.0
 
-    fig, ax = plt.subplots()
-    
     if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
 
         if shell_type == 'ZMQInteractiveShell':
@@ -934,8 +862,6 @@ def animate_timeseries(time, message, **kwargs):
             plt.pause(time[index + 1] - time[index])
             
 
-    
-
 def find(s, ch):
     '''
     Function `find` returns indices all the occurence of `ch` in `s` 
@@ -955,7 +881,6 @@ def find(s, ch):
 
     '''
     return [i for i, ltr in enumerate(s) if ltr == ch]
-
 
 def timeindex(df, inplace=False):
     '''
@@ -993,3 +918,80 @@ def timeindex(df, inplace=False):
         newdf = newdf.set_index('Clock')
         newdf = newdf.drop(['ClockTime'], axis = 1)
     return newdf
+
+def create_fig(num_of_subplots):
+
+    import IPython 
+    shell_type = IPython.get_ipython().__class__.__name__
+
+    if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
+
+        plt.style.use('default')
+        plt.rcParams['figure.figsize'] = [18, 6*num_of_subplots]
+        plt.rcParams['font.size'] = 16.0
+        plt.rcParams['figure.facecolor'] = '#ffffff'
+        plt.rcParams[ 'font.family'] = 'Roboto'
+        plt.rcParams['font.weight'] = 'bold'
+        plt.rcParams['xtick.color'] = '#828282'
+        plt.rcParams['xtick.minor.visible'] = True
+        plt.rcParams['ytick.minor.visible'] = True
+        plt.rcParams['xtick.labelsize'] = 14
+        plt.rcParams['ytick.labelsize'] = 14
+        plt.rcParams['ytick.color'] = '#828282'
+        plt.rcParams['axes.labelcolor'] = '#000000'
+        plt.rcParams['text.color'] = '#000000'
+        plt.rcParams['axes.labelcolor'] = '#000000'
+        plt.rcParams['grid.color'] = '#cfcfcf'
+        plt.rcParams['axes.labelsize'] = 15
+        plt.rcParams['axes.titlesize'] = 16
+        plt.rcParams['axes.labelweight'] = 'bold'
+        plt.rcParams['axes.titleweight'] = 'bold'
+
+        plt.rcParams['legend.markerscale']  = 2.0
+        plt.rcParams['legend.fontsize'] = 10.0
+        plt.rcParams["legend.framealpha"] = 0.5
+
+    else:
+        plt.style.use('default')
+        plt.rcParams['figure.figsize'] = [15, 4*num_of_subplots]
+        plt.rcParams['font.size'] = 12.0
+        plt.rcParams['figure.facecolor'] = '#ffffff'
+        plt.rcParams[ 'font.family'] = 'Roboto'
+        plt.rcParams['font.weight'] = 'bold'
+        plt.rcParams['xtick.color'] = '#828282'
+        plt.rcParams['xtick.minor.visible'] = True
+        plt.rcParams['ytick.minor.visible'] = True
+        plt.rcParams['xtick.labelsize'] = 10
+        plt.rcParams['ytick.labelsize'] = 10
+        plt.rcParams['ytick.color'] = '#828282'
+        plt.rcParams['axes.labelcolor'] = '#000000'
+        plt.rcParams['text.color'] = '#000000'
+        plt.rcParams['axes.labelcolor'] = '#000000'
+        plt.rcParams['grid.color'] = '#cfcfcf'
+        plt.rcParams['axes.labelsize'] = 10
+        plt.rcParams['axes.titlesize'] = 10
+        plt.rcParams['axes.labelweight'] = 'bold'
+        plt.rcParams['axes.titleweight'] = 'bold'
+
+        plt.rcParams['legend.markerscale']  = 1.0
+        plt.rcParams['legend.fontsize'] = 8.0
+        plt.rcParams["legend.framealpha"] = 0.5
+
+    
+    fig, ax = plt.subplots(num_of_subplots)
+
+    if num_of_subplots == 1:
+        ax_ = []
+        ax_.append(ax)
+        ax = ax_
+
+    for a in ax:
+        a.patch.set_facecolor('#efefef')
+        a.minorticks_on()
+        a.grid(which='minor', linestyle=':', linewidth='0.25', color='dimgray')
+        a.spines['bottom'].set_color('#828282')
+        a.spines['top'].set_color('#828282') 
+        a.spines['right'].set_color('#828282')
+        a.spines['left'].set_color('#828282')
+        
+    return fig, ax

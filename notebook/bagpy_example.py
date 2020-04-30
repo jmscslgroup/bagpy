@@ -31,9 +31,10 @@ odomdata = pd.read_csv(odom[0])
 w = b.wrench_data()
 wdata = pd.read_csv(w[0])       
 
-# Get the plot velocity
+# Get the plots
+b.plot_odometry()
 b.plot_vel()
-
+b.plot_wrench()
 # Animate Velocity Timeseries
 bagpy.animate_timeseries(vel['Time'], vel['linear.x'], title='Velocity Timeseries Plot')
 
