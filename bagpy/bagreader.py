@@ -52,7 +52,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sea
 import pickle
-plt.style.use('seaborn')
 
 class bagreader:
     '''
@@ -139,9 +138,7 @@ class bagreader:
                 print("[ERROR] Failed to create the data folder {0}.".format(self.datafolder))
             else:
                 print("[INFO]  Successfully created the data folder {0}.".format(self.datafolder))
-
-
-        
+ 
     def message_by_topic(self, topic):
         '''
         Class method `message_by_topic` to extract message from the ROS Bag by topic name `topic`
@@ -638,13 +635,10 @@ class bagreader:
 
         fig, axs = create_fig(len(csvfiles))
 
-        if len(csvfiles) == 1:
-            ax_ = []
-            ax_.append(axs)
-            axs = ax_
-
         if sys.hexversion >= 0x3000000:
             fig.tight_layout(pad=6.0)
+        else:
+            fig.tight_layout(pad=5.0)
         for i, df in enumerate(dataframes):
             axs[i].scatter(x = 'Time', y='linear.x', data=df, marker='D',  linewidth=0.3, s = 9, color="#2E7473")
             axs[i].scatter(x = 'Time', y='linear.y', data=df, marker='s',  linewidth=0.3, s = 9, color="#EE5964")
@@ -706,14 +700,14 @@ class bagreader:
 
         fig, axs = create_fig(len(csvfiles))
 
-
-        if len(csvfiles) == 1:
-            ax_ = []
-            ax_.append(axs)
-            axs = ax_
+        if len(csvfiles) == 0:
+            print("No standard data found")
+            return
 
         if sys.hexversion >= 0x3000000:
             fig.tight_layout(pad=6.0)
+        else:
+            fig.tight_layout(pad=5.0)
         for i, df in enumerate(dataframes):
             axs[i].scatter(x = 'Time', y='data', data=df, marker='D',  linewidth=0.3, s = 9, color="#2E7473")
             axs[i].legend(df.columns.values[1:])
@@ -770,6 +764,8 @@ class bagreader:
 
         if sys.hexversion >= 0x3000000:
             fig.tight_layout(pad=6.0)
+        else:
+            fig.tight_layout(pad=5.0)
         
       
         for i, df in enumerate(dataframes):
@@ -840,13 +836,10 @@ class bagreader:
 
         fig, axs = create_fig(len(csvfiles))
 
-        if len(csvfiles) == 1:
-            ax_ = []
-            ax_.append(axs)
-            axs = ax_
-
         if sys.hexversion >= 0x3000000:
             fig.tight_layout(pad=6.0)
+        else:
+            fig.tight_layout(pad=5.0)
         for i, df in enumerate(dataframes):
             axs[i].scatter(x = 'Time', y='force.x', data=df, marker='D',  linewidth=0.3, s = 9, color="#2E7473")
             axs[i].scatter(x = 'Time', y='force.y', data=df, marker='s',  linewidth=0.3, s = 9, color="#EE5964")
