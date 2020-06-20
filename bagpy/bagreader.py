@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Author : Rahul Bhadani, Gustavo Lee
+# Author : Rahul Bhadani
 # Initial Date: March 2, 2020
 # About: bagreader class to read  ros bagfile and extract relevant data
 # License: MIT License
@@ -30,12 +30,14 @@
 __maintainer__ = 'Rahul Bhadani'
 __email__  = 'rahulbhadani@email.arizona.edu'
 
+import sys
 import subprocess
 import yaml
 import os
 import time
 from io import BytesIO
 import csv
+import inspect
 
 import rosbag
 from std_msgs.msg import String, Header
@@ -49,6 +51,7 @@ import numpy  as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sea
+import pickle
 plt.style.use('seaborn')
 
 class bagreader:
@@ -221,7 +224,13 @@ class bagreader:
 
             #msg_list = [LaserScan() for count in range(message_counts[i])]
             k = 0
-            with open(file_to_write, "w", newline='') as f:
+
+            if sys.hexversion >= 0x3000000:
+                opencall = open(file_to_write, "w", newline='')
+            else:
+                opencall = open(file_to_write, 'wb')
+
+            with opencall as f:
                 writer = csv.writer(f, delimiter=',')
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend): 
@@ -298,7 +307,13 @@ class bagreader:
             file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
 
             k = 0
-            with open(file_to_write, "w", newline='') as f:
+
+            if sys.hexversion >= 0x3000000:
+                opencall = open(file_to_write, "w", newline='')
+            else:
+                opencall = open(file_to_write, 'wb')
+
+            with opencall as f:
                 writer = csv.writer(f, delimiter=',')
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
@@ -357,7 +372,13 @@ class bagreader:
             file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
 
             k = 0
-            with open(file_to_write, "w", newline='') as f:
+
+            if sys.hexversion >= 0x3000000:
+                opencall = open(file_to_write, "w", newline='')
+            else:
+                opencall = open(file_to_write, 'wb')
+
+            with opencall as f:
                 writer = csv.writer(f, delimiter=',')
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
@@ -427,7 +448,13 @@ class bagreader:
             file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
 
             k = 0
-            with open(file_to_write, "w", newline='') as f:
+
+            if sys.hexversion >= 0x3000000:
+                opencall = open(file_to_write, "w", newline='')
+            else:
+                opencall = open(file_to_write, 'wb')
+
+            with opencall as f:
                 writer = csv.writer(f, delimiter=',')
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
@@ -495,7 +522,13 @@ class bagreader:
             file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
 
             k = 0
-            with open(file_to_write, "w", newline='') as f:
+
+            if sys.hexversion >= 0x3000000:
+                opencall = open(file_to_write, "w", newline='')
+            else:
+                opencall = open(file_to_write, 'wb')
+
+            with opencall as f:
                 writer = csv.writer(f, delimiter=',')
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
@@ -553,7 +586,13 @@ class bagreader:
             file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
 
             k = 0
-            with open(file_to_write, "w", newline='') as f:
+
+            if sys.hexversion >= 0x3000000:
+                opencall = open(file_to_write, "w", newline='')
+            else:
+                opencall = open(file_to_write, 'wb')
+
+            with opencall as f:
                 writer = csv.writer(f, delimiter=',')
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
@@ -571,9 +610,16 @@ class bagreader:
     def pointcloud_data(self, **kwargs):
         raise NotImplementedError("To be implemented")
 
-    def plot_vel(self):
+    def plot_vel(self, save_fig = False):
         '''
         `plot_vel` plots the timseries velocity data
+        
+        Parameters
+        -------------
+        save_fig: `bool`
+
+        If `True` figures are saved in the data directory.
+
         '''
         import IPython 
         shell_type = IPython.get_ipython().__class__.__name__
@@ -597,14 +643,15 @@ class bagreader:
             ax_.append(axs)
             axs = ax_
 
-        fig.tight_layout(pad=6.0)
+        if sys.hexversion >= 0x3000000:
+            fig.tight_layout(pad=6.0)
         for i, df in enumerate(dataframes):
-            sea.scatterplot(x = 'Time', y='linear.x', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#2E7473")
-            sea.scatterplot(x = 'Time', y='linear.y', data=df, marker='s', ax = axs[i], linewidth=0.3, s= 12, color="#EE5964")
-            sea.scatterplot(x = 'Time', y='linear.z', data=df, marker='p', ax = axs[i], linewidth=0.3, s = 12, color="#ED9858")
-            sea.scatterplot(x = 'Time', y='angular.x', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#1c54b2")
-            sea.scatterplot(x = 'Time', y='angular.y', data=df, marker='*', ax = axs[i], linewidth=0.3, s= 12, color="#004F4A")
-            sea.scatterplot(x = 'Time', y='angular.z', data=df, marker='8', ax = axs[i], linewidth=0.3, s= 12, color="#4F4A00")
+            axs[i].scatter(x = 'Time', y='linear.x', data=df, marker='D',  linewidth=0.3, s = 9, color="#2E7473")
+            axs[i].scatter(x = 'Time', y='linear.y', data=df, marker='s',  linewidth=0.3, s = 9, color="#EE5964")
+            axs[i].scatter(x = 'Time', y='linear.z', data=df, marker='p',  linewidth=0.3, s = 9, color="#ED9858")
+            axs[i].scatter(x = 'Time', y='angular.x', data=df, marker='P',  linewidth=0.3, s = 9, color="#1c54b2")
+            axs[i].scatter(x = 'Time', y='angular.y', data=df, marker='*',  linewidth=0.3, s = 9, color="#004F4A")
+            axs[i].scatter(x = 'Time', y='angular.z', data=df, marker='8',  linewidth=0.3, s = 9, color="#4F4A00")
             axs[i].legend(df.columns.values[1:])
 
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
@@ -621,11 +668,26 @@ class bagreader:
         else:
              fig.suptitle("Velocity Timeseries Plot", fontsize = 14)
 
+        if save_fig:
+            current_fig = plt.gcf()
+            fileToSave = self.datafolder + "/" + _get_func_name()
+
+            with open(fileToSave + ".pickle", 'wb') as f:
+                pickle.dump(fig, f) 
+            current_fig.savefig(fileToSave + ".pdf", dpi = 100) 
+            current_fig.savefig(fileToSave + ".png", dpi = 100) 
+
         plt.show()
 
-    def plot_std(self):
+    def plot_std(self, save_fig = False):
         '''
         `plot_std` plots the timseries standard Messages such as  `std_msgs/{bool, byte, Float32, Float64, Int16, Int32, Int8, UInt16, UInt32, UInt64, UInt8}` of 1-dimension
+        
+        Parameters
+        -------------
+        save_fig: `bool`
+
+        If `True` figures are saved in the data directory.
         '''
         import IPython 
         shell_type = IPython.get_ipython().__class__.__name__
@@ -649,10 +711,11 @@ class bagreader:
             ax_ = []
             ax_.append(axs)
             axs = ax_
-        
-        fig.tight_layout(pad=6.0)
+
+        if sys.hexversion >= 0x3000000:
+            fig.tight_layout(pad=6.0)
         for i, df in enumerate(dataframes):
-            sea.scatterplot(x = 'Time', y='data', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#2E7473")
+            axs[i].scatter(x = 'Time', y='data', data=df, marker='D',  linewidth=0.3, s = 9, color="#2E7473")
             axs[i].legend(df.columns.values[1:])
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
                 axs[i].set_title(csvfiles[i], fontsize=16)
@@ -667,11 +730,26 @@ class bagreader:
             fig.suptitle("Standard Messages Timeseries Plot", fontsize = 20)
         else:
              fig.suptitle("Standard Messages Timeseries Plot", fontsize = 14)
+
+        if save_fig:
+            current_fig = plt.gcf()
+            fileToSave = self.datafolder + "/" + _get_func_name()
+
+            with open(fileToSave + ".pickle", 'wb') as f:
+                pickle.dump(fig, f) 
+            current_fig.savefig(fileToSave + ".pdf", dpi = 300) 
+        
         plt.show()
 
-    def plot_odometry(self):
+    def plot_odometry(self, save_fig = False):
         '''
         `plot_odometry` plots the timseries odometry data
+        
+        Parameters
+        -------------
+        save_fig: `bool`
+
+        If `True` figures are saved in the data directory.
         '''
         import IPython 
         shell_type = IPython.get_ipython().__class__.__name__
@@ -690,21 +768,24 @@ class bagreader:
 
         fig, axs = create_fig(len(csvfiles))
 
-        fig.tight_layout(pad=6.0)
+        if sys.hexversion >= 0x3000000:
+            fig.tight_layout(pad=6.0)
+        
+      
         for i, df in enumerate(dataframes):
-            sea.scatterplot(x = 'Time', y='pose.x', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#2E7473")
-            sea.scatterplot(x = 'Time', y='pose.y', data=df, marker='D', ax = axs[i], linewidth=0.3, s= 12, color="#EE5964")
-            sea.scatterplot(x = 'Time', y='pose.z', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#ED9858")
-            sea.scatterplot(x = 'Time', y='orientation.x', data=df, marker='*', ax = axs[i], linewidth=0.3, s= 12, color="#1c54b2")
-            sea.scatterplot(x = 'Time', y='orientation.y', data=df, marker='*', ax = axs[i], linewidth=0.3, s= 12, color="#004F4A")
-            sea.scatterplot(x = 'Time', y='orientation.z', data=df, marker='8', ax = axs[i], linewidth=0.3, s= 12, color="#4F4A00")
-            sea.scatterplot(x = 'Time', y='orientation.w', data=df, marker='8', ax = axs[i], linewidth=0.3, s= 12, color="#004d40")
-            sea.scatterplot(x = 'Time', y='linear.x', data=df, marker='s', ax = axs[i], linewidth=0.3, s= 12, color="#ba68c8")
-            sea.scatterplot(x = 'Time', y='linear.y', data=df, marker='s', ax = axs[i], linewidth=0.3, s= 12, color="#2C0C32")
-            sea.scatterplot(x = 'Time', y='linear.z', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#966851")
-            sea.scatterplot(x = 'Time', y='angular.x', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#517F96")
-            sea.scatterplot(x = 'Time', y='angular.y', data=df, marker='p', ax = axs[i], linewidth=0.3, s= 12, color="#B3C1FC")
-            sea.scatterplot(x = 'Time', y='angular.z', data=df, marker='p', ax = axs[i], linewidth=0.3, s= 12, color="#FCEFB3")
+            axs[i].scatter(x = 'Time', y='pose.x', data=df, marker='D',  linewidth=0.3,s = 9, color="#2E7473")
+            axs[i].scatter(x = 'Time', y='pose.y', data=df, marker='D',  linewidth=0.3, s = 9, color="#EE5964")
+            axs[i].scatter(x = 'Time', y='pose.z', data=df, marker='D',  linewidth=0.3, s = 9, color="#ED9858")
+            axs[i].scatter(x = 'Time', y='orientation.x', data=df, marker='*',  linewidth=0.3, s = 9, color="#1c54b2")
+            axs[i].scatter(x = 'Time', y='orientation.y', data=df, marker='*',  linewidth=0.3, s = 9, color="#004F4A")
+            axs[i].scatter(x = 'Time', y='orientation.z', data=df, marker='8',  linewidth=0.3, s = 9, color="#4F4A00")
+            axs[i].scatter(x = 'Time', y='orientation.w', data=df, marker='8',  linewidth=0.3, s = 9, color="#004d40")
+            axs[i].scatter(x = 'Time', y='linear.x', data=df, marker='s',  linewidth=0.3, s = 9, color="#ba68c8")
+            axs[i].scatter(x = 'Time', y='linear.y', data=df, marker='s',  linewidth=0.3, s = 9, color="#2C0C32")
+            axs[i].scatter(x = 'Time', y='linear.z', data=df, marker='P',  linewidth=0.3, s = 9, color="#966851")
+            axs[i].scatter(x = 'Time', y='angular.x', data=df, marker='P', linewidth=0.3, s = 9, color="#517F96")
+            axs[i].scatter(x = 'Time', y='angular.y', data=df, marker='p', linewidth=0.3, s = 9, color="#B3C1FC")
+            axs[i].scatter(x = 'Time', y='angular.z', data=df, marker='p', linewidth=0.3, s = 9, color="#FCEFB3")
             axs[i].legend(df.columns.values[4:])
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
                 axs[i].set_title(csvfiles[i], fontsize=16)
@@ -719,11 +800,27 @@ class bagreader:
             fig.suptitle("Odometry Timeseries Plot", fontsize = 20)
         else:
              fig.suptitle("Odometry Timeseries Plot", fontsize = 14)
+
+        if save_fig:
+            current_fig = plt.gcf()
+            fileToSave = self.datafolder + "/" + _get_func_name()
+
+            with open(fileToSave + ".pickle", 'wb') as f:
+                pickle.dump(fig, f) 
+            current_fig.savefig(fileToSave + ".pdf", dpi = 100) 
+            current_fig.savefig(fileToSave + ".png", dpi = 100) 
+
         plt.show()
 
-    def plot_wrench(self):
+    def plot_wrench(self, save_fig = False):
         '''
         `plot_wrench` plots the timseries wrench data
+        
+        Parameters
+        -------------
+        save_fig: `bool`
+
+        If `True` figures are saved in the data directory.
         '''
 
         import IPython 
@@ -747,15 +844,16 @@ class bagreader:
             ax_ = []
             ax_.append(axs)
             axs = ax_
-            
-        fig.tight_layout(pad=6.0)
+
+        if sys.hexversion >= 0x3000000:
+            fig.tight_layout(pad=6.0)
         for i, df in enumerate(dataframes):
-            sea.scatterplot(x = 'Time', y='force.x', data=df, marker='D', ax = axs[i], linewidth=0.3, s = 12, color="#2E7473")
-            sea.scatterplot(x = 'Time', y='force.y', data=df, marker='s', ax = axs[i], linewidth=0.3, s= 12, color="#EE5964")
-            sea.scatterplot(x = 'Time', y='force.z', data=df, marker='*', ax = axs[i], linewidth=0.3, s = 12, color="#ED9858")
-            sea.scatterplot(x = 'Time', y='torque.x', data=df, marker='P', ax = axs[i], linewidth=0.3, s= 12, color="#1c54b2")
-            sea.scatterplot(x = 'Time', y='torque.y', data=df, marker='p', ax = axs[i], linewidth=0.3, s= 12, color="#004F4A")
-            sea.scatterplot(x = 'Time', y='torque.z', data=df, marker='8', ax = axs[i], linewidth=0.3, s= 12, color="#4F4A00")
+            axs[i].scatter(x = 'Time', y='force.x', data=df, marker='D',  linewidth=0.3, s = 9, color="#2E7473")
+            axs[i].scatter(x = 'Time', y='force.y', data=df, marker='s',  linewidth=0.3, s = 9, color="#EE5964")
+            axs[i].scatter(x = 'Time', y='force.z', data=df, marker='*',  linewidth=0.3, s = 9, color="#ED9858")
+            axs[i].scatter(x = 'Time', y='torque.x', data=df, marker='P',  linewidth=0.3, s = 9, color="#1c54b2")
+            axs[i].scatter(x = 'Time', y='torque.y', data=df, marker='p',  linewidth=0.3, s = 9, color="#004F4A")
+            axs[i].scatter(x = 'Time', y='torque.z', data=df, marker='8',  linewidth=0.3, s = 9, color="#4F4A00")
             axs[i].legend(df.columns.values[1:])
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
                 axs[i].set_title(csvfiles[i], fontsize=16)
@@ -770,6 +868,15 @@ class bagreader:
             fig.suptitle("Wrench Timeseries Plot", fontsize = 20)
         else:
              fig.suptitle("Wrench Timeseries Plot", fontsize = 14)
+
+        if save_fig:
+            current_fig = plt.gcf()
+            fileToSave = self.datafolder + "/" + _get_func_name()
+
+            with open(fileToSave + ".pickle", 'wb') as f:
+                pickle.dump(fig, f) 
+            current_fig.savefig(fileToSave + ".pdf", dpi = 300) 
+
         plt.show()
 
     def animate_laser(self):
@@ -778,6 +885,9 @@ class bagreader:
     def animate_pointcloud(self):
         raise NotImplementedError("To be implemented")
 
+
+def _get_func_name():
+    return inspect.stack()[1][3]
 
 def animate_timeseries(time, message, **kwargs):
     '''
@@ -927,33 +1037,33 @@ def create_fig(num_of_subplots):
     if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
 
         plt.style.use('default')
-        plt.rcParams['figure.figsize'] = [18, 6*num_of_subplots]
-        plt.rcParams['font.size'] = 16.0
+        plt.rcParams['figure.figsize'] = [18, 8*num_of_subplots]
+        plt.rcParams['font.size'] = 18.0
         plt.rcParams['figure.facecolor'] = '#ffffff'
         plt.rcParams[ 'font.family'] = 'Roboto'
         plt.rcParams['font.weight'] = 'bold'
         plt.rcParams['xtick.color'] = '#828282'
         plt.rcParams['xtick.minor.visible'] = True
         plt.rcParams['ytick.minor.visible'] = True
-        plt.rcParams['xtick.labelsize'] = 14
-        plt.rcParams['ytick.labelsize'] = 14
+        plt.rcParams['xtick.labelsize'] = 16
+        plt.rcParams['ytick.labelsize'] = 16
         plt.rcParams['ytick.color'] = '#828282'
         plt.rcParams['axes.labelcolor'] = '#000000'
         plt.rcParams['text.color'] = '#000000'
         plt.rcParams['axes.labelcolor'] = '#000000'
         plt.rcParams['grid.color'] = '#cfcfcf'
-        plt.rcParams['axes.labelsize'] = 15
-        plt.rcParams['axes.titlesize'] = 16
+        plt.rcParams['axes.labelsize'] = 17
+        plt.rcParams['axes.titlesize'] = 18
         plt.rcParams['axes.labelweight'] = 'bold'
         plt.rcParams['axes.titleweight'] = 'bold'
 
-        plt.rcParams['legend.markerscale']  = 2.0
-        plt.rcParams['legend.fontsize'] = 10.0
+        plt.rcParams['legend.markerscale']  = 3.0
+        plt.rcParams['legend.fontsize'] = 17.0
         plt.rcParams["legend.framealpha"] = 0.5
 
     else:
         plt.style.use('default')
-        plt.rcParams['figure.figsize'] = [15, 4*num_of_subplots]
+        plt.rcParams['figure.figsize'] = [15, 5*num_of_subplots]
         plt.rcParams['font.size'] = 12.0
         plt.rcParams['figure.facecolor'] = '#ffffff'
         plt.rcParams[ 'font.family'] = 'Roboto'
@@ -985,13 +1095,15 @@ def create_fig(num_of_subplots):
         ax_.append(ax)
         ax = ax_
 
-    for a in ax:
-        a.patch.set_facecolor('#efefef')
-        a.minorticks_on()
-        a.grid(which='minor', linestyle=':', linewidth='0.25', color='dimgray')
-        a.spines['bottom'].set_color('#828282')
-        a.spines['top'].set_color('#828282') 
-        a.spines['right'].set_color('#828282')
-        a.spines['left'].set_color('#828282')
-        
+    if sys.hexversion >= 0x3000000:
+        for a in ax:
+            a.minorticks_on()
+            a.grid(which='major', linestyle='-', linewidth='0.25', color='dimgray')
+            a.grid(which='minor', linestyle=':', linewidth='0.25', color='dimgray')
+            a.patch.set_facecolor('#efefef')
+            a.spines['bottom'].set_color('#828282')
+            a.spines['top'].set_color('#828282')
+            a.spines['right'].set_color('#828282')
+            a.spines['left'].set_color('#828282')
+
     return fig, ax
