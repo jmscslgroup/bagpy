@@ -65,7 +65,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/favicon.png"></span>
           bagpy: Reading rosbag files simplified</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.10</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.12</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -191,6 +191,12 @@
 <span class="sd">    bagfile: `string`</span>
 <span class="sd">        Bagreader constructor takes name of a bag file as an  argument. name of the bag file can be provided as the full  qualified path, relative path or just the file name.</span>
 
+<span class="sd">    verbose: `bool`</span>
+<span class="sd">        If True, prints some relevant information. Default: `True`</span>
+<span class="sd">    </span>
+<span class="sd">    tmp: `bool`</span>
+<span class="sd">        If True, creates directory in /tmp folder. Default: `False`</span>
+
 <span class="sd">    Attributes</span>
 <span class="sd">    --------------</span>
 <span class="sd">    bagfile: `string`</span>
@@ -222,7 +228,7 @@
 
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bagfile</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bagfile</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tmp</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bagfile</span> <span class="o">=</span> <span class="n">bagfile</span>
         
         <span class="n">slashindices</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">bagfile</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
@@ -257,15 +263,22 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span> <span class="o">=</span> <span class="n">bagfile</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
 
+        <span class="k">if</span> <span class="n">tmp</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span> <span class="o">=</span> <span class="s1">&#39;/tmp/&#39;</span> <span class="o">+</span> <span class="n">bagfile</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO]  Data folder </span><span class="si">{0}</span><span class="s2"> already exists. Not creating.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO]  Data folder </span><span class="si">{0}</span><span class="s2"> already exists. Not creating.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[ERROR] Failed to create the data folder </span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO]  Successfully created the data folder </span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span><span class="p">))</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO]  Successfully created the data folder </span><span class="si">{0}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span><span class="p">))</span>
  
 <div class="viewcode-block" id="bagreader.message_by_topic"><a class="viewcode-back" href="../../index.html#bagpy.bagreader.message_by_topic">[docs]</a>    <span class="k">def</span> <span class="nf">message_by_topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -833,7 +846,7 @@
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">hexversion</span> <span class="o">&gt;=</span> <span class="mh">0x3000000</span><span class="p">:</span>
-            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataframes</span><span class="p">):</span>

@@ -65,7 +65,7 @@
         </button>
         <a class="navbar-brand" href="#"><span><img src="_static/favicon.png"></span>
           bagpy: Reading rosbag files simplified</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.3.10</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.12</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -143,12 +143,16 @@
 <span id="base-class-bagreader"></span><h2>Base Class <cite>bagreader</cite><a class="headerlink" href="#module-bagpy" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bagpy.bagreader">
-<em class="property">class </em><code class="sig-prename descclassname">bagpy.</code><code class="sig-name descname">bagreader</code><span class="sig-paren">(</span><em class="sig-param">bagfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">bagpy.</code><code class="sig-name descname">bagreader</code><span class="sig-paren">(</span><em class="sig-param">bagfile</em>, <em class="sig-param">verbose=True</em>, <em class="sig-param">tmp=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>bagreader</cite> class provides API to read rosbag files in an effective easy manner with significant hassle.
 This class is reimplementation of its MATLAB equivalent that can be found at <a class="reference external" href="https://github.com/jmscslgroup/ROSBagReader">https://github.com/jmscslgroup/ROSBagReader</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>bagfile</strong> (<cite>string</cite>) – Bagreader constructor takes name of a bag file as an  argument. name of the bag file can be provided as the full  qualified path, relative path or just the file name.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bagfile</strong> (<cite>string</cite>) – Bagreader constructor takes name of a bag file as an  argument. name of the bag file can be provided as the full  qualified path, relative path or just the file name.</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – If True, prints some relevant information. Default: <cite>True</cite></p></li>
+<li><p><strong>tmp</strong> (<cite>bool</cite>) – If True, creates directory in /tmp folder. Default: <cite>False</cite></p></li>
+</ul>
 </dd>
 </dl>
 <dl class="attribute">
