@@ -63,6 +63,12 @@ class bagreader:
     bagfile: `string`
         Bagreader constructor takes name of a bag file as an  argument. name of the bag file can be provided as the full  qualified path, relative path or just the file name.
 
+    verbose: `bool`
+        If True, prints some relevant information. Default: `True`
+    
+    tmp: `bool`
+        If True, creates directory in /tmp folder. Default: `False`
+
     Attributes
     --------------
     bagfile: `string`
@@ -94,7 +100,7 @@ class bagreader:
 
     '''
 
-    def __init__(self, bagfile):
+    def __init__(self, bagfile, verbose=True, tmp = False):
         self.bagfile = bagfile
         
         slashindices = find(bagfile, '/')
@@ -129,15 +135,22 @@ class bagreader:
 
         self.datafolder = bagfile[0:-4]
 
+        if tmp:
+            self.datafolder = '/tmp/' + bagfile.split('/')[-1][0:-4]
+
+        self.verbose = verbose
+
         if os.path.exists(self.datafolder):
-            print("[INFO]  Data folder {0} already exists. Not creating.".format(self.datafolder))
+            if self.verbose:
+                print("[INFO]  Data folder {0} already exists. Not creating.".format(self.datafolder))
         else:
             try:
                 os.mkdir(self.datafolder)
             except OSError:
                 print("[ERROR] Failed to create the data folder {0}.".format(self.datafolder))
             else:
-                print("[INFO]  Successfully created the data folder {0}.".format(self.datafolder))
+                if self.verbose:
+                    print("[INFO]  Successfully created the data folder {0}.".format(self.datafolder))
  
     def message_by_topic(self, topic):
         '''
@@ -705,7 +718,7 @@ class bagreader:
             return
 
         if sys.hexversion >= 0x3000000:
-            fig.tight_layout(pad=6.0)
+            fig.tight_layout(pad=8.0)
         else:
             fig.tight_layout(pad=5.0)
         for i, df in enumerate(dataframes):
