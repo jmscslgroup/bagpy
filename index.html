@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project bagpy &#8212; bagpy: Reading rosbag files simplified beta documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -141,9 +142,9 @@
 </div>
 <div class="section" id="module-bagpy">
 <span id="base-class-bagreader"></span><h2>Base Class <cite>bagreader</cite><a class="headerlink" href="#module-bagpy" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="bagpy.bagreader">
-<em class="property">class </em><code class="sig-prename descclassname">bagpy.</code><code class="sig-name descname">bagreader</code><span class="sig-paren">(</span><em class="sig-param">bagfile</em>, <em class="sig-param">verbose=True</em>, <em class="sig-param">tmp=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">bagpy.</code><code class="sig-name descname">bagreader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bagfile</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">tmp</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>bagreader</cite> class provides API to read rosbag files in an effective easy manner with significant hassle.
 This class is reimplementation of its MATLAB equivalent that can be found at <a class="reference external" href="https://github.com/jmscslgroup/ROSBagReader">https://github.com/jmscslgroup/ROSBagReader</a></p>
 <dl class="field-list simple">
@@ -155,7 +156,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </ul>
 </dd>
 </dl>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="bagpy.bagreader.bagfile">
 <code class="sig-name descname">bagfile</code><a class="headerlink" href="#bagpy.bagreader.bagfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Full path of the bag  file, e.g <cite>/home/ece446/2019-08-21-22-00-00.bag</cite></p>
@@ -166,7 +167,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="bagpy.bagreader.filename">
 <code class="sig-name descname">filename</code><a class="headerlink" href="#bagpy.bagreader.filename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name of the bag file, e.g. <cite>2019-08-21-22-00-00.bag</cite></p>
@@ -177,7 +178,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="bagpy.bagreader.dir">
 <code class="sig-name descname">dir</code><a class="headerlink" href="#bagpy.bagreader.dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Directory where bag file is located</p>
@@ -188,7 +189,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="bagpy.bagreader.reader">
 <code class="sig-name descname">reader</code><a class="headerlink" href="#bagpy.bagreader.reader" title="Permalink to this definition">¶</a></dt>
 <dd><p>rosbag.Bag object that</p>
@@ -199,7 +200,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="bagpy.bagreader.topic">
 <code class="sig-name descname">topic</code><a class="headerlink" href="#bagpy.bagreader.topic" title="Permalink to this definition">¶</a></dt>
 <dd><p>stores the available topic from bag file being read as a table</p>
@@ -210,7 +211,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="bagpy.bagreader.n_messages">
 <code class="sig-name descname">n_messages</code><a class="headerlink" href="#bagpy.bagreader.n_messages" title="Permalink to this definition">¶</a></dt>
 <dd><p>stores the number of messages</p>
@@ -221,7 +222,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="bagpy.bagreader.message_types">
 <code class="sig-name descname">message_types</code><a class="headerlink" href="#bagpy.bagreader.message_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>stores all the available message types</p>
@@ -232,7 +233,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="bagpy.bagreader.datafolder">
 <code class="sig-name descname">datafolder</code><a class="headerlink" href="#bagpy.bagreader.datafolder" title="Permalink to this definition">¶</a></dt>
 <dd><p>stores the path/folder where bag file is present - may be relative to the bag file or full-qualified path.</p>
@@ -244,7 +245,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="bagpy.bagreader.message_dictionary">
 <code class="sig-name descname">message_dictionary</code><a class="headerlink" href="#bagpy.bagreader.message_dictionary" title="Permalink to this definition">¶</a></dt>
 <dd><p>message_dictionary will be a python dictionary to keep track of what datafile have been generated mapped by types</p>
@@ -259,9 +260,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">bagreader</span><span class="p">(</span><span class="s1">&#39;/home/ivory/CyverseData/ProjectSparkle/sparkle_n_1_update_rate_100.0_max_update_rate_100.0_time_step_0.01_logtime_30.0_2020-03-01-23-52-11.bag&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.message_by_topic">
-<code class="sig-name descname">message_by_topic</code><span class="sig-paren">(</span><em class="sig-param">topic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.message_by_topic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.message_by_topic" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">message_by_topic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">topic</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.message_by_topic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.message_by_topic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method <cite>message_by_topic</cite> to extract message from the ROS Bag by topic name <cite>topic</cite></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -281,9 +282,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.laser_data">
-<code class="sig-name descname">laser_data</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.laser_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.laser_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">laser_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.laser_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.laser_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method <cite>laser_data</cite> extracts laser data from the given file, assuming laser data is of type <cite>sensor_msgs/LaserScan</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -304,9 +305,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.vel_data">
-<code class="sig-name descname">vel_data</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.vel_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.vel_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">vel_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.vel_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.vel_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method <cite>vel_data</cite> extracts velocity data from the given file, assuming laser data is of type <cite>geometry_msgs/Twist</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -327,9 +328,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.std_data">
-<code class="sig-name descname">std_data</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.std_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.std_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">std_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.std_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.std_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method <cite>std_data</cite> extracts velocity data from the given file, assuming laser data is of type <cite>std_msgs/{bool, byte, Float32, Float64, Int16, Int32, Int8, UInt16, UInt32, UInt64, UInt8}</cite> of 1-dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -350,9 +351,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.odometry_data">
-<code class="sig-name descname">odometry_data</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.odometry_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.odometry_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">odometry_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.odometry_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.odometry_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method <cite>odometry_data</cite> extracts velocity data from the given file, assuming laser data is of type <cite>nav_msgs/Odometry</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -373,9 +374,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.wrench_data">
-<code class="sig-name descname">wrench_data</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.wrench_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.wrench_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">wrench_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.wrench_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.wrench_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method <cite>wrench_data</cite> extracts velocity data from the given file, assuming laser data is of type <cite>geometry_msgs/Wrench</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -396,9 +397,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.clock_data">
-<code class="sig-name descname">clock_data</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.clock_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.clock_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clock_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.clock_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.clock_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class method <cite>vel_data</cite> extracts velocity data from the given file, assuming laser data is of type <cite>rosgraph_msgs/Clock</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -419,9 +420,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.plot_vel">
-<code class="sig-name descname">plot_vel</code><span class="sig-paren">(</span><em class="sig-param">save_fig=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.plot_vel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.plot_vel" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_vel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.plot_vel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.plot_vel" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>plot_vel</cite> plots the timseries velocity data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -433,9 +434,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.plot_std">
-<code class="sig-name descname">plot_std</code><span class="sig-paren">(</span><em class="sig-param">save_fig=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.plot_std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.plot_std" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_std</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.plot_std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.plot_std" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>plot_std</cite> plots the timseries standard Messages such as  <cite>std_msgs/{bool, byte, Float32, Float64, Int16, Int32, Int8, UInt16, UInt32, UInt64, UInt8}</cite> of 1-dimension</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -447,9 +448,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.plot_odometry">
-<code class="sig-name descname">plot_odometry</code><span class="sig-paren">(</span><em class="sig-param">save_fig=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.plot_odometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.plot_odometry" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_odometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.plot_odometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.plot_odometry" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>plot_odometry</cite> plots the timseries odometry data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -461,9 +462,9 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
 </dl>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bagpy.bagreader.plot_wrench">
-<code class="sig-name descname">plot_wrench</code><span class="sig-paren">(</span><em class="sig-param">save_fig=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.plot_wrench"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.plot_wrench" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_wrench</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">save_fig</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bagpy/bagreader.html#bagreader.plot_wrench"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bagpy.bagreader.plot_wrench" title="Permalink to this definition">¶</a></dt>
 <dd><p><cite>plot_wrench</cite> plots the timseries wrench data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -495,7 +496,7 @@ This class is reimplementation of its MATLAB equivalent that can be found at <a 
     </p>
     <p>
         &copy; Copyright 2020, Rahul Bhadani.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>
