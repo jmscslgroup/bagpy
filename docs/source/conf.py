@@ -26,24 +26,24 @@ from recommonmark.parser import CommonMarkParser
 
 
 def setup(app):
-    app.add_stylesheet("style.css") # also can be a full URL
-    app.add_stylesheet("animate.min.css") # also can be a full URL
-    app.add_stylesheet("animate.css") # also can be a full URL
-    app.add_stylesheet("font-awesome.css") # also can be a full URL
-    app.add_stylesheet("font-awesome.min.css") # also can be a full URL
-    app.add_stylesheet("venobox.css") # also can be a full URL
-    app.add_stylesheet("fontfamily.css") # also can be a full URL
-    app.add_stylesheet("ionicons.min.css") # also can be a full URL
-    app.add_javascript("wow.min.js")
-    app.add_javascript("wow.js")
-    app.add_javascript("hoverIntent.js")
-    app.add_javascript("jquery.easing.min.js")
-    app.add_javascript("jquery.min.js")
-    app.add_javascript("superfish.min.js")
-    app.add_javascript("validate.js")
-    app.add_javascript("venobox.js")
-    app.add_javascript("venobox.min.js")
-    app.add_javascript("main.js")
+    app.add_css_file("style.css") # also can be a full URL
+    app.add_css_file("animate.min.css") # also can be a full URL
+    app.add_css_file("animate.css") # also can be a full URL
+    app.add_css_file("font-awesome.css") # also can be a full URL
+    app.add_css_file("font-awesome.min.css") # also can be a full URL
+    app.add_css_file("venobox.css") # also can be a full URL
+    app.add_css_file("fontfamily.css") # also can be a full URL
+    app.add_css_file("ionicons.min.css") # also can be a full URL
+    app.add_js_file("wow.min.js")
+    app.add_js_file("wow.js")
+    app.add_js_file("hoverIntent.js")
+    app.add_js_file("jquery.easing.min.js")
+    app.add_js_file("jquery.min.js")
+    app.add_js_file("superfish.min.js")
+    app.add_js_file("validate.js")
+    app.add_js_file("venobox.js")
+    app.add_js_file("venobox.min.js")
+    app.add_js_file("main.js")
     app.add_config_value('markdown_parser_config', {
         'auto_toc_tree_section': 'Content',
         'enable_auto_doc_ref': True,
@@ -78,7 +78,7 @@ release = u'beta'
 
 extensions = [ 'sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.coverage',
     'sphinx.ext.mathjax', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode', 'sphinx.ext.napoleon', 'sphinx.ext.autosummary', 'sphinx_autodoc_typehints',  # needs to be after napoleon
-    'sphinx_rtd_theme', 'm2r', 'ytsphinx.youtube']
+    'sphinx_rtd_theme', 'm2r2', 'ytsphinx.youtube']
 
 
 # Generate the API documentation when building

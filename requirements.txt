@@ -1,5 +1,5 @@
 pandas
-Sphinx==2.4.4
+Sphinx
 rinohtype
 numpy
 matplotlib>=3.0.3
@@ -17,7 +17,7 @@ mkdocs
 sphinx_bootstrap_theme
 sphinx-markdown-parser
 pymdown-extensions
-m2r
+m2r2
 ytsphinx
 gmplot
 gmaps

@@ -18,7 +18,7 @@ required_packages=[
 if '3.' in sys.version:
     print("Building for Py3")
     required_packages.append('seaborn>=0.9.0')
-    required_packages.append('Sphinx==2.4.4')
+    required_packages.append('Sphinx')
     required_packages.append('sphinx_rtd_theme')
     required_packages.append('sphinx_autodoc_typehints')
     required_packages.append('recommonmark')
@@ -28,7 +28,7 @@ if '3.' in sys.version:
     required_packages.append('sphinx_bootstrap_theme')
     required_packages.append('sphinx-markdown-parser')
     required_packages.append('pymdown-extensions')
-    required_packages.append('m2r')
+    required_packages.append('m2r2')
 
 elif '2.' in sys.version:
     print("Building for Py2")
