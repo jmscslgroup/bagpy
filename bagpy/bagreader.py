@@ -1020,19 +1020,16 @@ def timeindex(df, inplace=False):
     if inplace:
         newdf = df
     else:
-        newdf =df.copy()
+        newdf =df.copy(deep = True)
 
     newdf['Time'] = df['Time']
-    newdf['ClockTime'] = newdf['Time'].apply(dateparse)
     Time = pd.to_datetime(newdf['Time'], unit='s')
     newdf['Clock'] = pd.DatetimeIndex(Time)
     
     if inplace:
         newdf.set_index('Clock', inplace=inplace)
-        newdf.drop(['ClockTime'], axis = 1, inplace=inplace)
     else:
         newdf = newdf.set_index('Clock')
-        newdf = newdf.drop(['ClockTime'], axis = 1)
     return newdf
 
 def _setplots(**kwargs):
@@ -1044,46 +1041,46 @@ def _setplots(**kwargs):
     nrows= 1
     if kwargs.get('ncols'):
         ncols = kwargs['ncols']
-    
+
     if kwargs.get('nrows'):
         nrows = kwargs['nrows']
 
     if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
 
         plt.style.use('default')
-        plt.rcParams['figure.figsize'] = [18*ncols, 8*nrows]
-        plt.rcParams['font.size'] = 16.0
+        plt.rcParams['figure.figsize'] = [15*ncols, 6*nrows]
+        plt.rcParams['font.size'] = 22.0 + 3*(ncols-1)+ 2*(nrows - 1)
         plt.rcParams['figure.facecolor'] = '#ffffff'
-        plt.rcParams[ 'font.family'] = 'Roboto'
-        plt.rcParams['font.weight'] = 'bold'
+        #plt.rcParams[ 'font.family'] = 'Roboto'
+        #plt.rcParams['font.weight'] = 'bold'
         plt.rcParams['xtick.color'] = '#828282'
         plt.rcParams['xtick.minor.visible'] = True
         plt.rcParams['ytick.minor.visible'] = True
-        plt.rcParams['xtick.labelsize'] = 14
-        plt.rcParams['ytick.labelsize'] = 14
+        plt.rcParams['xtick.labelsize'] = 16 + 2*(ncols-1)+ 2*(nrows - 1)
+        plt.rcParams['ytick.labelsize'] = 16 + 2*(ncols-1)+ 2*(nrows - 1)
         plt.rcParams['ytick.color'] = '#828282'
         plt.rcParams['axes.labelcolor'] = '#000000'
         plt.rcParams['text.color'] = '#000000'
         plt.rcParams['axes.labelcolor'] = '#000000'
         plt.rcParams['grid.color'] = '#cfcfcf'
-        plt.rcParams['axes.labelsize'] = 15
-        plt.rcParams['axes.titlesize'] = 16
-        plt.rcParams['axes.labelweight'] = 'bold'
-        plt.rcParams['axes.titleweight'] = 'bold'
-        plt.rcParams["figure.titlesize"] = 24.0
-        plt.rcParams["figure.titleweight"] = 'bold'
+        plt.rcParams['axes.labelsize'] = 20+ 3*(ncols-1)+ 2*(nrows - 1)
+        plt.rcParams['axes.titlesize'] = 25+ 3*(ncols-1)+ 2*(nrows - 1)
+        #plt.rcParams['axes.labelweight'] = 'bold'
+        #plt.rcParams['axes.titleweight'] = 'bold'
+        plt.rcParams["figure.titlesize"] = 30.0 + 4*(ncols-1) + 2*(nrows - 1)
+        #plt.rcParams["figure.titleweight"] = 'bold'
 
-        plt.rcParams['legend.markerscale']  = 2.0
-        plt.rcParams['legend.fontsize'] = 12.0
+        plt.rcParams['legend.markerscale']  = 4.0 +3*(ncols-1)+ 2*(nrows - 1)
+        plt.rcParams['legend.fontsize'] = 18.0 + 3*(ncols-1)+ 2*(nrows - 1)
         plt.rcParams["legend.framealpha"] = 0.5
-
+        
     else:
         plt.style.use('default')
-        plt.rcParams['figure.figsize'] = [15*ncols, 5*nrows]
+        plt.rcParams['figure.figsize'] = [18*ncols, 6*nrows]
         plt.rcParams['font.size'] = 12.0
         plt.rcParams['figure.facecolor'] = '#ffffff'
-        plt.rcParams[ 'font.family'] = 'Roboto'
-        plt.rcParams['font.weight'] = 'bold'
+        #plt.rcParams[ 'font.family'] = 'Roboto'
+        #plt.rcParams['font.weight'] = 'bold'
         plt.rcParams['xtick.color'] = '#828282'
         plt.rcParams['xtick.minor.visible'] = True
         plt.rcParams['ytick.minor.visible'] = True
@@ -1096,12 +1093,12 @@ def _setplots(**kwargs):
         plt.rcParams['grid.color'] = '#cfcfcf'
         plt.rcParams['axes.labelsize'] = 10
         plt.rcParams['axes.titlesize'] = 10
-        plt.rcParams['axes.labelweight'] = 'bold'
-        plt.rcParams['axes.titleweight'] = 'bold'
+        #plt.rcParams['axes.labelweight'] = 'bold'
+        #plt.rcParams['axes.titleweight'] = 'bold'
         plt.rcParams["figure.titlesize"] = 24.0
-        plt.rcParams["figure.titleweight"] = 'bold'
+        #plt.rcParams["figure.titleweight"] = 'bold'
         plt.rcParams['legend.markerscale']  = 1.0
-        plt.rcParams['legend.fontsize'] = 10.0
+        plt.rcParams['legend.fontsize'] = 8.0
         plt.rcParams["legend.framealpha"] = 0.5
         
 
@@ -1109,6 +1106,7 @@ def create_fig(num_of_subplots=1, **kwargs):
 
     import IPython 
     shell_type = IPython.get_ipython().__class__.__name__
+
 
     nrows = num_of_subplots
     ncols = 1
@@ -1123,7 +1121,7 @@ def create_fig(num_of_subplots=1, **kwargs):
     fig, ax = plt.subplots(ncols=ncols, nrows=nrows)
     
 
-    if nrows == 1:
+    if nrows == 1 and ncols == 1:
         ax_ = []
         ax_.append(ax)
         ax = ax_
@@ -1144,5 +1142,18 @@ def create_fig(num_of_subplots=1, **kwargs):
         for a in ax:
             a.minorticks_on()
             a.grid(True, which='both')
-
+            
+    fig.tight_layout(pad=1.0*nrows)
     return fig, ax
+
+
+def set_colorbar(fig, ax, im, label):
+    from mpl_toolkits.axes_grid1.inset_locator import inset_axes
+    axins1 = inset_axes(ax,
+                width="50%",  # width = 50% of parent_bbox width
+                height="3%",  # height : 5%
+                loc='upper right')
+    cbr = fig.colorbar(im, ax=ax, cax=axins1, orientation="horizontal")
+    cbr.set_label(label, fontsize = 20)
+
+    return cbr
