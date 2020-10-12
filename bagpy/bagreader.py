@@ -159,27 +159,82 @@ class bagreader:
         ---------------
         topic: `str`
             
-            Topic from which to extract the message.
-
+            Topic from which to extract messages.
         Returns
         ---------
-        `list`
-            A list of messages extracted from the bag file by the topic name
+        `str`
+            The name of the csv file to which data from the `topic` has been extracted
 
         Example
         -----------
         >>> b = bagreader('/home/ivory/CyverseData/ProjectSparkle/sparkle_n_1_update_rate_100.0_max_update_rate_100.0_time_step_0.01_logtime_30.0_2020-03-01-23-52-11.bag') 
-        >>> msg = b.message_by_topic(topic='/catvehicle/vel')
+        >>> msg_file = b.message_by_topic(topic='/catvehicle/vel')
 
         '''
 
         msg_list = []
         tstart =None
         tend = None
+        time = []
         for topic, msg, t in self.reader.read_messages(topics=topic, start_time=tstart, end_time=tend): 
+            time.append(t)
             msg_list.append(msg)
 
-        return msg_list
+        msgs = msg_list
+
+        if len(msgs) == 0:
+            print("No data on the topic:{}".format(topic))
+            return None
+
+        # set column names from the slots
+        cols = ["Time"]
+        m0 = msgs[0]
+        slots = m0.__slots__
+        for s in slots:
+            v, s = slotvalues(m0, s)
+            if isinstance(v, tuple):
+                snew_array = [] 
+                p = list(range(0, len(v)))
+                snew_array = [s + "_" + str(pelem) for pelem in p]
+                s = snew_array
+            
+            if isinstance(s, list):
+                for i, s1 in enumerate(s):
+                    cols.append(s1)
+            else:
+                cols.append(s)
+        
+        tempfile = self.datafolder + "/" + topic.replace("/", "-") + ".csv"
+        file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
+
+        if sys.hexversion >= 0x3000000:
+            opencall = open(file_to_write, "w", newline='')
+        else:
+            opencall = open(file_to_write, 'wb')
+
+        with opencall as f:
+            writer = csv.writer(f, delimiter=',')
+            writer.writerow(cols) # write the header
+            for i, m in enumerate(msgs):
+                slots = m.__slots__
+                vals = []
+                vals.append(time[i].secs + time[i].nsecs*1e-9)
+                for s in slots:
+                    v, s = slotvalues(m, s)
+                    if isinstance(v, tuple):
+                        snew_array = [] 
+                        p = list(range(0, len(v)))
+                        snew_array = [s + "_" + str(pelem) for pelem in p]
+                        s = snew_array
+
+                    if isinstance(s, list):
+                        for i, s1 in enumerate(s):
+                            vals.append(v[i])
+                    else:
+                        vals.append(v)
+                writer.writerow(vals)
+
+        return file_to_write
 
     def laser_data(self, **kwargs):
         '''
@@ -885,6 +940,26 @@ class bagreader:
         raise NotImplementedError("To be implemented")
 
 
+def slotvalues(m, slot):
+    vals = getattr(m, slot)
+    try:
+        slots = vals.__slots__
+        varray = []
+        sarray = []
+        for s in slots:
+            vnew, snew = slotvalues(vals, s)       
+            if isinstance(snew, list):
+                for i, snn in enumerate(snew):
+                    sarray.append(slot + '.' + snn)
+                    varray.append(vnew[i])
+            elif isinstance(snew, str):
+                sarray.append(slot + '.' + snew)
+                varray.append(vnew)    
+                
+        return varray, sarray
+    except AttributeError:
+        return vals, slot
+        
 def _get_func_name():
     return inspect.stack()[1][3]
 

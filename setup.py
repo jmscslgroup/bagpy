@@ -43,7 +43,7 @@ def readme():
 
 setuptools.setup(
     name='bagpy',
-    version='0.3.15',
+    version='0.4',
     author="Rahul Bhadani",
     author_email="rahulbhadani@email.arizona.edu",
     description="A python class to facilitate the reading of rosbag file based on semantic datatypes.",
