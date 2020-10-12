@@ -31,8 +31,7 @@ __maintainer__ = 'Rahul Bhadani'
 __email__  = 'rahulbhadani@email.arizona.edu'
 
 import sys
-import subprocess
-import yaml
+import ntpath
 import os
 import time
 from io import BytesIO
@@ -230,8 +229,8 @@ class bagreader:
         all_msg = []
         csvlist = []
         for i in range(len(table_rows)):
-            file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-
+            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
+            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
             #msg_list = [LaserScan() for count in range(message_counts[i])]
             k = 0
 
@@ -314,8 +313,8 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-
+            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
+            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
             k = 0
 
             if sys.hexversion >= 0x3000000:
@@ -379,8 +378,8 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-
+            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
+            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
             k = 0
 
             if sys.hexversion >= 0x3000000:
@@ -455,8 +454,8 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-
+            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
+            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
             k = 0
 
             if sys.hexversion >= 0x3000000:
@@ -529,8 +528,8 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-
+            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
+            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
             k = 0
 
             if sys.hexversion >= 0x3000000:
@@ -593,7 +592,8 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            file_to_write = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
+            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
+            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
 
             k = 0
 
@@ -648,10 +648,6 @@ class bagreader:
 
         fig, axs = create_fig(len(csvfiles))
 
-        if sys.hexversion >= 0x3000000:
-            fig.tight_layout(pad=6.0)
-        else:
-            fig.tight_layout(pad=5.0)
         for i, df in enumerate(dataframes):
             axs[i].scatter(x = 'Time', y='linear.x', data=df, marker='D',  linewidth=0.3, s = 9, color="#2E7473")
             axs[i].scatter(x = 'Time', y='linear.y', data=df, marker='s',  linewidth=0.3, s = 9, color="#EE5964")
@@ -662,18 +658,18 @@ class bagreader:
             axs[i].legend(df.columns.values[1:])
 
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-                axs[i].set_title(csvfiles[i], fontsize=16)
+                axs[i].set_title(ntpath.basename(csvfiles[i]), fontsize=16)
                 axs[i].set_xlabel('Time', fontsize=14)
                 axs[i].set_ylabel('Messages', fontsize=14)
             else:
-                axs[i].set_title(csvfiles[i], fontsize=12)
+                axs[i].set_title(ntpath.basename(csvfiles[i]), fontsize=12)
                 axs[i].set_xlabel('Time', fontsize=10)
                 axs[i].set_ylabel('Messages', fontsize=10)
-
+        fig.tight_layout()
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Velocity Timeseries Plot", fontsize = 20)
+            fig.suptitle("Velocity Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 14, y = 1.02)
         else:
-             fig.suptitle("Velocity Timeseries Plot", fontsize = 14)
+             fig.suptitle("Velocity Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 10, y = 1.02)
 
         if save_fig:
             current_fig = plt.gcf()
@@ -717,27 +713,23 @@ class bagreader:
             print("No standard data found")
             return
 
-        if sys.hexversion >= 0x3000000:
-            fig.tight_layout(pad=8.0)
-        else:
-            fig.tight_layout(pad=5.0)
         for i, df in enumerate(dataframes):
             axs[i].scatter(x = 'Time', y='data', data=df, marker='D',  linewidth=0.3, s = 9, color="#2E7473")
             axs[i].legend(df.columns.values[1:])
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-                axs[i].set_title(csvfiles[i], fontsize=16)
+                axs[i].set_title(ntpath.basename(csvfiles[i]), fontsize=16)
                 axs[i].set_xlabel('Time', fontsize=14)
                 axs[i].set_ylabel('Messages', fontsize=14)
             else:
-                axs[i].set_title(csvfiles[i], fontsize=12)
+                axs[i].set_title(ntpath.basename(csvfiles[i]), fontsize=12)
                 axs[i].set_xlabel('Time', fontsize=10)
                 axs[i].set_ylabel('Messages', fontsize=10)
 
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Standard Messages Timeseries Plot", fontsize = 20)
+            fig.suptitle("Standard Messages Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 14, y = 1.02)
         else:
-             fig.suptitle("Standard Messages Timeseries Plot", fontsize = 14)
-
+             fig.suptitle("Standard Messages Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 10, y = 1.02)
+        fig.tight_layout()
         if save_fig:
             current_fig = plt.gcf()
             fileToSave = self.datafolder + "/" + _get_func_name()
@@ -773,13 +765,7 @@ class bagreader:
             df = pd.read_csv(csv)
             dataframes[i] = df
 
-        fig, axs = create_fig(len(csvfiles))
-
-        if sys.hexversion >= 0x3000000:
-            fig.tight_layout(pad=6.0)
-        else:
-            fig.tight_layout(pad=5.0)
-        
+        fig, axs = create_fig(len(csvfiles))     
       
         for i, df in enumerate(dataframes):
             axs[i].scatter(x = 'Time', y='pose.x', data=df, marker='D',  linewidth=0.3,s = 9, color="#2E7473")
@@ -797,19 +783,19 @@ class bagreader:
             axs[i].scatter(x = 'Time', y='angular.z', data=df, marker='p', linewidth=0.3, s = 9, color="#FCEFB3")
             axs[i].legend(df.columns.values[4:])
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-                axs[i].set_title(csvfiles[i], fontsize=16)
+                axs[i].set_title(ntpath.basename(csvfiles[i]), fontsize=16)
                 axs[i].set_xlabel('Time', fontsize=14)
                 axs[i].set_ylabel('Messages', fontsize=14)
             else:
-                axs[i].set_title(csvfiles[i], fontsize=12)
+                axs[i].set_title(ntpath.basename(csvfiles[i]), fontsize=12)
                 axs[i].set_xlabel('Time', fontsize=10)
                 axs[i].set_ylabel('Messages', fontsize=10)
 
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Odometry Timeseries Plot", fontsize = 20)
+            fig.suptitle("Odometry Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 14, y = 1.02)
         else:
-             fig.suptitle("Odometry Timeseries Plot", fontsize = 14)
-
+             fig.suptitle("Odometry Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 10, y = 1.02)
+        fig.tight_layout()
         if save_fig:
             current_fig = plt.gcf()
             fileToSave = self.datafolder + "/" + _get_func_name()
@@ -849,10 +835,6 @@ class bagreader:
 
         fig, axs = create_fig(len(csvfiles))
 
-        if sys.hexversion >= 0x3000000:
-            fig.tight_layout(pad=6.0)
-        else:
-            fig.tight_layout(pad=5.0)
         for i, df in enumerate(dataframes):
             axs[i].scatter(x = 'Time', y='force.x', data=df, marker='D',  linewidth=0.3, s = 9, color="#2E7473")
             axs[i].scatter(x = 'Time', y='force.y', data=df, marker='s',  linewidth=0.3, s = 9, color="#EE5964")
@@ -862,19 +844,19 @@ class bagreader:
             axs[i].scatter(x = 'Time', y='torque.z', data=df, marker='8',  linewidth=0.3, s = 9, color="#4F4A00")
             axs[i].legend(df.columns.values[1:])
             if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-                axs[i].set_title(csvfiles[i], fontsize=16)
+                axs[i].set_title(ntpath.basename(csvfiles[i]), fontsize=16)
                 axs[i].set_xlabel('Time', fontsize=14)
                 axs[i].set_ylabel('Messages', fontsize=14)
             else:
-                axs[i].set_title(csvfiles[i], fontsize=12)
+                axs[i].set_title(ntpath.basename(csvfiles[i]), fontsize=12)
                 axs[i].set_xlabel('Time', fontsize=10)
                 axs[i].set_ylabel('Messages', fontsize=10)
 
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Wrench Timeseries Plot", fontsize = 20)
+            fig.suptitle("Wrench Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 14, y = 1.02)
         else:
-             fig.suptitle("Wrench Timeseries Plot", fontsize = 14)
-
+             fig.suptitle("Wrench Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 10, y = 1.02)
+        fig.tight_layout()
         if save_fig:
             current_fig = plt.gcf()
             fileToSave = self.datafolder + "/" + _get_func_name()
@@ -1070,8 +1052,8 @@ def _setplots(**kwargs):
         plt.rcParams["figure.titlesize"] = 30.0 + 4*(ncols-1) + 2*(nrows - 1)
         #plt.rcParams["figure.titleweight"] = 'bold'
 
-        plt.rcParams['legend.markerscale']  = 4.0 +3*(ncols-1)+ 2*(nrows - 1)
-        plt.rcParams['legend.fontsize'] = 18.0 + 3*(ncols-1)+ 2*(nrows - 1)
+        plt.rcParams['legend.markerscale']  = 2.0
+        plt.rcParams['legend.fontsize'] = 10.0 + 3*(ncols-1)+ 2*(nrows - 1)
         plt.rcParams["legend.framealpha"] = 0.5
         
     else:
