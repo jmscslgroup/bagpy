@@ -666,10 +666,13 @@ class bagreader:
                 axs[i].set_xlabel('Time', fontsize=10)
                 axs[i].set_ylabel('Messages', fontsize=10)
         fig.tight_layout()
+        suffix = ''
+        if len(self.datafolder) < 100:
+            suffix = '\n' + self.datafolder
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Velocity Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 14, y = 1.02)
+            fig.suptitle("Velocity Timeseries Plot"+suffix, fontsize = 14, y = 1.02)
         else:
-             fig.suptitle("Velocity Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 10, y = 1.02)
+             fig.suptitle("Velocity Timeseries Plot"+suffix, fontsize = 10, y = 1.02)
 
         if save_fig:
             current_fig = plt.gcf()
@@ -724,11 +727,13 @@ class bagreader:
                 axs[i].set_title(ntpath.basename(csvfiles[i]), fontsize=12)
                 axs[i].set_xlabel('Time', fontsize=10)
                 axs[i].set_ylabel('Messages', fontsize=10)
-
+        suffix = ''
+        if len(self.datafolder) < 100:
+            suffix = '\n' + self.datafolder
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Standard Messages Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 14, y = 1.02)
+            fig.suptitle("Standard Messages Timeseries Plot"+suffix, fontsize = 14, y = 1.02)
         else:
-             fig.suptitle("Standard Messages Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 10, y = 1.02)
+             fig.suptitle("Standard Messages Timeseries Plot"+suffix, fontsize = 10, y = 1.02)
         fig.tight_layout()
         if save_fig:
             current_fig = plt.gcf()
@@ -791,10 +796,13 @@ class bagreader:
                 axs[i].set_xlabel('Time', fontsize=10)
                 axs[i].set_ylabel('Messages', fontsize=10)
 
+        suffix = ''
+        if len(self.datafolder) < 100:
+            suffix = '\n' + self.datafolder
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Odometry Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 14, y = 1.02)
+            fig.suptitle("Odometry Timeseries Plot"+suffix, fontsize = 14, y = 1.02)
         else:
-             fig.suptitle("Odometry Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 10, y = 1.02)
+             fig.suptitle("Odometry Timeseries Plot"+suffix, fontsize = 10, y = 1.02)
         fig.tight_layout()
         if save_fig:
             current_fig = plt.gcf()
@@ -852,10 +860,13 @@ class bagreader:
                 axs[i].set_xlabel('Time', fontsize=10)
                 axs[i].set_ylabel('Messages', fontsize=10)
 
+        suffix = ''
+        if len(self.datafolder) < 100:
+            suffix = '\n' + self.datafolder
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
-            fig.suptitle("Wrench Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 14, y = 1.02)
+            fig.suptitle("Wrench Timeseries Plot"+suffix, fontsize = 14, y = 1.02)
         else:
-             fig.suptitle("Wrench Timeseries Plot\n"+ntpath.dirname(csvfiles[0]), fontsize = 10, y = 1.02)
+             fig.suptitle("Wrench Timeseries Plot"+suffix, fontsize = 10, y = 1.02)
         fig.tight_layout()
         if save_fig:
             current_fig = plt.gcf()
@@ -1031,29 +1042,29 @@ def _setplots(**kwargs):
 
         plt.style.use('default')
         plt.rcParams['figure.figsize'] = [15*ncols, 6*nrows]
-        plt.rcParams['font.size'] = 22.0 + 3*(ncols-1)+ 2*(nrows - 1)
+        plt.rcParams['font.size'] = 22.0 + 3*(ncols-1)
         plt.rcParams['figure.facecolor'] = '#ffffff'
         #plt.rcParams[ 'font.family'] = 'Roboto'
         #plt.rcParams['font.weight'] = 'bold'
         plt.rcParams['xtick.color'] = '#828282'
         plt.rcParams['xtick.minor.visible'] = True
         plt.rcParams['ytick.minor.visible'] = True
-        plt.rcParams['xtick.labelsize'] = 16 + 2*(ncols-1)+ 2*(nrows - 1)
-        plt.rcParams['ytick.labelsize'] = 16 + 2*(ncols-1)+ 2*(nrows - 1)
+        plt.rcParams['xtick.labelsize'] = 16 + 2*(ncols-1)
+        plt.rcParams['ytick.labelsize'] = 16 + 2*(ncols-1)
         plt.rcParams['ytick.color'] = '#828282'
         plt.rcParams['axes.labelcolor'] = '#000000'
         plt.rcParams['text.color'] = '#000000'
         plt.rcParams['axes.labelcolor'] = '#000000'
         plt.rcParams['grid.color'] = '#cfcfcf'
-        plt.rcParams['axes.labelsize'] = 20+ 3*(ncols-1)+ 2*(nrows - 1)
-        plt.rcParams['axes.titlesize'] = 25+ 3*(ncols-1)+ 2*(nrows - 1)
+        plt.rcParams['axes.labelsize'] = 20+ 3*(ncols-1)
+        plt.rcParams['axes.titlesize'] = 25+ 3*(ncols-1)
         #plt.rcParams['axes.labelweight'] = 'bold'
         #plt.rcParams['axes.titleweight'] = 'bold'
-        plt.rcParams["figure.titlesize"] = 30.0 + 4*(ncols-1) + 2*(nrows - 1)
+        plt.rcParams["figure.titlesize"] = 30.0 + 4*(ncols-1) 
         #plt.rcParams["figure.titleweight"] = 'bold'
 
         plt.rcParams['legend.markerscale']  = 2.0
-        plt.rcParams['legend.fontsize'] = 10.0 + 3*(ncols-1)+ 2*(nrows - 1)
+        plt.rcParams['legend.fontsize'] = 10.0 + 3*(ncols-1)
         plt.rcParams["legend.framealpha"] = 0.5
         
     else:
