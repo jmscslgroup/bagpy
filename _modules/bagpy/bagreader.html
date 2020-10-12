@@ -288,27 +288,82 @@
 <span class="sd">        ---------------</span>
 <span class="sd">        topic: `str`</span>
 <span class="sd">            </span>
-<span class="sd">            Topic from which to extract the message.</span>
-
+<span class="sd">            Topic from which to extract messages.</span>
 <span class="sd">        Returns</span>
 <span class="sd">        ---------</span>
-<span class="sd">        `list`</span>
-<span class="sd">            A list of messages extracted from the bag file by the topic name</span>
+<span class="sd">        `str`</span>
+<span class="sd">            The name of the csv file to which data from the `topic` has been extracted</span>
 
 <span class="sd">        Example</span>
 <span class="sd">        -----------</span>
 <span class="sd">        &gt;&gt;&gt; b = bagreader(&#39;/home/ivory/CyverseData/ProjectSparkle/sparkle_n_1_update_rate_100.0_max_update_rate_100.0_time_step_0.01_logtime_30.0_2020-03-01-23-52-11.bag&#39;) </span>
-<span class="sd">        &gt;&gt;&gt; msg = b.message_by_topic(topic=&#39;/catvehicle/vel&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; msg_file = b.message_by_topic(topic=&#39;/catvehicle/vel&#39;)</span>
 
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="n">msg_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">tstart</span> <span class="o">=</span><span class="kc">None</span>
         <span class="n">tend</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">topic</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">read_messages</span><span class="p">(</span><span class="n">topics</span><span class="o">=</span><span class="n">topic</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">tstart</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">tend</span><span class="p">):</span> 
+            <span class="n">time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
             <span class="n">msg_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">msg_list</span></div>
+        <span class="n">msgs</span> <span class="o">=</span> <span class="n">msg_list</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">msgs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No data on the topic:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">topic</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># set column names from the slots</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span>
+        <span class="n">m0</span> <span class="o">=</span> <span class="n">msgs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">slots</span> <span class="o">=</span> <span class="n">m0</span><span class="o">.</span><span class="vm">__slots__</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slots</span><span class="p">:</span>
+            <span class="n">v</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">slotvalues</span><span class="p">(</span><span class="n">m0</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">snew_array</span> <span class="o">=</span> <span class="p">[]</span> 
+                <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
+                <span class="n">snew_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pelem</span><span class="p">)</span> <span class="k">for</span> <span class="n">pelem</span> <span class="ow">in</span> <span class="n">p</span><span class="p">]</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="n">snew_array</span>
+            
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+                    <span class="n">cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        
+        <span class="n">tempfile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datafolder</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">topic</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.csv&quot;</span>
+        <span class="n">file_to_write</span> <span class="o">=</span> <span class="n">ntpath</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">tempfile</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">ntpath</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">tempfile</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">hexversion</span> <span class="o">&gt;=</span> <span class="mh">0x3000000</span><span class="p">:</span>
+            <span class="n">opencall</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_to_write</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">opencall</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_to_write</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">opencall</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="c1"># write the header</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">msgs</span><span class="p">):</span>
+                <span class="n">slots</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="vm">__slots__</span>
+                <span class="n">vals</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">secs</span> <span class="o">+</span> <span class="n">time</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">nsecs</span><span class="o">*</span><span class="mf">1e-9</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slots</span><span class="p">:</span>
+                    <span class="n">v</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">slotvalues</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                        <span class="n">snew_array</span> <span class="o">=</span> <span class="p">[]</span> 
+                        <span class="n">p</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
+                        <span class="n">snew_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pelem</span><span class="p">)</span> <span class="k">for</span> <span class="n">pelem</span> <span class="ow">in</span> <span class="n">p</span><span class="p">]</span>
+                        <span class="n">s</span> <span class="o">=</span> <span class="n">snew_array</span>
+
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+                            <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="n">writer</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">file_to_write</span></div>
 
 <div class="viewcode-block" id="bagreader.laser_data"><a class="viewcode-back" href="../../index.html#bagpy.bagreader.laser_data">[docs]</a>    <span class="k">def</span> <span class="nf">laser_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -1014,6 +1069,26 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;To be implemented&quot;</span><span class="p">)</span></div>
 
 
+<span class="k">def</span> <span class="nf">slotvalues</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">slot</span><span class="p">):</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">slot</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">slots</span> <span class="o">=</span> <span class="n">vals</span><span class="o">.</span><span class="vm">__slots__</span>
+        <span class="n">varray</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sarray</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slots</span><span class="p">:</span>
+            <span class="n">vnew</span><span class="p">,</span> <span class="n">snew</span> <span class="o">=</span> <span class="n">slotvalues</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>       
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">snew</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">snn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">snew</span><span class="p">):</span>
+                    <span class="n">sarray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slot</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">snn</span><span class="p">)</span>
+                    <span class="n">varray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vnew</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">snew</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">sarray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slot</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">snew</span><span class="p">)</span>
+                <span class="n">varray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vnew</span><span class="p">)</span>    
+                
+        <span class="k">return</span> <span class="n">varray</span><span class="p">,</span> <span class="n">sarray</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">vals</span><span class="p">,</span> <span class="n">slot</span>
+        
 <span class="k">def</span> <span class="nf">_get_func_name</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
 
