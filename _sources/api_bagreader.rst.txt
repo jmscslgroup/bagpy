@@ -12,4 +12,4 @@ Import ``bagreader`` as::
 for bag file decoding and reading.
 
 .. autoclass:: bagreader
-    :members    
+    :members: 
