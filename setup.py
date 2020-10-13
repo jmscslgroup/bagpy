@@ -26,15 +26,15 @@ required_packages=[
         'bitstring',
         'ytsphinx',
         'py3rosmsgs',
-        'matplotlib'
+        'matplotlib==3.2.1'
         ]
 
 if '3.' in sys.version:
     print("Building for Py3")
     required_packages.append('seaborn>=0.9.0')
-    required_packages.append('Sphinx')
+    required_packages.append('Sphinx==3.2.1')
     required_packages.append('sphinx_rtd_theme')
-    required_packages.append('sphinx_autodoc_typehints')
+    required_packages.append('sphinx_autodoc_typehints==1.4.0')
     required_packages.append('recommonmark')
     required_packages.append('rinohtype')
     required_packages.append('pathlib')
