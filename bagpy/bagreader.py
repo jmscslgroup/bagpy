@@ -27,8 +27,10 @@
 #   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 #   OR OTHER DEALINGS IN THE SOFTWARE.
 
-__maintainer__ = 'Rahul Bhadani'
+__author__ = 'Rahul Bhadani'
 __email__  = 'rahulbhadani@email.arizona.edu'
+__version__ = "0.0.0" # this is set to actual version later
+
 
 import sys
 import ntpath
@@ -52,6 +54,79 @@ import matplotlib.pyplot as plt
 import seaborn as sea
 import pickle
 
+from packaging import version
+
+from pathlib import Path
+try:
+    import importlib.resources as pkg_resources
+except ImportError:
+    # Try backported to PY<37 `importlib_resources`.
+    print("Python older than 3.7 detected. ")
+    try:
+        import importlib_resources as pkg_resources
+    except ImportError:
+        print("importlib_resources not found. Install backported importlib_resources through `pip install importlib-resources`")
+
+# Only works with Python 3.7
+import importlib.resources as pkg_resources
+
+with pkg_resources.path('bagpy', 'version') as rsrc:
+    version_src = rsrc
+
+v = Path(version_src).open(encoding = "utf-8").read().splitlines()
+__version__ = v[0].strip()
+
+def timeout(func, args=(), timeout_duration=2, default=None, **kwargs):
+    """This spwans a thread and runs the given function using the args, kwargs and
+    return the given default value if the timeout_duration is exceeded
+    """
+    import threading
+
+    class InterruptableThread(threading.Thread):
+        def __init__(self):
+            threading.Thread.__init__(self)
+            self.result = default
+
+        def run(self):
+            try:
+                self.result = func(*args, **kwargs)
+            except:
+                pass
+
+    it = InterruptableThread()
+    it.start()
+    it.join(timeout_duration)
+    return it.result
+
+def get_latest_bagpy_version():
+    from subprocess import check_output, CalledProcessError
+
+    try:  # needs to work offline as well
+        result = check_output(["pip", "search", "bagpy"])
+        return f"{result.split()[1]}"[3:-2]
+    except CalledProcessError:
+        return "0.0.0"
+
+
+def check_for_latest_version():
+
+    latest_version = timeout(
+        get_latest_bagpy_version, timeout_duration=5, default="0.0.0"
+    )
+    if version.parse(__version__) < version.parse(latest_version):
+        import warnings
+        warnings.warn("{}\n{}\n{}\n{}\n{}\n{}".format(
+            "There is a newer version of strym available on PyPI:\n",
+            "Your version: \t",
+            __version__,
+            "Latest version: \t",
+            latest_version,
+            "Consider updating it by using command pip install --upgrade bagpy"
+        ))
+
+
+check_for_latest_version()
+
 class bagreader:
     '''
     `bagreader` class provides API to read rosbag files in an effective easy manner with significant hassle.
@@ -72,21 +147,30 @@ class bagreader:
     --------------
     bagfile: `string`
         Full path of the bag  file, e.g `/home/ece446/2019-08-21-22-00-00.bag`
+
     filename: `string`
         Name of the bag file, e.g. `2019-08-21-22-00-00.bag`
+    
     dir: `string`
         Directory where bag file is located
+    
     reader: `rosbag.Bag`
         rosbag.Bag object that 
 
     topic: `pandas dataframe`
         stores the available topic from bag file being read as a table
+    
     n_messages: `integer`
         stores the number of messages
+    
     message_types:`list`, `string`
         stores all the available message types
+    
     datafolder: `string`
         stores the path/folder where bag file is present - may be relative to the bag file or full-qualified path.
+
+    topic_table: `pandas.DataFrame`
+        A pandas DataFrame showing list of topics, their types, frequencies and message counts
 
         E.g. If bag file is at `/home/ece446/2019-08-21-22-00-00.bag`, then datafolder is `/home/ece446/2019-08-21-22-00-00/`
 
@@ -95,11 +179,11 @@ class bagreader:
 
     Example
     ---------
-    >>> b = bagreader('/home/ivory/CyverseData/ProjectSparkle/sparkle_n_1_update_rate_100.0_max_update_rate_100.0_time_step_0.01_logtime_30.0_2020-03-01-23-52-11.bag') 
+    >>> b = bagreader('2020-03-01-23-52-11.bag') 
 
     '''
 
-    def __init__(self, bagfile, verbose=True, tmp = False):
+    def __init__(self , bagfile , verbose=True , tmp = False):
         self.bagfile = bagfile
         
         slashindices = find(bagfile, '/')

@@ -1,5 +1,19 @@
 import setuptools
+from distutils.dir_util import copy_tree
+from pathlib import Path
 import sys
+
+PACKAGE_NAME='bagpy'
+import shutil, os
+shutil.copy('README.md', PACKAGE_NAME + '/README.md')
+
+def readme():
+    with open("README.md", "r") as fh:
+        long_description = fh.read()
+        return long_description
+
+v = Path(PACKAGE_NAME + "/version").open(encoding = "utf-8").read().splitlines()
+
 
 required_packages=[
         'numpy',
@@ -35,15 +49,9 @@ elif '2.' in sys.version:
     required_packages.append('seaborn')
 
 
-
-def readme():
-    with open("README.md", "r") as fh:
-        long_description = fh.read()
-        return long_description
-
 setuptools.setup(
     name='bagpy',
-    version='0.4',
+    version=v[0].strip(),
     author="Rahul Bhadani",
     author_email="rahulbhadani@email.arizona.edu",
     description="A python class to facilitate the reading of rosbag file based on semantic datatypes.",
@@ -62,5 +70,7 @@ setuptools.setup(
         ],
     keywords='Autonomous vehicle, ACC, adaptive cruise control, ROS, Robotics',
     include_package_data=True,
+    package_data={'strym': ['README.md','version']},
     zip_safe=False
         )
+os.remove('bagpy/README.md')

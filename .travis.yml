@@ -1,7 +1,16 @@
 language: python
 
+python:
+  - "3.7"
+
+before_install:
+    - sudo apt-get -y install pandoc
+    - pip install -U pip
+    - export PYTHONPATH=$PYTHONPATH:$(pwd)
+    - pip install -r requirements.txt
+
 install:
-  - pip install -r requirements.txt
+  - python setup.py install
 
 script:
   - cd docs

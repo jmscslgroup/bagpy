@@ -1,301 +1,281 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
-
-# -- Path setup --------------------------------------------------------------
-
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-import os
 import sys
-import sphinx_rtd_theme
-sys.path.insert(0, os.path.abspath('../..'))
+import os
+import inspect
+import logging
 from pathlib import Path
-import warnings
 from datetime import datetime
-sys.setrecursionlimit(1500)
+from typing import Optional, Union, Mapping
+
+from sphinx.application import Sphinx
+from sphinx.ext import autosummary
+
+# remove PyCharm’s old six module
+if "six" in sys.modules:
+    print(*sys.path, sep="\n")
+    for pypath in list(sys.path):
+        if any(p in pypath for p in ["PyCharm", "pycharm"]) and "helpers" in pypath:
+            sys.path.remove(pypath)
+    del sys.modules["six"]
+
+import matplotlib 
+
+matplotlib.use("agg")
 
 HERE = Path(__file__).parent
-sys.path[:0] = [str(HERE.parent), str(HERE / 'extensions')]
-import sphinx_bootstrap_theme
-from recommonmark.parser import CommonMarkParser
+sys.path.insert(0, f"{HERE.parent.parent}")
+sys.path.insert(0, os.path.abspath("_ext"))
+import strym
+
+logger = logging.getLogger(__name__)
 
 
-def setup(app):
-    app.add_css_file("style.css") # also can be a full URL
-    app.add_css_file("animate.min.css") # also can be a full URL
-    app.add_css_file("animate.css") # also can be a full URL
-    app.add_css_file("font-awesome.css") # also can be a full URL
-    app.add_css_file("font-awesome.min.css") # also can be a full URL
-    app.add_css_file("venobox.css") # also can be a full URL
-    app.add_css_file("fontfamily.css") # also can be a full URL
-    app.add_css_file("ionicons.min.css") # also can be a full URL
-    app.add_js_file("wow.min.js")
-    app.add_js_file("wow.js")
-    app.add_js_file("hoverIntent.js")
-    app.add_js_file("jquery.easing.min.js")
-    app.add_js_file("jquery.min.js")
-    app.add_js_file("superfish.min.js")
-    app.add_js_file("validate.js")
-    app.add_js_file("venobox.js")
-    app.add_js_file("venobox.min.js")
-    app.add_js_file("main.js")
-    app.add_config_value('markdown_parser_config', {
-        'auto_toc_tree_section': 'Content',
-        'enable_auto_doc_ref': True,
-        'enable_auto_toc_tree': True,
-        'enable_eval_rst': True,
-        'enable_inline_math': True,
-        'enable_math': True,
-    }, True)
+# -- Retrieve notebooks ------------------------------------------------
 
-# -- Project information -----------------------------------------------------
+from urllib.request import urlretrieve
 
-project = 'bagpy: Reading rosbag files simplified'
-copyright = '2020, Rahul Bhadani'
-author = 'Rahul Bhadani'
+notebooks_url = "https://raw.githubusercontent.com/jmscslgroup/bagpy/master/notebook/"
+notebooks = [
+    "bagpy_example.ipynb",
+    "Reading_bagfiles_from_cloud.ipynb"
+]
+for nb in notebooks:
+    try:
+        urlretrieve(notebooks_url + nb, nb)
+    except:
+        pass
 
 
-# The version info for the project you're documenting, acts as replacement for
-# |version| and |release|, also used in various other places throughout the
-# built documents.
-#
-# The short X.Y version.
-version = u'0.3.12'
-# The full version, including alpha/beta/rc tags.
-release = u'beta'
+# -- General configuration ------------------------------------------------
 
+needs_sphinx = "1.7"
 
-# -- General configuration ---------------------------------------------------
-
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
-
-extensions = [ 'sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.doctest', 'sphinx.ext.todo', 'sphinx.ext.coverage',
-    'sphinx.ext.mathjax', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode', 'sphinx.ext.napoleon', 'sphinx.ext.autosummary', 'sphinx_autodoc_typehints',  # needs to be after napoleon
-    'sphinx_rtd_theme', 'm2r2', 'ytsphinx.youtube']
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.doctest",
+    "sphinx.ext.coverage",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.githubpages",
+    "sphinx_autodoc_typehints",
+    "nbsphinx",
+    "edit_on_github",
+    "ytsphinx.youtube",
+    "m2r2"
+]
 
 
 # Generate the API documentation when building
 autosummary_generate = True
-autodoc_member_order = 'bysource'
-# autodoc_default_flags = ['members']
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = False
-napoleon_use_rtype = True  # having a separate entry generally helps readability
-napoleon_use_param = True
-napoleon_custom_sections = [('Params', 'Parameters')]
+napoleon_use_rtype = False
+napoleon_custom_sections = [("Params", "Parameters")]
+
+intersphinx_mapping = dict(
+    python=("https://docs.python.org/3", None)
+)
+
+templates_path = ["_templates"]
+source_suffix = [".rst", ".ipynb"]
+master_doc = "index"
+
+# General information about the project.
+project = "bagpy"
+author = "Rahul Bhadani"
+title = "bagpy: Reading rosbag files simplified"
+copyright = f"{datetime.now():%Y}, {author}"
+
+v = Path("../../bagpy/version").open(encoding = "utf-8").read().splitlines()
+version = v[0].strip()
+
+# The full version, including alpha/beta/rc tags.
+release = version
+
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+pygments_style = "sphinx"
 todo_include_todos = False
-api_dir = HERE / 'api'  # function_images
 
+# Add notebooks prolog to Google Colab and nbviewer
+nbsphinx_prolog = r"""
+{% set docname = 'github/jmscslgroup/bagpy/blob/master/notebook/' + env.doc2path(env.docname, base=None) %}
+.. raw:: html
 
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+    <div class="note">
+      <a href="https://colab.research.google.com/{{ docname|e }}" target="_parent">
+      <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+      <a href="https://nbviewer.jupyter.org/{{ docname|e }}" target="_parent">
+      <img src="_static/nbviewer-badge.svg" alt="Open In nbviewer"/></a>
+    </div>
+"""
 
-# List of patterns, relative to source directory, that match files and
-# directories to ignore when looking for source files.
-# This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+# -- Options for HTML output ----------------------------------------------
 
-# The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+html_theme = "sphinx_rtd_theme"
+html_theme_options = dict(navigation_depth=1, titles_only=True)
+github_repo = "bagpy"
+github_nb_repo = "bagpy"
+html_static_path = ["_static"]
 
-# The master toctree document.
-master_doc = 'index'
-
-
-# The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
-
-# -- Options for HTML output -------------------------------------------------
-
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-#
-html_theme = 'bootstrap'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-
-# (Optional) Logo. Should be small enough to fit the navbar (ideally 24x24).
-# Path should be relative to the ``_static`` files directory.
 html_logo = "favicon.png"
 
 html_favicon = "favicon.ico"
 
-
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-#
-html_theme_options = {
-    # Navigation bar title. (Default: ``project`` value)
-    #'navbar_title': "Bagpy",
-    # Tab name for entire site. (Default: "Site")
-    #'navbar_site_name': "Site",
-
-    # Tab name for the current pages TOC. (Default: "Page")
-    'navbar_pagenav_name': "Index",
-
-    # A list of tuples containing pages or urls to link to.
-    # Valid tuples should be in the following forms:
-    #    (name, page)                 # a link to a page
-    #    (name, "/aa/bb", 1)          # a link to an arbitrary relative url
-    #    (name, "http://example.com", True) # arbitrary absolute url
-    # Note the "1" or "True" value above as the third argument to indicate
-    # an arbitrary url.
-    # 'navbar_links': [
-    #     ("Examples", "examples"),
-    #     ("Link", "http://example.com", True),
-    # ],
-
-    # Global TOC depth for "site" navbar tab. (Default: 1)
-    # Switching to -1 shows all levels.
-    'globaltoc_depth': 2,
-
-    # Include hidden TOCs in Site navbar?
-    #
-    # Note: If this is "false", you cannot have mixed ``:hidden:`` and
-    # non-hidden ``toctree`` directives in the same page, or else the build
-    # will break.
-    #
-    # Values: "true" (default) or "false"
-    'globaltoc_includehidden': "true",
-
-    # HTML navbar class (Default: "navbar") to attach to <div> element.
-    # For black navbar, do "navbar navbar-inverse"
-    'navbar_class': "navbar",
-
-    # Fix navigation bar to top of page?
-    # Values: "true" (default) or "false"
-    'navbar_fixed_top': "true",
-
-    # Location of link to source.
-    # Options are "nav" (default), "footer" or anything else to exclude.
-    'source_link_position': "nav",
-
-    # Bootswatch (http://bootswatch.com/) theme.
-    #
-    # Options are nothing (default) or the name of a valid theme such
-    # such as "cosmo" or "sandstone".
-    #
-    # Example themes:
-    # * flatly
-    # * sandstone (v3 only)
-    # * united
-    # * yeti (v3 only)
-    'bootswatch_theme': "flatly",
-
-    # Choose Bootstrap version.
-    # Values: "3" (default) or "2" (in quotes)
-    'bootstrap_version': "3",
-}
+def setup(app):
+    app.add_css_file("custom.css")
 
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# -- Options for other output ------------------------------------------
 
-# Custom sidebar templates, must be a dictionary that maps document names
-# to template names.
-#
-# This is required for the alabaster theme
-# refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
-#html_sidebars = {
-#    '**': [
-#        'relations.html',  # needs 'show_related': True theme option to display
-#        'searchbox.html',
-#    ]
-# }
+htmlhelp_basename = "bagpydoc"
+title_doc = f"{project} documentation"
 
-
-# -- Options for HTMLHelp output ------------------------------------------
-
-# Output file base name for HTML help builder.
-htmlhelp_basename = 'bagpydoc'
-
-
-# -- Options for LaTeX output ---------------------------------------------
-
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
-}
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, 'bagpydoc.tex', u'bagpydoc Documentation',
-     u'Rahul Bhadani', 'manual'),
-]
-
-
-# -- Options for manual page output ---------------------------------------
-
-# One entry per manual page. List of tuples
-# (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'bagpydoc', u'bagpydoc Documentation',
-     [author], 1)
-]
-
-
-# -- Options for Texinfo output -------------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
+latex_documents = [(master_doc, f"{project}.tex", title_doc, author, "manual")]
+man_pages = [(master_doc, project, title_doc, [author], 1)]
 texinfo_documents = [
-    (master_doc, 'bagpydoc', u'bagpy Documentation',
-     author, 'bagpy', 'One line description of project.',
-     'Miscellaneous'),
+    (master_doc, project, title_doc, author, project, title, "Miscellaneous")
 ]
 
 
-
-# -- Options for Epub output ----------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-epub_author = author
-epub_publisher = author
-epub_copyright = copyright
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
+# -- GitHub URLs for class and method pages ------------------------------------------
 
 
+def get_obj_module(qualname):
+    """Get a module/class/attribute and its original module by qualname"""
+    modname = qualname
+    classname = None
+    attrname = None
+    while modname not in sys.modules:
+        attrname = classname
+        modname, classname = modname.rsplit(".", 1)
 
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+    # retrieve object and find original module name
+    if classname:
+        cls = getattr(sys.modules[modname], classname)
+        modname = cls.__module__
+        obj = getattr(cls, attrname) if attrname else cls
+    else:
+        obj = None
+
+    return obj, sys.modules[modname]
+
+
+def get_linenos(obj):
+    """Get an object’s line numbers"""
+    try:
+        lines, start = inspect.getsourcelines(obj)
+    except TypeError:
+        return None, None
+    else:
+        return start, start + len(lines) - 1
+
+
+# set project_dir: project/docs/source/conf.py/../../.. → project/
+project_dir = Path(__file__).parent.parent.parent
+github_url_strym = "https://github.com/jmscslgroup/bagpy/tree/master"
+from pathlib import PurePosixPath
+
+
+def modurl(qualname):
+    """Get the full GitHub URL for some object’s qualname."""
+    obj, module = get_obj_module(qualname)
+    github_url = github_url_strym
+    path = PurePosixPath(Path(module.__file__).resolve().relative_to(project_dir))
+    start, end = get_linenos(obj)
+    fragment = f"#L{start}-L{end}" if start and end else ""
+    return f"{github_url}/{path}{fragment}"
+
+
+def api_image(qualname: str) -> Optional[str]:
+    path = Path(__file__).parent / f"{qualname}.png"
+    print(path, path.is_file())
+    return (
+        f".. image:: {path.name}\n   :width: 200\n   :align: right"
+        if path.is_file()
+        else ""
+    )
+
+
+# modify the default filters
+from jinja2.defaults import DEFAULT_FILTERS
+
+DEFAULT_FILTERS.update(modurl=modurl, api_image=api_image)
+
+# -- Override some classnames in autodoc --------------------------------------------
+
+import sphinx_autodoc_typehints
+
+
+
+# -- Prettier Param docs --------------------------------------------
+
+from typing import Dict, List, Tuple
+from docutils import nodes
+from sphinx import addnodes
+from sphinx.domains.python import PyTypedField, PyObject
+from sphinx.environment import BuildEnvironment
+
+
+class PrettyTypedField(PyTypedField):
+    list_type = nodes.definition_list
+
+    def make_field(
+        self,
+        types: Dict[str, List[nodes.Node]],
+        domain: str,
+        items: Tuple[str, List[nodes.inline]],
+        env: BuildEnvironment = None,
+    ) -> nodes.field:
+        def makerefs(rolename, name, node):
+            return self.make_xrefs(rolename, domain, name, node, env=env)
+
+        def handle_item(
+            fieldarg: str, content: List[nodes.inline]
+        ) -> nodes.definition_list_item:
+            head = nodes.term()
+            head += makerefs(self.rolename, fieldarg, addnodes.literal_strong)
+            fieldtype = types.pop(fieldarg, None)
+            if fieldtype is not None:
+                head += nodes.Text(" : ")
+                if len(fieldtype) == 1 and isinstance(fieldtype[0], nodes.Text):
+                    (text_node,) = fieldtype  # type: nodes.Text
+                    head += makerefs(
+                        self.typerolename, text_node.astext(), addnodes.literal_emphasis
+                    )
+                else:
+                    head += fieldtype
+
+            body_content = nodes.paragraph("", "", *content)
+            body = nodes.definition("", body_content)
+
+            return nodes.definition_list_item("", head, body)
+
+        fieldname = nodes.field_name("", self.label)
+        if len(items) == 1 and self.can_collapse:
+            fieldarg, content = items[0]
+            bodynode = handle_item(fieldarg, content)
+        else:
+            bodynode = self.list_type()
+            for fieldarg, content in items:
+                bodynode += handle_item(fieldarg, content)
+        fieldbody = nodes.field_body("", bodynode)
+        return nodes.field("", fieldname, fieldbody)
+
+
+# replace matching field types with ours
+PyObject.doc_field_types = [
+    PrettyTypedField(
+        ft.name,
+        names=ft.names,
+        typenames=ft.typenames,
+        label=ft.label,
+        rolename=ft.rolename,
+        typerolename=ft.typerolename,
+        can_collapse=ft.can_collapse,
+    )
+    if isinstance(ft, PyTypedField)
+    else ft
+    for ft in PyObject.doc_field_types
+]
