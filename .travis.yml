@@ -8,6 +8,7 @@ before_install:
     - pip install -U pip
     - export PYTHONPATH=$PYTHONPATH:$(pwd)
     - pip install -r requirements.txt
+    - pip install 'prompt-toolkit<2.0.0,>=1.0.15' --force-reinstall -y
 
 install:
   - python setup.py install
