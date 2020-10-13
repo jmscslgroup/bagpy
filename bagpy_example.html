@@ -1,0 +1,6422 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bagreader example &mdash; bagpy 0.4.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Class bagreader" href="api_bagreader.html" />
+    <link rel="prev" title="Reading a bagfile from the clound location" href="Reading_bagfiles_from_cloud.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> bagpy
+          
+
+          
+            
+            <img src="_static/favicon.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About bagpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Reading_bagfiles_from_cloud.html">Reading a bagfile from the clound location</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">bagreader</span></code> example</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_bagreader.html">Class <code class="code docutils literal notranslate"><span class="pre">bagreader</span></code></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bagpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><code class="docutils literal notranslate"><span class="pre">bagreader</span></code> example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/jmscslgroup/bagpy/blob/master/bagpy_example.ipynb" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="note">
+  <a href="https://colab.research.google.com/github/jmscslgroup/bagpy/blob/master/notebook/bagpy_example.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+  <a href="https://nbviewer.jupyter.org/github/jmscslgroup/bagpy/blob/master/notebook/bagpy_example.ipynb" target="_parent">
+  <img src="_static/nbviewer-badge.svg" alt="Open In nbviewer"/></a>
+</div><div class="section" id="bagreader-example">
+<h1><code class="docutils literal notranslate"><span class="pre">bagreader</span></code> example<a class="headerlink" href="#bagreader-example" title="Permalink to this headline">¶</a></h1>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">bagpy</span>
+<span class="kn">from</span> <span class="nn">bagpy</span> <span class="kn">import</span> <span class="n">bagreader</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sea</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Failed to load Python extension for LZ4 support. LZ4 compression will not be available.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span> <span class="o">=</span> <span class="n">bagreader</span><span class="p">(</span><span class="s1">&#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59.bag&#39;</span><span class="p">)</span>
+<span class="c1">#b = bagreader(&#39;/home/ivory/CyverseData/ProjectSparkle/catvehicle_n_1_update_rate_100.0_max_update_rate_100.0_time_step_0.01_logtime_20.0_2020-03-04-21-14-22.bag&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[INFO]  Data folder /home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59 already exists. Not creating.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">topic_table</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Topics</th>
+      <th>Types</th>
+      <th>Message Count</th>
+      <th>Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>/catvehicle/accelerator</td>
+      <td>geometry_msgs/Wrench</td>
+      <td>4410</td>
+      <td>19.853096</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>/catvehicle/brake</td>
+      <td>geometry_msgs/Wrench</td>
+      <td>4410</td>
+      <td>19.871249</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>/catvehicle/cmd_vel_wrench</td>
+      <td>geometry_msgs/Twist</td>
+      <td>4417</td>
+      <td>20.013857</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>/catvehicle/cmd_vel_wrench_in</td>
+      <td>geometry_msgs/Twist</td>
+      <td>4417</td>
+      <td>20.009083</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>/catvehicle/cmd_wrench</td>
+      <td>geometry_msgs/Wrench</td>
+      <td>8544</td>
+      <td>243.218556</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>/catvehicle/distanceEstimatorSteeringBased/Xdist</td>
+      <td>std_msgs/Float32</td>
+      <td>16542</td>
+      <td>76.594302</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>/catvehicle/distanceEstimatorSteeringBased/Ydist</td>
+      <td>std_msgs/Float32</td>
+      <td>16540</td>
+      <td>76.581716</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>/catvehicle/distanceEstimatorSteeringBased/angle</td>
+      <td>std_msgs/Float32</td>
+      <td>16540</td>
+      <td>76.569134</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>/catvehicle/distanceEstimatorSteeringBased/dist</td>
+      <td>std_msgs/Float32</td>
+      <td>16532</td>
+      <td>76.588708</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>/catvehicle/front_laser_points</td>
+      <td>sensor_msgs/LaserScan</td>
+      <td>16533</td>
+      <td>75.347681</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>/catvehicle/kalmanFilter/dist</td>
+      <td>std_msgs/Float32</td>
+      <td>16088</td>
+      <td>74.997389</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>/catvehicle/kalmanFilter/vel</td>
+      <td>std_msgs/Float32</td>
+      <td>16081</td>
+      <td>74.994707</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>/catvehicle/relativeVel</td>
+      <td>std_msgs/Float32</td>
+      <td>16088</td>
+      <td>76.613890</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>/catvehicle/steering</td>
+      <td>geometry_msgs/Wrench</td>
+      <td>4410</td>
+      <td>19.852532</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>/catvehicle/v_average</td>
+      <td>geometry_msgs/Twist</td>
+      <td>12172</td>
+      <td>75.009460</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>/catvehicle/vel</td>
+      <td>geometry_msgs/Twist</td>
+      <td>4415</td>
+      <td>19.908458</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>/catvehicle/velocity</td>
+      <td>rosjaus/ReportVelocityState</td>
+      <td>4415</td>
+      <td>19.909639</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>/catvehicle/wrenchEffort</td>
+      <td>rosjaus/ReportWrenchEffort</td>
+      <td>4410</td>
+      <td>19.772981</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>/diagnostics</td>
+      <td>diagnostic_msgs/DiagnosticArray</td>
+      <td>219</td>
+      <td>0.998563</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>/gps_fix</td>
+      <td>sensor_msgs/NavSatFix</td>
+      <td>2208</td>
+      <td>10.026952</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>/rosout</td>
+      <td>rosgraph_msgs/Log</td>
+      <td>171</td>
+      <td>71.809822</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>/rosout_agg</td>
+      <td>rosgraph_msgs/Log</td>
+      <td>172</td>
+      <td>72.531931</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>/utm_odom</td>
+      <td>nav_msgs/Odometry</td>
+      <td>2208</td>
+      <td>10.026185</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="section" id="Decoding-message-by-topic">
+<h2>Decoding message by topic<a class="headerlink" href="#Decoding-message-by-topic" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">LASER_MSG</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">message_by_topic</span><span class="p">(</span><span class="s1">&#39;/catvehicle/front_laser_points&#39;</span><span class="p">)</span>
+<span class="n">LASER_MSG</span>
+<span class="n">df_laser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">LASER_MSG</span><span class="p">)</span>
+<span class="n">df_laser</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.stamp.secs</th>
+      <th>header.stamp.nsecs</th>
+      <th>header.frame_id</th>
+      <th>angle_min</th>
+      <th>angle_max</th>
+      <th>angle_increment</th>
+      <th>time_increment</th>
+      <th>scan_time</th>
+      <th>...</th>
+      <th>ranges_171</th>
+      <th>ranges_172</th>
+      <th>ranges_173</th>
+      <th>ranges_174</th>
+      <th>ranges_175</th>
+      <th>ranges_176</th>
+      <th>ranges_177</th>
+      <th>ranges_178</th>
+      <th>ranges_179</th>
+      <th>ranges_180</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>194171</td>
+      <td>1469722837</td>
+      <td>367127654</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>194172</td>
+      <td>1469722837</td>
+      <td>375891058</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>194173</td>
+      <td>1469722837</td>
+      <td>389372660</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>194174</td>
+      <td>1469722837</td>
+      <td>402498351</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>194175</td>
+      <td>1469722837</td>
+      <td>416431406</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16528</th>
+      <td>1.469723e+09</td>
+      <td>210699</td>
+      <td>1469723057</td>
+      <td>790982616</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>77.159996</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16529</th>
+      <td>1.469723e+09</td>
+      <td>210700</td>
+      <td>1469723057</td>
+      <td>805517704</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16530</th>
+      <td>1.469723e+09</td>
+      <td>210701</td>
+      <td>1469723057</td>
+      <td>817511127</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>77.259995</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16531</th>
+      <td>1.469723e+09</td>
+      <td>210702</td>
+      <td>1469723057</td>
+      <td>829608754</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16532</th>
+      <td>1.469723e+09</td>
+      <td>210703</td>
+      <td>1469723057</td>
+      <td>844000527</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>16533 rows × 193 columns</p>
+</div></div>
+</div>
+</div>
+<div class="section" id="Access-some-attributres-of-bagreader-object">
+<h2>Access some attributres of <code class="docutils literal notranslate"><span class="pre">bagreader</span></code> object<a class="headerlink" href="#Access-some-attributres-of-bagreader-object" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">bagfile</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59.bag&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">datafolder</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">dir</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">start_time</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1469723039.6560647
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">filename</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;/test3_09-23-59.bag&#39;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">frequency</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[19.853095845541425,
+ 19.871248945867325,
+ 20.01385694517345,
+ 20.00908310275737,
+ 243.21855610321833,
+ 76.59430241051862,
+ 76.58171593419635,
+ 76.56913359377853,
+ 76.58870791030604,
+ 75.34768081054862,
+ 74.99738940743124,
+ 74.99470748104706,
+ 76.61388959924012,
+ 19.85253203201545,
+ 75.00946045031029,
+ 19.908458108169043,
+ 19.909639383481988,
+ 19.77298077059065,
+ 0.998563330074469,
+ 10.026951755067499,
+ 71.80982220053588,
+ 72.53193145070642,
+ 10.026184756236031]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Decoding-specialized-messages">
+<h2>Decoding specialized messages<a class="headerlink" href="#Decoding-specialized-messages" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">csv</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">laser_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">csv</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-front_laser_points.csv&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.frame_id</th>
+      <th>angle_min</th>
+      <th>angle_max</th>
+      <th>angle_increment</th>
+      <th>time_increment</th>
+      <th>scan_time</th>
+      <th>range_min</th>
+      <th>range_max</th>
+      <th>...</th>
+      <th>intensities_172</th>
+      <th>intensities_173</th>
+      <th>intensities_174</th>
+      <th>intensities_175</th>
+      <th>intensities_176</th>
+      <th>intensities_177</th>
+      <th>intensities_178</th>
+      <th>intensities_179</th>
+      <th>intensities_180</th>
+      <th>intensities_181</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>194171</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>194172</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>194173</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>194174</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>194175</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16528</th>
+      <td>1.469723e+09</td>
+      <td>210699</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16529</th>
+      <td>1.469723e+09</td>
+      <td>210700</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16530</th>
+      <td>1.469723e+09</td>
+      <td>210701</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16531</th>
+      <td>1.469723e+09</td>
+      <td>210702</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16532</th>
+      <td>1.469723e+09</td>
+      <td>210703</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>0.0</td>
+      <td>81.0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>16533 rows × 374 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ms</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">vel_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">vel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ms</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">vel</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;linear.x&#39;, &#39;linear.y&#39;, &#39;linear.z&#39;, &#39;angular.x&#39;, &#39;angular.y&#39;, &#39;angular.z&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">bagpy</span><span class="o">.</span><span class="n">create_fig</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;linear.x&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">vel</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/bagpy_example_20_0.png" src="_images/bagpy_example_20_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">std_data</span><span class="p">()</span>
+<span class="n">s</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-Xdist.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-Ydist.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-angle.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-dist.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-kalmanFilter-dist.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-kalmanFilter-vel.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-relativeVel.csv&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>-3.981126</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>-3.911019</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>-3.981126</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>-3.911019</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>-3.981126</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16537</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+    <tr>
+      <th>16538</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+    <tr>
+      <th>16539</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+    <tr>
+      <th>16540</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+    <tr>
+      <th>16541</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+  </tbody>
+</table>
+<p>16542 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">bagpy</span><span class="o">.</span><span class="n">create_fig</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/bagpy_example_23_0.png" src="_images/bagpy_example_23_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">odom</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">odometry_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">odom</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/utm_odom.csv&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">odomdata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">odom</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">odomdata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.frame_id</th>
+      <th>child_frame_id</th>
+      <th>pose.x</th>
+      <th>pose.y</th>
+      <th>pose.z</th>
+      <th>orientation.x</th>
+      <th>orientation.y</th>
+      <th>orientation.z</th>
+      <th>orientation.w</th>
+      <th>linear.x</th>
+      <th>linear.y</th>
+      <th>linear.z</th>
+      <th>angular.x</th>
+      <th>angular.y</th>
+      <th>angular.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>25706</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521088.765790</td>
+      <td>3.544660e+06</td>
+      <td>848.639873</td>
+      <td>-0.000943</td>
+      <td>-0.032431</td>
+      <td>-0.804456</td>
+      <td>0.593126</td>
+      <td>19.846116</td>
+      <td>-11.671198</td>
+      <td>-47.783898</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>25707</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521090.751534</td>
+      <td>3.544659e+06</td>
+      <td>843.861952</td>
+      <td>-0.000932</td>
+      <td>-0.032423</td>
+      <td>-0.804407</td>
+      <td>0.593192</td>
+      <td>19.841832</td>
+      <td>-11.671902</td>
+      <td>-47.774513</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>25708</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521092.736826</td>
+      <td>3.544658e+06</td>
+      <td>839.084958</td>
+      <td>-0.000939</td>
+      <td>-0.032406</td>
+      <td>-0.804359</td>
+      <td>0.593258</td>
+      <td>19.836787</td>
+      <td>-11.671519</td>
+      <td>-47.765269</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>25709</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521094.721493</td>
+      <td>3.544657e+06</td>
+      <td>834.308853</td>
+      <td>-0.000944</td>
+      <td>-0.032409</td>
+      <td>-0.804309</td>
+      <td>0.593326</td>
+      <td>19.828732</td>
+      <td>-11.669034</td>
+      <td>-47.756617</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>25710</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521096.705249</td>
+      <td>3.544656e+06</td>
+      <td>829.534247</td>
+      <td>-0.000899</td>
+      <td>-0.032459</td>
+      <td>-0.804251</td>
+      <td>0.593402</td>
+      <td>19.819867</td>
+      <td>-11.668892</td>
+      <td>-47.732853</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2203</th>
+      <td>1.469723e+09</td>
+      <td>27909</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.123091</td>
+      <td>3.544633e+06</td>
+      <td>894.859256</td>
+      <td>0.004519</td>
+      <td>0.015634</td>
+      <td>0.669521</td>
+      <td>0.742615</td>
+      <td>-0.041453</td>
+      <td>-3.003249</td>
+      <td>-4.151045</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2204</th>
+      <td>1.469723e+09</td>
+      <td>27910</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.118493</td>
+      <td>3.544633e+06</td>
+      <td>894.441065</td>
+      <td>0.004687</td>
+      <td>0.015650</td>
+      <td>0.669428</td>
+      <td>0.742697</td>
+      <td>-0.062772</td>
+      <td>-3.271563</td>
+      <td>-4.212904</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2205</th>
+      <td>1.469723e+09</td>
+      <td>27911</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.319818</td>
+      <td>3.544633e+06</td>
+      <td>894.265923</td>
+      <td>0.005385</td>
+      <td>0.015334</td>
+      <td>0.673498</td>
+      <td>0.739011</td>
+      <td>0.012628</td>
+      <td>-3.442711</td>
+      <td>-4.229531</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2206</th>
+      <td>1.469723e+09</td>
+      <td>27912</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.320924</td>
+      <td>3.544633e+06</td>
+      <td>893.839976</td>
+      <td>0.005082</td>
+      <td>0.015623</td>
+      <td>0.673612</td>
+      <td>0.738902</td>
+      <td>-0.004563</td>
+      <td>-3.667120</td>
+      <td>-4.289068</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2207</th>
+      <td>1.469723e+09</td>
+      <td>27913</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.321076</td>
+      <td>3.544632e+06</td>
+      <td>893.408258</td>
+      <td>0.004067</td>
+      <td>0.016343</td>
+      <td>0.673653</td>
+      <td>0.738856</td>
+      <td>-0.003253</td>
+      <td>-3.686714</td>
+      <td>-4.344619</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>2208 rows × 17 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">w</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">wrench_data</span><span class="p">()</span>
+<span class="n">w</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-accelerator.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-brake.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-cmd_wrench.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-steering.csv&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">wdata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">wdata</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>force.x</th>
+      <th>force.y</th>
+      <th>force.z</th>
+      <th>torque.x</th>
+      <th>torque.y</th>
+      <th>torque.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4405</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4406</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4407</th>
+      <td>1.469723e+09</td>
+      <td>0.500504</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4408</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4409</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>4410 rows × 7 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">bagpy</span><span class="o">.</span><span class="n">create_fig</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;force.x&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">wdata</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s2">&quot;winter&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/bagpy_example_29_0.png" src="_images/bagpy_example_29_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Just-visualization">
+<h2>Just visualization<a class="headerlink" href="#Just-visualization" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">plot_vel</span><span class="p">(</span><span class="n">save_fig</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/bagpy_example_31_0.png" src="_images/bagpy_example_31_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">plot_std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/bagpy_example_32_0.png" src="_images/bagpy_example_32_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">plot_odometry</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/bagpy_example_33_0.png" src="_images/bagpy_example_33_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">plot_wrench</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/bagpy_example_34_0.png" src="_images/bagpy_example_34_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Animate-a-timeseries-in-real-time">
+<h2>Animate a timeseries in real-time<a class="headerlink" href="#Animate-a-timeseries-in-real-time" title="Permalink to this headline">¶</a></h2>
+<p>It may take a while to finish executing</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bagpy</span><span class="o">.</span><span class="n">animate_timeseries</span><span class="p">(</span><span class="n">vel</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">],</span> <span class="n">vel</span><span class="p">[</span><span class="s1">&#39;linear.x&#39;</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Velocity Timeseries Plot&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Decode-all-the-available-topics">
+<h2>Decode all the available topics<a class="headerlink" href="#Decode-all-the-available-topics" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">csvfiles</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">topics</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">message_by_topic</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">csvfiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">csvfiles</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-accelerator.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-brake.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-cmd_vel_wrench.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-cmd_vel_wrench_in.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-cmd_wrench.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-Xdist.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-Ydist.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-angle.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-dist.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-front_laser_points.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-kalmanFilter-dist.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-kalmanFilter-vel.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-relativeVel.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-steering.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-v_average.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-vel.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-velocity.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-wrenchEffort.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/diagnostics.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/gps_fix.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/rosout.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/rosout_agg.csv&#39;,
+ &#39;/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/utm_odom.csv&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-accelerator.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>force.x</th>
+      <th>force.y</th>
+      <th>force.z</th>
+      <th>torque.x</th>
+      <th>torque.y</th>
+      <th>torque.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4405</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4406</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4407</th>
+      <td>1.469723e+09</td>
+      <td>0.500504</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4408</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4409</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>4410 rows × 7 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-brake.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>force.x</th>
+      <th>force.y</th>
+      <th>force.z</th>
+      <th>torque.x</th>
+      <th>torque.y</th>
+      <th>torque.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4405</th>
+      <td>1.469723e+09</td>
+      <td>8.627451</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4406</th>
+      <td>1.469723e+09</td>
+      <td>8.627451</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4407</th>
+      <td>1.469723e+09</td>
+      <td>8.627451</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4408</th>
+      <td>1.469723e+09</td>
+      <td>8.235294</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4409</th>
+      <td>1.469723e+09</td>
+      <td>8.235294</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>4410 rows × 7 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-cmd_vel_wrench.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>linear.x</th>
+      <th>linear.y</th>
+      <th>linear.z</th>
+      <th>angular.x</th>
+      <th>angular.y</th>
+      <th>angular.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4412</th>
+      <td>1.469723e+09</td>
+      <td>2.0154</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4413</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4414</th>
+      <td>1.469723e+09</td>
+      <td>2.0220</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4415</th>
+      <td>1.469723e+09</td>
+      <td>2.0264</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4416</th>
+      <td>1.469723e+09</td>
+      <td>2.0044</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>4417 rows × 7 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-cmd_vel_wrench_in.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>linear.x</th>
+      <th>linear.y</th>
+      <th>linear.z</th>
+      <th>angular.x</th>
+      <th>angular.y</th>
+      <th>angular.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4412</th>
+      <td>1.469723e+09</td>
+      <td>2.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4413</th>
+      <td>1.469723e+09</td>
+      <td>2.0220</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4414</th>
+      <td>1.469723e+09</td>
+      <td>2.0264</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4415</th>
+      <td>1.469723e+09</td>
+      <td>2.0044</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4416</th>
+      <td>1.469723e+09</td>
+      <td>2.0088</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>4417 rows × 7 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-cmd_wrench.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>force.x</th>
+      <th>force.y</th>
+      <th>force.z</th>
+      <th>torque.x</th>
+      <th>torque.y</th>
+      <th>torque.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>17.469347</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>17.762125</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>17.859213</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>18.167694</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>18.270097</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>8539</th>
+      <td>1.469723e+09</td>
+      <td>30.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8540</th>
+      <td>1.469723e+09</td>
+      <td>30.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8541</th>
+      <td>1.469723e+09</td>
+      <td>30.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8542</th>
+      <td>1.469723e+09</td>
+      <td>30.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8543</th>
+      <td>1.469723e+09</td>
+      <td>30.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>8544 rows × 7 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-Xdist.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[57]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>-3.981126</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>-3.911019</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>-3.981126</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>-3.911019</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>-3.981126</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16537</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+    <tr>
+      <th>16538</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+    <tr>
+      <th>16539</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+    <tr>
+      <th>16540</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+    <tr>
+      <th>16541</th>
+      <td>1.469723e+09</td>
+      <td>49.651566</td>
+    </tr>
+  </tbody>
+</table>
+<p>16542 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-Ydist.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>7.487391</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>7.512978</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>7.487391</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>7.512978</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>7.487391</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16535</th>
+      <td>1.469723e+09</td>
+      <td>46.300911</td>
+    </tr>
+    <tr>
+      <th>16536</th>
+      <td>1.469723e+09</td>
+      <td>46.300911</td>
+    </tr>
+    <tr>
+      <th>16537</th>
+      <td>1.469723e+09</td>
+      <td>46.300911</td>
+    </tr>
+    <tr>
+      <th>16538</th>
+      <td>1.469723e+09</td>
+      <td>46.300911</td>
+    </tr>
+    <tr>
+      <th>16539</th>
+      <td>1.469723e+09</td>
+      <td>46.300911</td>
+    </tr>
+  </tbody>
+</table>
+<p>16540 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-angle.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>0.488693</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>0.479967</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>0.488693</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>0.479967</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>0.488693</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16535</th>
+      <td>1.469723e+09</td>
+      <td>-1.562070</td>
+    </tr>
+    <tr>
+      <th>16536</th>
+      <td>1.469723e+09</td>
+      <td>-1.570796</td>
+    </tr>
+    <tr>
+      <th>16537</th>
+      <td>1.469723e+09</td>
+      <td>-1.562070</td>
+    </tr>
+    <tr>
+      <th>16538</th>
+      <td>1.469723e+09</td>
+      <td>-1.570796</td>
+    </tr>
+    <tr>
+      <th>16539</th>
+      <td>1.469723e+09</td>
+      <td>-1.562070</td>
+    </tr>
+  </tbody>
+</table>
+<p>16540 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-distanceEstimatorSteeringBased-dist.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>8.184999</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>8.196764</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>8.195429</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>8.196764</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>8.184999</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16527</th>
+      <td>1.469723e+09</td>
+      <td>75.795120</td>
+    </tr>
+    <tr>
+      <th>16528</th>
+      <td>1.469723e+09</td>
+      <td>75.795120</td>
+    </tr>
+    <tr>
+      <th>16529</th>
+      <td>1.469723e+09</td>
+      <td>75.795120</td>
+    </tr>
+    <tr>
+      <th>16530</th>
+      <td>1.469723e+09</td>
+      <td>75.795120</td>
+    </tr>
+    <tr>
+      <th>16531</th>
+      <td>1.469723e+09</td>
+      <td>75.795120</td>
+    </tr>
+  </tbody>
+</table>
+<p>16532 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-front_laser_points.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.stamp.secs</th>
+      <th>header.stamp.nsecs</th>
+      <th>header.frame_id</th>
+      <th>angle_min</th>
+      <th>angle_max</th>
+      <th>angle_increment</th>
+      <th>time_increment</th>
+      <th>scan_time</th>
+      <th>...</th>
+      <th>ranges_171</th>
+      <th>ranges_172</th>
+      <th>ranges_173</th>
+      <th>ranges_174</th>
+      <th>ranges_175</th>
+      <th>ranges_176</th>
+      <th>ranges_177</th>
+      <th>ranges_178</th>
+      <th>ranges_179</th>
+      <th>ranges_180</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>194171</td>
+      <td>1469722837</td>
+      <td>367127654</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>194172</td>
+      <td>1469722837</td>
+      <td>375891058</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>194173</td>
+      <td>1469722837</td>
+      <td>389372660</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>194174</td>
+      <td>1469722837</td>
+      <td>402498351</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>194175</td>
+      <td>1469722837</td>
+      <td>416431406</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16528</th>
+      <td>1.469723e+09</td>
+      <td>210699</td>
+      <td>1469723057</td>
+      <td>790982616</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>77.159996</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16529</th>
+      <td>1.469723e+09</td>
+      <td>210700</td>
+      <td>1469723057</td>
+      <td>805517704</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16530</th>
+      <td>1.469723e+09</td>
+      <td>210701</td>
+      <td>1469723057</td>
+      <td>817511127</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>77.259995</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16531</th>
+      <td>1.469723e+09</td>
+      <td>210702</td>
+      <td>1469723057</td>
+      <td>829608754</td>
+      <td>laser</td>
+      <td>-1.562070</td>
+      <td>1.562070</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16532</th>
+      <td>1.469723e+09</td>
+      <td>210703</td>
+      <td>1469723057</td>
+      <td>844000527</td>
+      <td>laser</td>
+      <td>-1.570796</td>
+      <td>1.570796</td>
+      <td>0.017453</td>
+      <td>0.000037</td>
+      <td>0.013333</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>16533 rows × 193 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-kalmanFilter-dist.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>8.207202</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>8.207202</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>8.195429</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>8.207202</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>8.195429</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16083</th>
+      <td>1.469723e+09</td>
+      <td>75.640953</td>
+    </tr>
+    <tr>
+      <th>16084</th>
+      <td>1.469723e+09</td>
+      <td>75.640099</td>
+    </tr>
+    <tr>
+      <th>16085</th>
+      <td>1.469723e+09</td>
+      <td>75.639282</td>
+    </tr>
+    <tr>
+      <th>16086</th>
+      <td>1.469723e+09</td>
+      <td>75.638519</td>
+    </tr>
+    <tr>
+      <th>16087</th>
+      <td>1.469723e+09</td>
+      <td>75.637802</td>
+    </tr>
+  </tbody>
+</table>
+<p>16088 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-kalmanFilter-vel.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[63]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>-0.682425</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>-0.882411</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>0.882411</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>-0.100136</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>0.100136</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16076</th>
+      <td>1.469723e+09</td>
+      <td>-0.067950</td>
+    </tr>
+    <tr>
+      <th>16077</th>
+      <td>1.469723e+09</td>
+      <td>-0.064364</td>
+    </tr>
+    <tr>
+      <th>16078</th>
+      <td>1.469723e+09</td>
+      <td>-0.060849</td>
+    </tr>
+    <tr>
+      <th>16079</th>
+      <td>1.469723e+09</td>
+      <td>-0.057404</td>
+    </tr>
+    <tr>
+      <th>16080</th>
+      <td>1.469723e+09</td>
+      <td>-0.054027</td>
+    </tr>
+  </tbody>
+</table>
+<p>16081 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-relativeVel.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>-2.846726e-18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>-2.846726e-18</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>-1.132030e-02</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>-2.846726e-18</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>-1.132030e-02</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16083</th>
+      <td>1.469723e+09</td>
+      <td>-3.013538e-01</td>
+    </tr>
+    <tr>
+      <th>16084</th>
+      <td>1.469723e+09</td>
+      <td>-2.938051e-01</td>
+    </tr>
+    <tr>
+      <th>16085</th>
+      <td>1.469723e+09</td>
+      <td>-2.863957e-01</td>
+    </tr>
+    <tr>
+      <th>16086</th>
+      <td>1.469723e+09</td>
+      <td>-2.790965e-01</td>
+    </tr>
+    <tr>
+      <th>16087</th>
+      <td>1.469723e+09</td>
+      <td>-2.719072e-01</td>
+    </tr>
+  </tbody>
+</table>
+<p>16088 rows × 2 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">13</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">13</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-steering.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>force.x</th>
+      <th>force.y</th>
+      <th>force.z</th>
+      <th>torque.x</th>
+      <th>torque.y</th>
+      <th>torque.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-12.149419</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-12.149419</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-12.149419</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-12.149419</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-12.149419</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4405</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.574755</td>
+    </tr>
+    <tr>
+      <th>4406</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.574755</td>
+    </tr>
+    <tr>
+      <th>4407</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.574755</td>
+    </tr>
+    <tr>
+      <th>4408</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.574755</td>
+    </tr>
+    <tr>
+      <th>4409</th>
+      <td>1.469723e+09</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.574755</td>
+    </tr>
+  </tbody>
+</table>
+<p>4410 rows × 7 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-v_average.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>linear.x</th>
+      <th>linear.y</th>
+      <th>linear.z</th>
+      <th>angular.x</th>
+      <th>angular.y</th>
+      <th>angular.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>5.812315</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>5.814814</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>5.817313</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>5.819813</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>5.822301</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>12167</th>
+      <td>1.469723e+09</td>
+      <td>5.064435</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>12168</th>
+      <td>1.469723e+09</td>
+      <td>5.062345</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>12169</th>
+      <td>1.469723e+09</td>
+      <td>5.060263</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>12170</th>
+      <td>1.469723e+09</td>
+      <td>5.058181</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>12171</th>
+      <td>1.469723e+09</td>
+      <td>5.056099</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>12172 rows × 7 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-vel.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>linear.x</th>
+      <th>linear.y</th>
+      <th>linear.z</th>
+      <th>angular.x</th>
+      <th>angular.y</th>
+      <th>angular.z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4410</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4411</th>
+      <td>1.469723e+09</td>
+      <td>0.0220</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4412</th>
+      <td>1.469723e+09</td>
+      <td>0.0264</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4413</th>
+      <td>1.469723e+09</td>
+      <td>0.0044</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4414</th>
+      <td>1.469723e+09</td>
+      <td>0.0088</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>4415 rows × 7 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">16</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">16</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-velocity.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>velocityXMps</th>
+      <th>velocityYMps</th>
+      <th>velocityZMps</th>
+      <th>velocityRmsMps</th>
+      <th>rollRateRps</th>
+      <th>pitchRateRps</th>
+      <th>yawRateRps</th>
+      <th>rateRmsRps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+      <td>inf</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4410</th>
+      <td>1.469723e+09</td>
+      <td>0.0000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.985640e-42</td>
+    </tr>
+    <tr>
+      <th>4411</th>
+      <td>1.469723e+09</td>
+      <td>0.0220</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.985640e-42</td>
+    </tr>
+    <tr>
+      <th>4412</th>
+      <td>1.469723e+09</td>
+      <td>0.0264</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.985640e-42</td>
+    </tr>
+    <tr>
+      <th>4413</th>
+      <td>1.469723e+09</td>
+      <td>0.0044</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.985640e-42</td>
+    </tr>
+    <tr>
+      <th>4414</th>
+      <td>1.469723e+09</td>
+      <td>0.0088</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.985640e-42</td>
+    </tr>
+  </tbody>
+</table>
+<p>4415 rows × 9 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">17</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">17</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/catvehicle-wrenchEffort.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>propulsiveLinearEffortXPercent</th>
+      <th>propulsiveRotationalEffortZPercent</th>
+      <th>resistiveLinearEffortXPercent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>-12</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>-12</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>-12</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>-12</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>-12</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4405</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>1</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>4406</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>1</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>4407</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>1</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>4408</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>1</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>4409</th>
+      <td>1.469723e+09</td>
+      <td>0</td>
+      <td>1</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+<p>4410 rows × 4 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">18</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">18</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/diagnostics.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.stamp.secs</th>
+      <th>header.stamp.nsecs</th>
+      <th>header.frame_id</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>2574</td>
+      <td>1469722837</td>
+      <td>489467401</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>2575</td>
+      <td>1469722838</td>
+      <td>501308850</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>2576</td>
+      <td>1469722839</td>
+      <td>501997206</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>2577</td>
+      <td>1469722840</td>
+      <td>502716012</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>2578</td>
+      <td>1469722841</td>
+      <td>503255746</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>214</th>
+      <td>1.469723e+09</td>
+      <td>2788</td>
+      <td>1469723052</td>
+      <td>849513695</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+    <tr>
+      <th>215</th>
+      <td>1.469723e+09</td>
+      <td>2789</td>
+      <td>1469723053</td>
+      <td>862420084</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+    <tr>
+      <th>216</th>
+      <td>1.469723e+09</td>
+      <td>2790</td>
+      <td>1469723054</td>
+      <td>865826662</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+    <tr>
+      <th>217</th>
+      <td>1.469723e+09</td>
+      <td>2791</td>
+      <td>1469723055</td>
+      <td>866525634</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+    <tr>
+      <th>218</th>
+      <td>1.469723e+09</td>
+      <td>2792</td>
+      <td>1469723056</td>
+      <td>876275476</td>
+      <td>NaN</td>
+      <td>[level: 0\nname: "sicklms: /catvehicle/front_l...</td>
+    </tr>
+  </tbody>
+</table>
+<p>219 rows × 6 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/gps_fix.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.stamp.secs</th>
+      <th>header.stamp.nsecs</th>
+      <th>header.frame_id</th>
+      <th>status.status</th>
+      <th>status.service</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>altitude</th>
+      <th>position_covariance_0</th>
+      <th>position_covariance_1</th>
+      <th>position_covariance_2</th>
+      <th>position_covariance_3</th>
+      <th>position_covariance_4</th>
+      <th>position_covariance_5</th>
+      <th>position_covariance_6</th>
+      <th>position_covariance_7</th>
+      <th>position_covariance_8</th>
+      <th>position_covariance_type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>25706</td>
+      <td>1469722837</td>
+      <td>138845744</td>
+      <td>/odom</td>
+      <td>0</td>
+      <td>1</td>
+      <td>32.037917</td>
+      <td>-110.776641</td>
+      <td>848.639873</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>25707</td>
+      <td>1469722837</td>
+      <td>238293858</td>
+      <td>/odom</td>
+      <td>0</td>
+      <td>1</td>
+      <td>32.037907</td>
+      <td>-110.776620</td>
+      <td>843.861952</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>25708</td>
+      <td>1469722837</td>
+      <td>337726608</td>
+      <td>/odom</td>
+      <td>0</td>
+      <td>1</td>
+      <td>32.037896</td>
+      <td>-110.776599</td>
+      <td>839.084958</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>25709</td>
+      <td>1469722837</td>
+      <td>437419446</td>
+      <td>/odom</td>
+      <td>0</td>
+      <td>1</td>
+      <td>32.037886</td>
+      <td>-110.776578</td>
+      <td>834.308853</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>25710</td>
+      <td>1469722837</td>
+      <td>537058366</td>
+      <td>/odom</td>
+      <td>0</td>
+      <td>1</td>
+      <td>32.037875</td>
+      <td>-110.776557</td>
+      <td>829.534247</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2203</th>
+      <td>1.469723e+09</td>
+      <td>27909</td>
+      <td>1469723057</td>
+      <td>397306501</td>
+      <td>/odom</td>
+      <td>-1</td>
+      <td>1</td>
+      <td>32.037673</td>
+      <td>-110.776246</td>
+      <td>894.859256</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2204</th>
+      <td>1.469723e+09</td>
+      <td>27910</td>
+      <td>1469723057</td>
+      <td>496265726</td>
+      <td>/odom</td>
+      <td>-1</td>
+      <td>1</td>
+      <td>32.037670</td>
+      <td>-110.776246</td>
+      <td>894.441065</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2205</th>
+      <td>1.469723e+09</td>
+      <td>27911</td>
+      <td>1469723057</td>
+      <td>595299821</td>
+      <td>/odom</td>
+      <td>-1</td>
+      <td>1</td>
+      <td>32.037669</td>
+      <td>-110.776244</td>
+      <td>894.265923</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2206</th>
+      <td>1.469723e+09</td>
+      <td>27912</td>
+      <td>1469723057</td>
+      <td>694586183</td>
+      <td>/odom</td>
+      <td>-1</td>
+      <td>1</td>
+      <td>32.037666</td>
+      <td>-110.776244</td>
+      <td>893.839976</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2207</th>
+      <td>1.469723e+09</td>
+      <td>27913</td>
+      <td>1469723057</td>
+      <td>794838590</td>
+      <td>/odom</td>
+      <td>-1</td>
+      <td>1</td>
+      <td>32.037663</td>
+      <td>-110.776244</td>
+      <td>893.408258</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+<p>2208 rows × 20 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/rosout.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.stamp.secs</th>
+      <th>header.stamp.nsecs</th>
+      <th>header.frame_id</th>
+      <th>level</th>
+      <th>name</th>
+      <th>msg</th>
+      <th>file</th>
+      <th>function</th>
+      <th>line</th>
+      <th>topics</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>15</td>
+      <td>1469723039</td>
+      <td>506660504</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/recorder</td>
+      <td>Subscribing to /rosout</td>
+      <td>/tmp/binarydeb/ros-indigo-rosbag-1.11.20/src/r...</td>
+      <td>shared_ptr&lt;ros::Subscriber&gt; rosbag::Recorder::...</td>
+      <td>209</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>16</td>
+      <td>1469723039</td>
+      <td>518550216</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/recorder</td>
+      <td>Subscribing to /catvehicle/kalmanFilter/dist</td>
+      <td>/tmp/binarydeb/ros-indigo-rosbag-1.11.20/src/r...</td>
+      <td>shared_ptr&lt;ros::Subscriber&gt; rosbag::Recorder::...</td>
+      <td>209</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>17</td>
+      <td>1469723039</td>
+      <td>531918028</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/recorder</td>
+      <td>Subscribing to /catvehicle/distanceEstimatorSt...</td>
+      <td>/tmp/binarydeb/ros-indigo-rosbag-1.11.20/src/r...</td>
+      <td>shared_ptr&lt;ros::Subscriber&gt; rosbag::Recorder::...</td>
+      <td>209</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>18</td>
+      <td>1469723039</td>
+      <td>543800861</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/recorder</td>
+      <td>Subscribing to /catvehicle/relativeVel</td>
+      <td>/tmp/binarydeb/ros-indigo-rosbag-1.11.20/src/r...</td>
+      <td>shared_ptr&lt;ros::Subscriber&gt; rosbag::Recorder::...</td>
+      <td>209</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>19</td>
+      <td>1469723039</td>
+      <td>552363648</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/recorder</td>
+      <td>Subscribing to /catvehicle/distanceEstimatorSt...</td>
+      <td>/tmp/binarydeb/ros-indigo-rosbag-1.11.20/src/r...</td>
+      <td>shared_ptr&lt;ros::Subscriber&gt; rosbag::Recorder::...</td>
+      <td>209</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>166</th>
+      <td>1.469723e+09</td>
+      <td>131</td>
+      <td>1469723257</td>
+      <td>579213952</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.726425, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>1.469723e+09</td>
+      <td>132</td>
+      <td>1469723257</td>
+      <td>592150183</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.515144, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+    <tr>
+      <th>168</th>
+      <td>1.469723e+09</td>
+      <td>133</td>
+      <td>1469723257</td>
+      <td>606165672</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.361084, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+    <tr>
+      <th>169</th>
+      <td>1.469723e+09</td>
+      <td>134</td>
+      <td>1469723257</td>
+      <td>619152832</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.248802, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>1.469723e+09</td>
+      <td>135</td>
+      <td>1469723257</td>
+      <td>632157436</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.167007, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+  </tbody>
+</table>
+<p>171 rows × 12 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">21</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">21</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/rosout_agg.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.stamp.secs</th>
+      <th>header.stamp.nsecs</th>
+      <th>header.frame_id</th>
+      <th>level</th>
+      <th>name</th>
+      <th>msg</th>
+      <th>file</th>
+      <th>function</th>
+      <th>line</th>
+      <th>topics</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>102</td>
+      <td>1469723039</td>
+      <td>560383681</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/recorder</td>
+      <td>Subscribing to /catvehicle/distanceEstimatorSt...</td>
+      <td>/tmp/binarydeb/ros-indigo-rosbag-1.11.20/src/r...</td>
+      <td>shared_ptr&lt;ros::Subscriber&gt; rosbag::Recorder::...</td>
+      <td>209</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>103</td>
+      <td>1469723039</td>
+      <td>570979221</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/recorder</td>
+      <td>Subscribing to /catvehicle/accelerator</td>
+      <td>/tmp/binarydeb/ros-indigo-rosbag-1.11.20/src/r...</td>
+      <td>shared_ptr&lt;ros::Subscriber&gt; rosbag::Recorder::...</td>
+      <td>209</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>104</td>
+      <td>1469722837</td>
+      <td>125375038</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/vehiclerospd</td>
+      <td>pd in STANDY, sending RESUME message</td>
+      <td>/home/rtd2/ros15/sandbox/sprinkjm/src/rosjaus/...</td>
+      <td>manageControl</td>
+      <td>524</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>105</td>
+      <td>1469722837</td>
+      <td>125724803</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/vehiclerospd</td>
+      <td>Sending resume message...</td>
+      <td>/home/rtd2/ros15/sandbox/sprinkjm/src/rosjaus/...</td>
+      <td>manageControl</td>
+      <td>536</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>106</td>
+      <td>1469723039</td>
+      <td>581440481</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/recorder</td>
+      <td>Subscribing to /catvehicle/kalmanFilter/vel</td>
+      <td>/tmp/binarydeb/ros-indigo-rosbag-1.11.20/src/r...</td>
+      <td>shared_ptr&lt;ros::Subscriber&gt; rosbag::Recorder::...</td>
+      <td>209</td>
+      <td>['/rosout']</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>167</th>
+      <td>1.469723e+09</td>
+      <td>269</td>
+      <td>1469723257</td>
+      <td>579213952</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.726425, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+    <tr>
+      <th>168</th>
+      <td>1.469723e+09</td>
+      <td>270</td>
+      <td>1469723257</td>
+      <td>592150183</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.515144, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+    <tr>
+      <th>169</th>
+      <td>1.469723e+09</td>
+      <td>271</td>
+      <td>1469723257</td>
+      <td>606165672</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.361084, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+    <tr>
+      <th>170</th>
+      <td>1.469723e+09</td>
+      <td>272</td>
+      <td>1469723257</td>
+      <td>619152832</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.248802, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+    <tr>
+      <th>171</th>
+      <td>1.469723e+09</td>
+      <td>273</td>
+      <td>1469723257</td>
+      <td>632157436</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/catvehicle/velocityEstimator</td>
+      <td>Found a jump of 0.167007, changing distanceOff...</td>
+      <td>/home/ece446/ros15/trunk/gazebo_workspace/src/...</td>
+      <td>distCallback</td>
+      <td>149</td>
+      <td>['/rosout', '/catvehicle/relativeVel']</td>
+    </tr>
+  </tbody>
+</table>
+<p>172 rows × 12 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">22</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csvfiles</span><span class="p">[</span><span class="mi">22</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/utm_odom.csv
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.stamp.secs</th>
+      <th>header.stamp.nsecs</th>
+      <th>header.frame_id</th>
+      <th>child_frame_id</th>
+      <th>pose.pose.position.x</th>
+      <th>pose.pose.position.y</th>
+      <th>pose.pose.position.z</th>
+      <th>pose.pose.orientation.x</th>
+      <th>...</th>
+      <th>pose.pose.orientation.z</th>
+      <th>pose.pose.orientation.w</th>
+      <th>pose.covariance</th>
+      <th>twist.twist.linear.x</th>
+      <th>twist.twist.linear.y</th>
+      <th>twist.twist.linear.z</th>
+      <th>twist.twist.angular.x</th>
+      <th>twist.twist.angular.y</th>
+      <th>twist.twist.angular.z</th>
+      <th>twist.covariance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.469723e+09</td>
+      <td>25706</td>
+      <td>1469722837</td>
+      <td>138845744</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521088.765790</td>
+      <td>3.544660e+06</td>
+      <td>848.639873</td>
+      <td>-0.000943</td>
+      <td>...</td>
+      <td>-0.804456</td>
+      <td>0.593126</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>19.846116</td>
+      <td>-11.671198</td>
+      <td>-47.783898</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.469723e+09</td>
+      <td>25707</td>
+      <td>1469722837</td>
+      <td>238293858</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521090.751534</td>
+      <td>3.544659e+06</td>
+      <td>843.861952</td>
+      <td>-0.000932</td>
+      <td>...</td>
+      <td>-0.804407</td>
+      <td>0.593192</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>19.841832</td>
+      <td>-11.671902</td>
+      <td>-47.774513</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.469723e+09</td>
+      <td>25708</td>
+      <td>1469722837</td>
+      <td>337726608</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521092.736826</td>
+      <td>3.544658e+06</td>
+      <td>839.084958</td>
+      <td>-0.000939</td>
+      <td>...</td>
+      <td>-0.804359</td>
+      <td>0.593258</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>19.836787</td>
+      <td>-11.671519</td>
+      <td>-47.765269</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.469723e+09</td>
+      <td>25709</td>
+      <td>1469722837</td>
+      <td>437419446</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521094.721493</td>
+      <td>3.544657e+06</td>
+      <td>834.308853</td>
+      <td>-0.000944</td>
+      <td>...</td>
+      <td>-0.804309</td>
+      <td>0.593326</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>19.828732</td>
+      <td>-11.669034</td>
+      <td>-47.756617</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.469723e+09</td>
+      <td>25710</td>
+      <td>1469722837</td>
+      <td>537058366</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521096.705249</td>
+      <td>3.544656e+06</td>
+      <td>829.534247</td>
+      <td>-0.000899</td>
+      <td>...</td>
+      <td>-0.804251</td>
+      <td>0.593402</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>19.819867</td>
+      <td>-11.668892</td>
+      <td>-47.732853</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2203</th>
+      <td>1.469723e+09</td>
+      <td>27909</td>
+      <td>1469723057</td>
+      <td>397306501</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.123091</td>
+      <td>3.544633e+06</td>
+      <td>894.859256</td>
+      <td>0.004519</td>
+      <td>...</td>
+      <td>0.669521</td>
+      <td>0.742615</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>-0.041453</td>
+      <td>-3.003249</td>
+      <td>-4.151045</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+    <tr>
+      <th>2204</th>
+      <td>1.469723e+09</td>
+      <td>27910</td>
+      <td>1469723057</td>
+      <td>496265726</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.118493</td>
+      <td>3.544633e+06</td>
+      <td>894.441065</td>
+      <td>0.004687</td>
+      <td>...</td>
+      <td>0.669428</td>
+      <td>0.742697</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>-0.062772</td>
+      <td>-3.271563</td>
+      <td>-4.212904</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+    <tr>
+      <th>2205</th>
+      <td>1.469723e+09</td>
+      <td>27911</td>
+      <td>1469723057</td>
+      <td>595299821</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.319818</td>
+      <td>3.544633e+06</td>
+      <td>894.265923</td>
+      <td>0.005385</td>
+      <td>...</td>
+      <td>0.673498</td>
+      <td>0.739011</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>0.012628</td>
+      <td>-3.442711</td>
+      <td>-4.229531</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+    <tr>
+      <th>2206</th>
+      <td>1.469723e+09</td>
+      <td>27912</td>
+      <td>1469723057</td>
+      <td>694586183</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.320924</td>
+      <td>3.544633e+06</td>
+      <td>893.839976</td>
+      <td>0.005082</td>
+      <td>...</td>
+      <td>0.673612</td>
+      <td>0.738902</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>-0.004563</td>
+      <td>-3.667120</td>
+      <td>-4.289068</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+    <tr>
+      <th>2207</th>
+      <td>1.469723e+09</td>
+      <td>27913</td>
+      <td>1469723057</td>
+      <td>794838590</td>
+      <td>/odom</td>
+      <td>base_link</td>
+      <td>521126.321076</td>
+      <td>3.544632e+06</td>
+      <td>893.408258</td>
+      <td>0.004067</td>
+      <td>...</td>
+      <td>0.673653</td>
+      <td>0.738856</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+      <td>-0.003253</td>
+      <td>-3.686714</td>
+      <td>-4.344619</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ...</td>
+    </tr>
+  </tbody>
+</table>
+<p>2208 rows × 21 columns</p>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_bagreader.html" class="btn btn-neutral float-right" title="Class bagreader" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Reading_bagfiles_from_cloud.html" class="btn btn-neutral float-left" title="Reading a bagfile from the clound location" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Rahul Bhadani
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

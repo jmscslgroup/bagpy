@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>bagpy - Reading rosbag files simplified &mdash; bagpy 0.4.1 documentation</title>
+  <title>Class bagreader &mdash; bagpy 0.4.1 documentation</title>
   
 
   
@@ -41,7 +41,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="About bagpy" href="about.html" /> 
+    <link rel="prev" title="bagreader example" href="bagpy_example.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -55,7 +55,7 @@
           
 
           
-            <a href="#" class="icon icon-home" alt="Documentation Home"> bagpy
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> bagpy
           
 
           
@@ -105,8 +105,8 @@
 <li class="toctree-l1"><a class="reference internal" href="bagpy_example.html"><code class="docutils literal notranslate"><span class="pre">bagreader</span></code> example</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api_bagreader.html">Class <code class="code docutils literal notranslate"><span class="pre">bagreader</span></code></a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Class <code class="code docutils literal notranslate"><span class="pre">bagreader</span></code></a></li>
 </ul>
 
             
@@ -122,7 +122,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">bagpy</a>
+          <a href="index.html">bagpy</a>
         
       </nav>
 
@@ -151,16 +151,16 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>bagpy - Reading rosbag files simplified</li>
+      <li>Class <code class="code docutils literal notranslate"><span class="pre">bagreader</span></code></li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
             
-              <a href="https://github.com/jmscslgroup/bagpy/blob/master/docs/source/index.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/jmscslgroup/bagpy/blob/master/docs/source/api_bagreader.rst" class="fa fa-github"> Edit on GitHub</a>
             
           
         
@@ -198,65 +198,13 @@
     text-align: unset;
 }
 </style>
-<p><a class="reference external" href="https://pypi.org/project/bagpy"><img alt="PyPI" src="https://img.shields.io/pypi/v/bagpy.svg" /></a> <a class="reference external" href="https://pepy.tech/project/bagpy"><img alt="PyPIDownloads" src="https://pepy.tech/badge/bagpy" /></a> <a class="reference external" href="https://travis-ci.com/jmscslgroup/bagpy/"><img alt="Travis" src="https://travis-ci.com/jmscslgroup/bagpy.svg?branch=master" /></a></p>
-<div class="section" id="bagpy-reading-rosbag-files-simplified">
-<h1>bagpy - Reading rosbag files simplified<a class="headerlink" href="#bagpy-reading-rosbag-files-simplified" title="Permalink to this headline">¶</a></h1>
-<a class="reference internal image-reference" href="https://raw.githubusercontent.com/jmscslgroup/bagpy/master/banner_bagpy.png"><img alt="https://raw.githubusercontent.com/jmscslgroup/bagpy/master/banner_bagpy.png" class="align-left" src="https://raw.githubusercontent.com/jmscslgroup/bagpy/master/banner_bagpy.png" style="width: 500px;" /></a>
-<p><strong>bagpy</strong>, a python package provides specialized class <code class="docutils literal notranslate"><span class="pre">bagreader</span></code> to read and decode ROS messages from bagfiles in just a few lines of code.
-<strong>bagpy</strong> further allows to decode custom ROS messages which other is difficult without the custom ros message definition.</p>
-<div class="line-block">
-<div class="line"><br /></div>
-<div class="line"><br /></div>
-<div class="line"><br /></div>
-<div class="line"><br /></div>
+<div class="section" id="class-bagreader">
+<h1>Class <code class="code docutils literal notranslate"><span class="pre">bagreader</span></code><a class="headerlink" href="#class-bagreader" title="Permalink to this headline">¶</a></h1>
+<p>Import <code class="docutils literal notranslate"><span class="pre">bagreader</span></code> as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bagpy</span> <span class="kn">import</span> <span class="n">bagreader</span>
+</pre></div>
 </div>
-<div class="section" id="contributing-to-the-project">
-<h2>Contributing to the project<a class="headerlink" href="#contributing-to-the-project" title="Permalink to this headline">¶</a></h2>
-<p>Feel free to submit an <a class="reference external" href="https://github.com/jmscslgroup/bagpy/issues/new/choose">issue</a>
-or send us an <a class="reference external" href="mailto:rahulbhadani&#37;&#52;&#48;email&#46;arizona&#46;edu">email</a>.
-If you like to contribute to this project, please fork this repository to your GitHub account,
-create a new branch for yourself and send a pull request for the merge. After reviewing the changes,
-we will decide if this is a good place to add your changes.
-Your help to improve <strong>bagpy</strong> is highly appreciated.</p>
-</div>
-<div class="section" id="licensing">
-<h2>Licensing<a class="headerlink" href="#licensing" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line">License: MIT License</div>
-<div class="line">Copyright Rahul Bhadani, Jonathan Sprinkle, Arizona Board of Regents</div>
-<div class="line">Initial Date: Nov 12, 2019</div>
-<div class="line">Permission is hereby granted, free of charge, to any person obtaining</div>
-<div class="line">a copy of this software and associated documentation files</div>
-<div class="line">(the “Software”), to deal in the Software without restriction, including</div>
-<div class="line">without limitation the rights to use, copy, modify, merge, publish,</div>
-<div class="line">distribute, sublicense, and/or sell copies of the Software, and to</div>
-<div class="line">permit persons to whom the Software is furnished to do so, subject</div>
-<div class="line">to the following conditions:</div>
-</div>
-<div class="line-block">
-<div class="line">The above copyright notice and this permission notice shall be</div>
-<div class="line">included in all copies or substantial portions of the Software.</div>
-</div>
-<div class="line-block">
-<div class="line">THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF</div>
-<div class="line">ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED</div>
-<div class="line">TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A</div>
-<div class="line">PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT</div>
-<div class="line">SHALL THE AUTHORS, COPYRIGHT HOLDERS OR ARIZONA BOARD OF REGENTS</div>
-<div class="line">BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN</div>
-<div class="line">AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</div>
-<div class="line">OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE</div>
-<div class="line">OR OTHER DEALINGS IN THE SOFTWARE.</div>
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-</div>
+<p>for bag file decoding and reading.</p>
 </div>
 
 
@@ -267,8 +215,8 @@ Your help to improve <strong>bagpy</strong> is highly appreciated.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="about.html" class="btn btn-neutral float-right" title="About bagpy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+        <a href="bagpy_example.html" class="btn btn-neutral float-left" title="bagreader example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

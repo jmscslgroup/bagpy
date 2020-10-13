@@ -1,0 +1,1560 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Reading a bagfile from the clound location &mdash; bagpy 0.4.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="bagreader example" href="bagpy_example.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> bagpy
+          
+
+          
+            
+            <img src="_static/favicon.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Main</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About bagpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reading a bagfile from the clound location</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bagpy_example.html"><code class="docutils literal notranslate"><span class="pre">bagreader</span></code> example</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_bagreader.html">Class <code class="code docutils literal notranslate"><span class="pre">bagreader</span></code></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bagpy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Reading a bagfile from the clound location</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/jmscslgroup/bagpy/blob/master/Reading_bagfiles_from_cloud.ipynb" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="note">
+  <a href="https://colab.research.google.com/github/jmscslgroup/bagpy/blob/master/notebook/Reading_bagfiles_from_cloud.ipynb" target="_parent">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+  <a href="https://nbviewer.jupyter.org/github/jmscslgroup/bagpy/blob/master/notebook/Reading_bagfiles_from_cloud.ipynb" target="_parent">
+  <img src="_static/nbviewer-badge.svg" alt="Open In nbviewer"/></a>
+</div><div class="section" id="Reading-a-bagfile-from-the-clound-location">
+<h1>Reading a bagfile from the clound location<a class="headerlink" href="#Reading-a-bagfile-from-the-clound-location" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Install-bagpy">
+<h2>Install bagpy<a class="headerlink" href="#Install-bagpy" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>pip install bagpy
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Collecting bagpy
+  Downloading https://files.pythonhosted.org/packages/a0/8b/e06b8c3bd12838dcb062562d1c76efd92f9d7a372cc1775c69dff9d5f9d9/bagpy-0.4-py2.py3-none-any.whl
+Requirement already satisfied: ipython in /usr/local/lib/python3.6/dist-packages (from bagpy) (5.5.0)
+Collecting bitstring&gt;=3.1.6
+  Downloading https://files.pythonhosted.org/packages/c3/fc/ffac2c199d2efe1ec5111f55efeb78f5f2972456df6939fea849f103f9f5/bitstring-3.1.7.tar.gz (195kB)
+     |████████████████████████████████| 204kB 6.5MB/s
+Collecting py3rosmsgs
+  Downloading https://files.pythonhosted.org/packages/35/86/df7c6d74d076b80a360fa1ccf2687502a01527435ab825e9b64caec0ec4e/py3rosmsgs-1.16-py2.py3-none-any.whl (1.1MB)
+     |████████████████████████████████| 1.1MB 12.8MB/s
+Collecting pymdown-extensions
+  Downloading https://files.pythonhosted.org/packages/08/a1/087c5f2028098ae16526080f185fa437912624ab5f89f02a138b0b9857be/pymdown_extensions-8.0.1-py2.py3-none-any.whl (206kB)
+     |████████████████████████████████| 215kB 24.9MB/s
+Requirement already satisfied: matplotlib in /usr/local/lib/python3.6/dist-packages (from bagpy) (3.2.2)
+Requirement already satisfied: seaborn&gt;=0.9.0 in /usr/local/lib/python3.6/dist-packages (from bagpy) (0.11.0)
+Requirement already satisfied: pathlib in /usr/local/lib/python3.6/dist-packages (from bagpy) (1.0.1)
+Collecting sphinx-autodoc-typehints
+  Downloading https://files.pythonhosted.org/packages/82/24/7b0a565c99df8b2b7da14b553d601e446f7fe57bc2d8cd42851c4da9c1ae/sphinx_autodoc_typehints-1.11.0-py3-none-any.whl
+Collecting pyserial&gt;=3.4
+  Downloading https://files.pythonhosted.org/packages/0d/e4/2a744dd9e3be04a0c0907414e2a01a7c88bb3915cbe3c8cc06e209f59c30/pyserial-3.4-py2.py3-none-any.whl (193kB)
+     |████████████████████████████████| 194kB 34.5MB/s
+Collecting rinohtype
+  Downloading https://files.pythonhosted.org/packages/25/d9/14b2d7e76c0bf207fd95125afeddf0849a947cee7d2477f91a1234f364aa/rinohtype-0.4.2-py3-none-any.whl (598kB)
+     |████████████████████████████████| 604kB 29.7MB/s
+Collecting ytsphinx
+  Downloading https://files.pythonhosted.org/packages/56/5d/241dc6484c78b90e4fa7e2ae560ca0a273136e2144239de092d64cfb33a6/ytsphinx-1.2.1.dev20200430-py2.py3-none-any.whl
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.6/dist-packages (from bagpy) (3.13)
+Collecting pycryptodomex
+  Downloading https://files.pythonhosted.org/packages/e1/47/d3ead950b09799b4c8816f6c62fbe09991932baadb1a7c372ed8ef0e8fbe/pycryptodomex-3.9.8-cp36-cp36m-manylinux1_x86_64.whl (13.7MB)
+     |████████████████████████████████| 13.7MB 254kB/s
+Collecting mkdocs
+  Downloading https://files.pythonhosted.org/packages/5d/89/ed04b217404bbba031c4e2e084f36ef840b8663fce0b80302b547e651e4d/mkdocs-1.1.2-py3-none-any.whl (6.4MB)
+     |████████████████████████████████| 6.4MB 47.4MB/s
+Requirement already satisfied: numpy in /usr/local/lib/python3.6/dist-packages (from bagpy) (1.18.5)
+Collecting m2r2
+  Downloading https://files.pythonhosted.org/packages/b4/b1/b26f53614f1f6efd9ec4729990c49b483983284346e517216b13643b7bcf/m2r2-0.2.5-py3-none-any.whl
+Collecting recommonmark
+  Downloading https://files.pythonhosted.org/packages/94/de/334aaf73df8c0e77fb07f883d1e274344526196c137ef3479cb5e5aef086/recommonmark-0.6.0-py2.py3-none-any.whl
+Collecting sphinx-rtd-theme
+  Downloading https://files.pythonhosted.org/packages/c3/86/1addf25a238bbd8466bb099f23d9a9f13494b22b37b44f6c41a778b8730f/sphinx_rtd_theme-0.5.0-py2.py3-none-any.whl (10.8MB)
+     |████████████████████████████████| 10.8MB 48.6MB/s
+Collecting rospkg
+  Downloading https://files.pythonhosted.org/packages/db/f5/055fd15c610452adb1915172365394564ebdf251a764320bcb40d4118df1/rospkg-1.2.8-py3-none-any.whl
+Collecting sphinx-bootstrap-theme
+  Downloading https://files.pythonhosted.org/packages/a9/b8/ebcd1a7c579eb85929bbfd54617c5c484ba8cd78e4d3499d749e64b5ad3b/sphinx-bootstrap-theme-0.7.1.tar.gz (1.2MB)
+     |████████████████████████████████| 1.2MB 41.9MB/s
+Collecting sphinx-markdown-parser
+  Downloading https://files.pythonhosted.org/packages/7a/0e/63e90ae67eeeb6a5969deeccf0ac0d0c8d3252b9ce2eca7bd0a53aa3a651/sphinx_markdown_parser-0.2.4-py2.py3-none-any.whl
+Requirement already satisfied: Sphinx in /usr/local/lib/python3.6/dist-packages (from bagpy) (1.8.5)
+Requirement already satisfied: pygments in /usr/local/lib/python3.6/dist-packages (from ipython-&gt;bagpy) (2.6.1)
+Requirement already satisfied: simplegeneric&gt;0.8 in /usr/local/lib/python3.6/dist-packages (from ipython-&gt;bagpy) (0.8.1)
+Requirement already satisfied: pexpect; sys_platform != &#34;win32&#34; in /usr/local/lib/python3.6/dist-packages (from ipython-&gt;bagpy) (4.8.0)
+Requirement already satisfied: traitlets&gt;=4.2 in /usr/local/lib/python3.6/dist-packages (from ipython-&gt;bagpy) (4.3.3)
+Requirement already satisfied: decorator in /usr/local/lib/python3.6/dist-packages (from ipython-&gt;bagpy) (4.4.2)
+Requirement already satisfied: pickleshare in /usr/local/lib/python3.6/dist-packages (from ipython-&gt;bagpy) (0.7.5)
+Requirement already satisfied: prompt-toolkit&lt;2.0.0,&gt;=1.0.4 in /usr/local/lib/python3.6/dist-packages (from ipython-&gt;bagpy) (1.0.18)
+Requirement already satisfied: setuptools&gt;=18.5 in /usr/local/lib/python3.6/dist-packages (from ipython-&gt;bagpy) (50.3.0)
+Collecting gnupg
+  Downloading https://files.pythonhosted.org/packages/96/6c/21f99b450d2f0821ff35343b9a7843b71e98de35192454606435c72991a8/gnupg-2.3.1.tar.gz (100kB)
+     |████████████████████████████████| 102kB 11.2MB/s
+Requirement already satisfied: Markdown&gt;=3.2 in /usr/local/lib/python3.6/dist-packages (from pymdown-extensions-&gt;bagpy) (3.2.2)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;bagpy) (1.2.0)
+Requirement already satisfied: python-dateutil&gt;=2.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;bagpy) (2.8.1)
+Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;bagpy) (0.10.0)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.1 in /usr/local/lib/python3.6/dist-packages (from matplotlib-&gt;bagpy) (2.4.7)
+Requirement already satisfied: scipy&gt;=1.0 in /usr/local/lib/python3.6/dist-packages (from seaborn&gt;=0.9.0-&gt;bagpy) (1.4.1)
+Requirement already satisfied: pandas&gt;=0.23 in /usr/local/lib/python3.6/dist-packages (from seaborn&gt;=0.9.0-&gt;bagpy) (1.1.2)
+Requirement already satisfied: docutils in /usr/local/lib/python3.6/dist-packages (from rinohtype-&gt;bagpy) (0.16)
+Collecting rinoh-typeface-texgyrepagella&gt;=0.1.1
+  Downloading https://files.pythonhosted.org/packages/84/44/c27695119e6ad918358d44a87f8543cab6240f1f768068dd32ba1b65d92e/rinoh_typeface_texgyrepagella-0.1.1-py3-none-any.whl (321kB)
+     |████████████████████████████████| 327kB 48.1MB/s
+Collecting rinoh-typeface-texgyrecursor&gt;=0.1.1
+  Downloading https://files.pythonhosted.org/packages/12/21/1b46f0a50dfea435f90f29595d2e0b3d3c15a31b35bdde725942c83f2644/rinoh_typeface_texgyrecursor-0.1.1-py3-none-any.whl (242kB)
+     |████████████████████████████████| 245kB 50.3MB/s
+Collecting rinoh-typeface-dejavuserif
+  Downloading https://files.pythonhosted.org/packages/20/24/5c62e77cba623a40022deb8fde932481015c96830616b706f6fe1755f84b/rinoh_typeface_dejavuserif-0.1.1-py3-none-any.whl (1.7MB)
+     |████████████████████████████████| 1.7MB 51.0MB/s
+Requirement already satisfied: pip in /usr/local/lib/python3.6/dist-packages (from rinohtype-&gt;bagpy) (19.3.1)
+Collecting rinoh-typeface-texgyreheros&gt;=0.1.1
+  Downloading https://files.pythonhosted.org/packages/98/0d/b428d4cf5ad3bd6848b617570d5dcb061b3f66a68b72e96bf2a7909a2300/rinoh_typeface_texgyreheros-0.1.1-py3-none-any.whl (523kB)
+     |████████████████████████████████| 532kB 44.1MB/s
+Requirement already satisfied: tornado&gt;=5.0 in /usr/local/lib/python3.6/dist-packages (from mkdocs-&gt;bagpy) (5.1.1)
+Requirement already satisfied: Jinja2&gt;=2.10.1 in /usr/local/lib/python3.6/dist-packages (from mkdocs-&gt;bagpy) (2.11.2)
+Collecting livereload&gt;=2.5.1
+  Downloading https://files.pythonhosted.org/packages/bd/60/6640b819e858562ef6684abac60593b7369fe0a8a064df426d3ab0ab894d/livereload-2.6.3.tar.gz
+Requirement already satisfied: click&gt;=3.3 in /usr/local/lib/python3.6/dist-packages (from mkdocs-&gt;bagpy) (7.1.2)
+Collecting lunr[languages]==0.5.8
+  Downloading https://files.pythonhosted.org/packages/15/a4/3043c019613a1d60abb6e150b7665761bdd236a0d915d447d21c4415fddd/lunr-0.5.8-py2.py3-none-any.whl (2.3MB)
+     |████████████████████████████████| 2.3MB 40.0MB/s
+Requirement already satisfied: mistune in /usr/local/lib/python3.6/dist-packages (from m2r2-&gt;bagpy) (0.8.4)
+Collecting commonmark&gt;=0.8.1
+  Downloading https://files.pythonhosted.org/packages/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf/commonmark-0.9.1-py2.py3-none-any.whl (51kB)
+     |████████████████████████████████| 51kB 6.3MB/s
+Collecting catkin-pkg
+  Downloading https://files.pythonhosted.org/packages/32/36/4e418a15c6b0334503f57ff59ccb11a7a3f99c5937d725846110ae1c752d/catkin_pkg-0.4.23-py3-none-any.whl (74kB)
+     |████████████████████████████████| 81kB 10.1MB/s
+Collecting distro
+  Downloading https://files.pythonhosted.org/packages/25/b7/b3c4270a11414cb22c6352ebc7a83aaa3712043be29daa05018fd5a5c956/distro-1.5.0-py2.py3-none-any.whl
+Collecting yapf&gt;=0.28.0
+  Downloading https://files.pythonhosted.org/packages/c1/5d/d84677fe852bc5e091739acda444a9b6700ffc6b11a21b00dd244c8caef0/yapf-0.30.0-py2.py3-none-any.whl (190kB)
+     |████████████████████████████████| 194kB 52.4MB/s
+Collecting unify&gt;=0.5
+  Downloading https://files.pythonhosted.org/packages/e9/92/f7ab4a788a3efbf83cddeb0f78595fcddd690ef0f55371a525d0f7c237ad/unify-0.5.tar.gz
+Collecting pydash&gt;=4.7.5
+  Downloading https://files.pythonhosted.org/packages/05/fc/19b89da8a38a89f4403451a4ed2a05e16f804e6c71e4d5eaedb9d56366c3/pydash-4.8.0-py2.py3-none-any.whl (84kB)
+     |████████████████████████████████| 92kB 10.6MB/s
+Requirement already satisfied: babel!=2.0,&gt;=1.3 in /usr/local/lib/python3.6/dist-packages (from Sphinx-&gt;bagpy) (2.8.0)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.6/dist-packages (from Sphinx-&gt;bagpy) (1.15.0)
+Requirement already satisfied: alabaster&lt;0.8,&gt;=0.7 in /usr/local/lib/python3.6/dist-packages (from Sphinx-&gt;bagpy) (0.7.12)
+Requirement already satisfied: imagesize in /usr/local/lib/python3.6/dist-packages (from Sphinx-&gt;bagpy) (1.2.0)
+Requirement already satisfied: sphinxcontrib-websupport in /usr/local/lib/python3.6/dist-packages (from Sphinx-&gt;bagpy) (1.2.4)
+Requirement already satisfied: packaging in /usr/local/lib/python3.6/dist-packages (from Sphinx-&gt;bagpy) (20.4)
+Requirement already satisfied: snowballstemmer&gt;=1.1 in /usr/local/lib/python3.6/dist-packages (from Sphinx-&gt;bagpy) (2.0.0)
+Requirement already satisfied: requests&gt;=2.0.0 in /usr/local/lib/python3.6/dist-packages (from Sphinx-&gt;bagpy) (2.23.0)
+Requirement already satisfied: ptyprocess&gt;=0.5 in /usr/local/lib/python3.6/dist-packages (from pexpect; sys_platform != &#34;win32&#34;-&gt;ipython-&gt;bagpy) (0.6.0)
+Requirement already satisfied: ipython-genutils in /usr/local/lib/python3.6/dist-packages (from traitlets&gt;=4.2-&gt;ipython-&gt;bagpy) (0.2.0)
+Requirement already satisfied: wcwidth in /usr/local/lib/python3.6/dist-packages (from prompt-toolkit&lt;2.0.0,&gt;=1.0.4-&gt;ipython-&gt;bagpy) (0.2.5)
+Requirement already satisfied: psutil&gt;=1.2.1 in /usr/local/lib/python3.6/dist-packages (from gnupg-&gt;py3rosmsgs-&gt;bagpy) (5.4.8)
+Requirement already satisfied: importlib-metadata; python_version &lt; &#34;3.8&#34; in /usr/local/lib/python3.6/dist-packages (from Markdown&gt;=3.2-&gt;pymdown-extensions-&gt;bagpy) (2.0.0)
+Requirement already satisfied: pytz&gt;=2017.2 in /usr/local/lib/python3.6/dist-packages (from pandas&gt;=0.23-&gt;seaborn&gt;=0.9.0-&gt;bagpy) (2018.9)
+Requirement already satisfied: MarkupSafe&gt;=0.23 in /usr/local/lib/python3.6/dist-packages (from Jinja2&gt;=2.10.1-&gt;mkdocs-&gt;bagpy) (1.1.1)
+Requirement already satisfied: future&gt;=0.16.0 in /usr/local/lib/python3.6/dist-packages (from lunr[languages]==0.5.8-&gt;mkdocs-&gt;bagpy) (0.16.0)
+Requirement already satisfied: nltk&gt;=3.2.5; python_version &gt; &#34;2.7&#34; and extra == &#34;languages&#34; in /usr/local/lib/python3.6/dist-packages (from lunr[languages]==0.5.8-&gt;mkdocs-&gt;bagpy) (3.2.5)
+Collecting untokenize
+  Downloading https://files.pythonhosted.org/packages/f7/46/e7cea8159199096e1df52da20a57a6665da80c37fb8aeb848a3e47442c32/untokenize-0.1.1.tar.gz
+Requirement already satisfied: sphinxcontrib-serializinghtml in /usr/local/lib/python3.6/dist-packages (from sphinxcontrib-websupport-&gt;Sphinx-&gt;bagpy) (1.1.4)
+Requirement already satisfied: chardet&lt;4,&gt;=3.0.2 in /usr/local/lib/python3.6/dist-packages (from requests&gt;=2.0.0-&gt;Sphinx-&gt;bagpy) (3.0.4)
+Requirement already satisfied: idna&lt;3,&gt;=2.5 in /usr/local/lib/python3.6/dist-packages (from requests&gt;=2.0.0-&gt;Sphinx-&gt;bagpy) (2.10)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.6/dist-packages (from requests&gt;=2.0.0-&gt;Sphinx-&gt;bagpy) (2020.6.20)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,&lt;1.26,&gt;=1.21.1 in /usr/local/lib/python3.6/dist-packages (from requests&gt;=2.0.0-&gt;Sphinx-&gt;bagpy) (1.24.3)
+Requirement already satisfied: zipp&gt;=0.5 in /usr/local/lib/python3.6/dist-packages (from importlib-metadata; python_version &lt; &#34;3.8&#34;-&gt;Markdown&gt;=3.2-&gt;pymdown-extensions-&gt;bagpy) (3.2.0)
+Building wheels for collected packages: bitstring, sphinx-bootstrap-theme, gnupg, livereload, unify, untokenize
+  Building wheel for bitstring (setup.py) ... done
+  Created wheel for bitstring: filename=bitstring-3.1.7-cp36-none-any.whl size=37949 sha256=a8680bfbba371d9a12102cba0b87b3a67e6147e5405eea163dc37219be2e974e
+  Stored in directory: /root/.cache/pip/wheels/b8/27/f0/8373e26b7de57db03dc18aaaebdd8c26a99da882416f762979
+  Building wheel for sphinx-bootstrap-theme (setup.py) ... done
+  Created wheel for sphinx-bootstrap-theme: filename=sphinx_bootstrap_theme-0.7.1-cp36-none-any.whl size=1250224 sha256=e49c5ce30f8e5a9ca0faf97c8601a1b418c390faf29947352f5d1f6532df010d
+  Stored in directory: /root/.cache/pip/wheels/71/28/10/e04d1ab1110dbde7f436dd159ed5ee35113f66536df6d99a79
+  Building wheel for gnupg (setup.py) ... done
+  Created wheel for gnupg: filename=gnupg-2.3.1-cp36-none-any.whl size=94608 sha256=9c4bd3b286963aba7c859b2603e027739290641d5c5cbbf8a9f382d20c02fd24
+  Stored in directory: /root/.cache/pip/wheels/a8/7c/24/75dde86fabe7aa24e6e8146f20eccb2579c09ca6ad611a2630
+  Building wheel for livereload (setup.py) ... done
+  Created wheel for livereload: filename=livereload-2.6.3-py2.py3-none-any.whl size=24713 sha256=06a3770b212d2911f5875a313f1eb73f7dec4b75f9b2294fbd710a3fb6a9639a
+  Stored in directory: /root/.cache/pip/wheels/f2/a1/fa/00775311351a48f78b4a0e40588eefdd6f2731cc8115d6957d
+  Building wheel for unify (setup.py) ... done
+  Created wheel for unify: filename=unify-0.5-cp36-none-any.whl size=5234 sha256=f977a71f1dd3340580394d282478e6b3fa10181f6f45fc6c88dff5e49fea31a9
+  Stored in directory: /root/.cache/pip/wheels/27/fd/56/87cba898ae96b3fb66294877b91288441bac0e39d030a01942
+  Building wheel for untokenize (setup.py) ... done
+  Created wheel for untokenize: filename=untokenize-0.1.1-cp36-none-any.whl size=2898 sha256=9950c561b85c76e7473d6d0568653cec04628b9fe26020dc19ce520d29266621
+  Stored in directory: /root/.cache/pip/wheels/f4/a0/63/012f35213063bcd1d92a1bb5f4a570fec73e2a0a335a9a7295
+Successfully built bitstring sphinx-bootstrap-theme gnupg livereload unify untokenize
+<span class="ansi-red-fg">ERROR: sphinx-autodoc-typehints 1.11.0 has requirement Sphinx&gt;=3.0, but you&#39;ll have sphinx 1.8.5 which is incompatible.</span>
+<span class="ansi-red-fg">ERROR: sphinx-markdown-parser 0.2.4 has requirement pyyaml&gt;=5.1.2, but you&#39;ll have pyyaml 3.13 which is incompatible.</span>
+<span class="ansi-red-fg">ERROR: sphinx-markdown-parser 0.2.4 has requirement sphinx&gt;=2.2.0, but you&#39;ll have sphinx 1.8.5 which is incompatible.</span>
+Installing collected packages: bitstring, pyserial, gnupg, py3rosmsgs, pymdown-extensions, sphinx-autodoc-typehints, rinoh-typeface-texgyrepagella, rinoh-typeface-texgyrecursor, rinoh-typeface-dejavuserif, commonmark, recommonmark, rinoh-typeface-texgyreheros, rinohtype, ytsphinx, pycryptodomex, livereload, lunr, mkdocs, m2r2, sphinx-rtd-theme, catkin-pkg, distro, rospkg, sphinx-bootstrap-theme, yapf, untokenize, unify, pydash, sphinx-markdown-parser, bagpy
+Successfully installed bagpy-0.4 bitstring-3.1.7 catkin-pkg-0.4.23 commonmark-0.9.1 distro-1.5.0 gnupg-2.3.1 livereload-2.6.3 lunr-0.5.8 m2r2-0.2.5 mkdocs-1.1.2 py3rosmsgs-1.16 pycryptodomex-3.9.8 pydash-4.8.0 pymdown-extensions-8.0.1 pyserial-3.4 recommonmark-0.6.0 rinoh-typeface-dejavuserif-0.1.1 rinoh-typeface-texgyrecursor-0.1.1 rinoh-typeface-texgyreheros-0.1.1 rinoh-typeface-texgyrepagella-0.1.1 rinohtype-0.4.2 rospkg-1.2.8 sphinx-autodoc-typehints-1.11.0 sphinx-bootstrap-theme-0.7.1 sphinx-markdown-parser-0.2.4 sphinx-rtd-theme-0.5.0 unify-0.5 untokenize-0.1.1 yapf-0.30.0 ytsphinx-1.2.1.dev20200430
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">bagpy</span>
+<span class="kn">from</span> <span class="nn">bagpy</span> <span class="kn">import</span> <span class="n">bagreader</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sea</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Failed to load Python extension for LZ4 support. LZ4 compression will not be available.
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Get-the-sample-bag-files">
+<h2>Get the sample bag files<a class="headerlink" href="#Get-the-sample-bag-files" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">!</span>wget https://data.ouster.io/sample-data-1.13/OS1-64/OS1-64_city1.bag
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--2020-10-12 20:43:01--  https://data.ouster.io/sample-data-1.13/OS1-64/OS1-64_city1.bag
+Resolving data.ouster.io (data.ouster.io)... 172.67.72.60, 104.26.15.246, 104.26.14.246, ...
+Connecting to data.ouster.io (data.ouster.io)|172.67.72.60|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4758061988 (4.4G) [application/octet-stream]
+Saving to: ‘OS1-64_city1.bag’
+
+OS1-64_city1.bag    100%[===================&gt;]   4.43G  46.1MB/s    in 60s
+
+2020-10-12 20:44:02 (75.2 MB/s) - ‘OS1-64_city1.bag’ saved [4758061988/4758061988]
+
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Read-the-bag-file">
+<h2>Read the bag file<a class="headerlink" href="#Read-the-bag-file" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span> <span class="o">=</span> <span class="n">bagreader</span><span class="p">(</span><span class="s1">&#39;OS1-64_city1.bag&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[INFO]  Successfully created the data folder OS1-64_city1.
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Check-available-topics">
+<h2>Check available topics<a class="headerlink" href="#Check-available-topics" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">b</span><span class="o">.</span><span class="n">topic_table</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Topics</th>
+      <th>Types</th>
+      <th>Message Count</th>
+      <th>Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>/os1_cloud_node/imu</td>
+      <td>sensor_msgs/Imu</td>
+      <td>5999</td>
+      <td>100.203163</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>/os1_cloud_node/points</td>
+      <td>sensor_msgs/PointCloud2</td>
+      <td>601</td>
+      <td>9.989316</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>/os1_node/imu_packets</td>
+      <td>ouster_ros/PacketMsg</td>
+      <td>5999</td>
+      <td>100.111083</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>/os1_node/lidar_packets</td>
+      <td>ouster_ros/PacketMsg</td>
+      <td>76805</td>
+      <td>21076.904523</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>/rosout</td>
+      <td>rosgraph_msgs/Log</td>
+      <td>2</td>
+      <td>44.002350</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>/rosout_agg</td>
+      <td>rosgraph_msgs/Log</td>
+      <td>2</td>
+      <td>44.107390</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Decode-messages-on-every-topic">
+<h2>Decode messages on every topic<a class="headerlink" href="#Decode-messages-on-every-topic" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">message_by_topic</span><span class="p">(</span><span class="s1">&#39;/os1_cloud_node/imu&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File saved: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+File saved: OS1-64_city1/os1_cloud_node-imu.csv
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Read-the-data-in-pandas-DataFrame">
+<h2>Read the data in pandas DataFrame<a class="headerlink" href="#Read-the-data-in-pandas-DataFrame" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_imu</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df_imu</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.stamp.secs</th>
+      <th>header.stamp.nsecs</th>
+      <th>header.frame_id</th>
+      <th>orientation.x</th>
+      <th>orientation.y</th>
+      <th>orientation.z</th>
+      <th>orientation.w</th>
+      <th>orientation_covariance_0</th>
+      <th>orientation_covariance_1</th>
+      <th>orientation_covariance_2</th>
+      <th>orientation_covariance_3</th>
+      <th>orientation_covariance_4</th>
+      <th>orientation_covariance_5</th>
+      <th>orientation_covariance_6</th>
+      <th>orientation_covariance_7</th>
+      <th>orientation_covariance_8</th>
+      <th>angular_velocity.x</th>
+      <th>angular_velocity.y</th>
+      <th>angular_velocity.z</th>
+      <th>angular_velocity_covariance_0</th>
+      <th>angular_velocity_covariance_1</th>
+      <th>angular_velocity_covariance_2</th>
+      <th>angular_velocity_covariance_3</th>
+      <th>angular_velocity_covariance_4</th>
+      <th>angular_velocity_covariance_5</th>
+      <th>angular_velocity_covariance_6</th>
+      <th>angular_velocity_covariance_7</th>
+      <th>angular_velocity_covariance_8</th>
+      <th>linear_acceleration.x</th>
+      <th>linear_acceleration.y</th>
+      <th>linear_acceleration.z</th>
+      <th>linear_acceleration_covariance_0</th>
+      <th>linear_acceleration_covariance_1</th>
+      <th>linear_acceleration_covariance_2</th>
+      <th>linear_acceleration_covariance_3</th>
+      <th>linear_acceleration_covariance_4</th>
+      <th>linear_acceleration_covariance_5</th>
+      <th>linear_acceleration_covariance_6</th>
+      <th>linear_acceleration_covariance_7</th>
+      <th>linear_acceleration_covariance_8</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.573857e+09</td>
+      <td>58468</td>
+      <td>674</td>
+      <td>304318020</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>0.009987</td>
+      <td>-0.004527</td>
+      <td>0.019574</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>-0.237026</td>
+      <td>1.115698</td>
+      <td>8.379706</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.573857e+09</td>
+      <td>58469</td>
+      <td>674</td>
+      <td>314318050</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>0.008655</td>
+      <td>-0.012650</td>
+      <td>0.018376</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>-0.423774</td>
+      <td>1.189918</td>
+      <td>8.793903</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.573857e+09</td>
+      <td>58470</td>
+      <td>674</td>
+      <td>324318430</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>0.009321</td>
+      <td>-0.020906</td>
+      <td>0.012117</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>-0.325611</td>
+      <td>1.113304</td>
+      <td>8.585607</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.573857e+09</td>
+      <td>58471</td>
+      <td>674</td>
+      <td>334318030</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>0.005593</td>
+      <td>-0.009055</td>
+      <td>0.013049</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>-0.117316</td>
+      <td>1.185130</td>
+      <td>8.384494</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.573857e+09</td>
+      <td>58472</td>
+      <td>674</td>
+      <td>344318430</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>0.007191</td>
+      <td>0.004128</td>
+      <td>0.017044</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.011971</td>
+      <td>1.312023</td>
+      <td>8.834604</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>5994</th>
+      <td>1.573857e+09</td>
+      <td>64462</td>
+      <td>734</td>
+      <td>244317440</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-0.007457</td>
+      <td>0.011185</td>
+      <td>0.007989</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>-0.972046</td>
+      <td>1.082179</td>
+      <td>8.556877</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>5995</th>
+      <td>1.573857e+09</td>
+      <td>64463</td>
+      <td>734</td>
+      <td>254317500</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-0.003462</td>
+      <td>0.002663</td>
+      <td>0.012916</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>-0.828394</td>
+      <td>1.177947</td>
+      <td>8.401254</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>5996</th>
+      <td>1.573857e+09</td>
+      <td>64464</td>
+      <td>734</td>
+      <td>264317830</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-0.001598</td>
+      <td>-0.013183</td>
+      <td>0.013715</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>-0.746991</td>
+      <td>1.187524</td>
+      <td>8.501810</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>5997</th>
+      <td>1.573857e+09</td>
+      <td>64465</td>
+      <td>734</td>
+      <td>274317440</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>0.001065</td>
+      <td>-0.007989</td>
+      <td>0.012916</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>-0.620098</td>
+      <td>1.067814</td>
+      <td>8.482656</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>5998</th>
+      <td>1.573857e+09</td>
+      <td>64466</td>
+      <td>734</td>
+      <td>284317440</td>
+      <td>/os1_imu</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-1.0</td>
+      <td>-0.004128</td>
+      <td>0.002264</td>
+      <td>0.008655</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0006</td>
+      <td>-0.766145</td>
+      <td>1.221043</td>
+      <td>8.633491</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.01</td>
+    </tr>
+  </tbody>
+</table>
+<p>5999 rows × 42 columns</p>
+</div></div>
+</div>
+</div>
+<div class="section" id="Plot">
+<h2>Plot<a class="headerlink" href="#Plot" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">bagpy</span><span class="o">.</span><span class="n">create_fig</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;orientation.x&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;orientation.x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;orientation.y&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span><span class="s1">&#39;orientation.y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;orientation.z&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;orientation.z&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;orientation.w&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span><span class="s1">&#39;orientation.w&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;angular_velocity.x&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;angular_velocity.x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;angular_velocity.y&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;angular_velocity.y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;angular_velocity.z&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;angular_velocity.z&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;linear_acceleration.x&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;linear_acceleration.x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;linear_acceleration.y&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;linear_acceleration.y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;linear_acceleration.z&#39;</span><span class="p">,</span> <span class="n">data</span>  <span class="o">=</span> <span class="n">df_imu</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;linear_acceleration.z&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">:</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/Reading_bagfiles_from_cloud_15_0.png" src="_images/Reading_bagfiles_from_cloud_15_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">message_by_topic</span><span class="p">(</span><span class="s1">&#39;/rosout_agg&#39;</span><span class="p">)</span>
+<span class="n">df_rosout</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df_rosout</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>header.seq</th>
+      <th>header.stamp.secs</th>
+      <th>header.stamp.nsecs</th>
+      <th>header.frame_id</th>
+      <th>level</th>
+      <th>name</th>
+      <th>msg</th>
+      <th>file</th>
+      <th>function</th>
+      <th>line</th>
+      <th>topics</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.573857e+09</td>
+      <td>11</td>
+      <td>1573857271</td>
+      <td>484865238</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/record_1573856971468545184</td>
+      <td>Closing drive1-os1-64_2019-11-15-14-33-31_4.bag.</td>
+      <td>/tmp/binarydeb/ros-melodic-rosbag-1.14.3/src/r...</td>
+      <td>Recorder::stopWriting</td>
+      <td>398</td>
+      <td>[]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.573857e+09</td>
+      <td>12</td>
+      <td>1573857271</td>
+      <td>508070115</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>/record_1573856971468545184</td>
+      <td>Recording to drive1-os1-64_2019-11-15-14-34-31...</td>
+      <td>/tmp/binarydeb/ros-melodic-rosbag-1.14.3/src/r...</td>
+      <td>Recorder::startWriting</td>
+      <td>394</td>
+      <td>[]</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bagpy_example.html" class="btn btn-neutral float-right" title="bagreader example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Rahul Bhadani
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
