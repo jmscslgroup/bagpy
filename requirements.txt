@@ -1,4 +1,4 @@
-pandas
+pandas==0.25
 setuptools
 setuptools_scm
 importlib-resources
