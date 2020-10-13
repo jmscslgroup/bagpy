@@ -24,7 +24,6 @@ matplotlib.use("agg")
 HERE = Path(__file__).parent
 sys.path.insert(0, f"{HERE.parent.parent}")
 sys.path.insert(0, os.path.abspath("_ext"))
-import strym
 
 logger = logging.getLogger(__name__)
 
@@ -174,14 +173,14 @@ def get_linenos(obj):
 
 # set project_dir: project/docs/source/conf.py/../../.. → project/
 project_dir = Path(__file__).parent.parent.parent
-github_url_strym = "https://github.com/jmscslgroup/bagpy/tree/master"
+github_url_bagpy = "https://github.com/jmscslgroup/bagpy/tree/master"
 from pathlib import PurePosixPath
 
 
 def modurl(qualname):
     """Get the full GitHub URL for some object’s qualname."""
     obj, module = get_obj_module(qualname)
-    github_url = github_url_strym
+    github_url = github_url_bagpy
     path = PurePosixPath(Path(module.__file__).resolve().relative_to(project_dir))
     start, end = get_linenos(obj)
     fragment = f"#L{start}-L{end}" if start and end else ""

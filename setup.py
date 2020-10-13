@@ -70,7 +70,7 @@ setuptools.setup(
         ],
     keywords='Autonomous vehicle, ACC, adaptive cruise control, ROS, Robotics',
     include_package_data=True,
-    package_data={'strym': ['README.md','version']},
+    package_data={'bagpy': ['README.md','version']},
     zip_safe=False
         )
 os.remove('bagpy/README.md')

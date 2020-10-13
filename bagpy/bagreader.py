@@ -67,13 +67,13 @@ except ImportError:
     except ImportError:
         print("importlib_resources not found. Install backported importlib_resources through `pip install importlib-resources`")
 
-# Only works with Python 3.7
-import importlib.resources as pkg_resources
-
 with pkg_resources.path('bagpy', 'version') as rsrc:
     version_src = rsrc
 
-v = Path(version_src).open(encoding = "utf-8").read().splitlines()
+try:
+    v = Path(version_src).open(encoding = "utf-8").read().splitlines()
+except TypeError:
+    v = Path(str(version_src)).open(encoding = "utf-8").read().splitlines()
 __version__ = v[0].strip()
 
 def timeout(func, args=(), timeout_duration=2, default=None, **kwargs):
@@ -103,7 +103,7 @@ def get_latest_bagpy_version():
 
     try:  # needs to work offline as well
         result = check_output(["pip", "search", "bagpy"])
-        return f"{result.split()[1]}"[3:-2]
+        return "{result.split()[1]}"[3:-2]
     except CalledProcessError:
         return "0.0.0"
 
