@@ -116,7 +116,7 @@ def check_for_latest_version():
     if version.parse(__version__) < version.parse(latest_version):
         import warnings
         warnings.warn("{}\n{}\n{}\n{}\n{}\n{}".format(
-            "There is a newer version of strym available on PyPI:\n",
+            "There is a newer version of bagpy available on PyPI:\n",
             "Your version: \t",
             __version__,
             "Latest version: \t",

@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=source
 set BUILDDIR=build
-set SPHINXPROJ=strym
+set SPHINXPROJ=bagpy
 
 if "%1" == "" goto help
 
