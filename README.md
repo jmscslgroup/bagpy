@@ -1,5 +1,14 @@
 <img src="https://raw.githubusercontent.com/jmscslgroup/bagpy/master/banner_bagpy.png" alt="Strym Logo" align="center"/>
 
+[![Build Status](https://travis-ci.com/jmscslgroup/bagpy.svg?branch=master)](https://travis-ci.com/jmscslgroup/bagpy)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/jmscslgroup/bagpy/graphs/commit-activity)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![made-with-sphinx-doc](https://img.shields.io/badge/Made%20with-Sphinx-1f425f.svg)](https://www.sphinx-doc.org/)
+[![PyPI version shields.io](https://img.shields.io/pypi/v/bagpy.svg)](https://pypi.python.org/pypi/bagpy/)
+[![PyPI license](https://img.shields.io/pypi/l/bagpy.svg)](https://pypi.python.org/pypi/bagpy/)
+[![Downloads](https://pepy.tech/badge/bagpy)](https://pepy.tech/project/bagpy)
+
+
 
 # bagpy
 __A Python package to facilitate the reading of a rosbag file based on semantic datatypes.__
