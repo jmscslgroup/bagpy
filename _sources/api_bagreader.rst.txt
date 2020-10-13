@@ -1,3 +1,7 @@
+.. automodule:: bagpy
+
+
+
 Class :code:`bagreader`
 =============================
 
@@ -7,4 +11,5 @@ Import ``bagreader`` as::
     
 for bag file decoding and reading.
 
-    
+.. autoclass:: bagreader
+    :members    
