@@ -19,6 +19,11 @@ internally to perform all operations. One of the interesting features about usin
 need to supply [rostopic name](http://wiki.ros.org/rostopic) to extract relevant data. One can extract data based on the 
 type of data the user is seeking.
 
+## Requirements
+- Ubuntu 14.04 or later
+- Works with Windows as well. See my comment on an issue here: https://github.com/jmscslgroup/bagpy/issues/2#issuecomment-710095649
+
+
 ## Installation
 ```
 pip install bagpy
