@@ -2258,7 +2258,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 50,
+   "execution_count": 31,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -2270,7 +2270,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 51,
+   "execution_count": 32,
    "metadata": {
     "scrolled": true
    },
@@ -2303,7 +2303,7 @@
        " '/home/ivory/CyverseData/JmscslgroupData/ARED/2016-07-28/data_by_test/Bag Files/test3_09-23-59/utm_odom.csv']"
       ]
      },
-     "execution_count": 51,
+     "execution_count": 32,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -2314,7 +2314,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 52,
+   "execution_count": 33,
    "metadata": {
     "scrolled": true
    },
@@ -2489,7 +2489,7 @@
        "[4410 rows x 7 columns]"
       ]
      },
-     "execution_count": 52,
+     "execution_count": 33,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -2502,7 +2502,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 53,
+   "execution_count": 34,
    "metadata": {
     "scrolled": true
    },
@@ -2677,7 +2677,7 @@
        "[4410 rows x 7 columns]"
       ]
      },
-     "execution_count": 53,
+     "execution_count": 34,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -2690,7 +2690,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 54,
+   "execution_count": 35,
    "metadata": {
     "scrolled": true
    },
@@ -2878,7 +2878,7 @@
        "[4417 rows x 7 columns]"
       ]
      },
-     "execution_count": 54,
+     "execution_count": 35,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -2891,7 +2891,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 55,
+   "execution_count": 36,
    "metadata": {
     "scrolled": true
    },
@@ -3079,7 +3079,7 @@
        "[4417 rows x 7 columns]"
       ]
      },
-     "execution_count": 55,
+     "execution_count": 36,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -3092,7 +3092,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 56,
+   "execution_count": 37,
    "metadata": {
     "scrolled": true
    },
@@ -3267,7 +3267,7 @@
        "[8544 rows x 7 columns]"
       ]
      },
-     "execution_count": 56,
+     "execution_count": 37,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -3280,7 +3280,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 57,
+   "execution_count": 38,
    "metadata": {
     "scrolled": true
    },
@@ -3395,7 +3395,7 @@
        "[16542 rows x 2 columns]"
       ]
      },
-     "execution_count": 57,
+     "execution_count": 38,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -3408,7 +3408,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 58,
+   "execution_count": 39,
    "metadata": {
     "scrolled": true
    },
@@ -3523,7 +3523,7 @@
        "[16540 rows x 2 columns]"
       ]
      },
-     "execution_count": 58,
+     "execution_count": 39,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -3536,7 +3536,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 59,
+   "execution_count": 40,
    "metadata": {},
    "outputs": [
     {
@@ -3649,7 +3649,7 @@
        "[16540 rows x 2 columns]"
       ]
      },
-     "execution_count": 59,
+     "execution_count": 40,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -3662,7 +3662,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 60,
+   "execution_count": 41,
    "metadata": {
     "scrolled": true
    },
@@ -3777,7 +3777,7 @@
        "[16532 rows x 2 columns]"
       ]
      },
-     "execution_count": 60,
+     "execution_count": 41,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -3790,7 +3790,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 61,
+   "execution_count": 42,
    "metadata": {
     "scrolled": true
    },
@@ -4172,7 +4172,7 @@
        "[16533 rows x 193 columns]"
       ]
      },
-     "execution_count": 61,
+     "execution_count": 42,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -4185,7 +4185,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 62,
+   "execution_count": 43,
    "metadata": {
     "scrolled": true
    },
@@ -4300,7 +4300,7 @@
        "[16088 rows x 2 columns]"
       ]
      },
-     "execution_count": 62,
+     "execution_count": 43,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -4313,7 +4313,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 63,
+   "execution_count": 44,
    "metadata": {},
    "outputs": [
     {
@@ -4426,7 +4426,7 @@
        "[16081 rows x 2 columns]"
       ]
      },
-     "execution_count": 63,
+     "execution_count": 44,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -4439,7 +4439,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 64,
+   "execution_count": 45,
    "metadata": {
     "scrolled": true
    },
@@ -4554,7 +4554,7 @@
        "[16088 rows x 2 columns]"
       ]
      },
-     "execution_count": 64,
+     "execution_count": 45,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -4567,7 +4567,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 65,
+   "execution_count": 46,
    "metadata": {
     "scrolled": true
    },
@@ -4742,7 +4742,7 @@
        "[4410 rows x 7 columns]"
       ]
      },
-     "execution_count": 65,
+     "execution_count": 46,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -4755,7 +4755,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 66,
+   "execution_count": 47,
    "metadata": {
     "scrolled": true
    },
@@ -4943,7 +4943,7 @@
        "[12172 rows x 7 columns]"
       ]
      },
-     "execution_count": 66,
+     "execution_count": 47,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -4956,7 +4956,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 67,
+   "execution_count": 48,
    "metadata": {
     "scrolled": true
    },
@@ -5144,7 +5144,7 @@
        "[4415 rows x 7 columns]"
       ]
      },
-     "execution_count": 67,
+     "execution_count": 48,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -5157,7 +5157,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 68,
+   "execution_count": 49,
    "metadata": {
     "scrolled": true
    },
@@ -5369,7 +5369,7 @@
        "[4415 rows x 9 columns]"
       ]
      },
-     "execution_count": 68,
+     "execution_count": 49,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -5382,7 +5382,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 69,
+   "execution_count": 50,
    "metadata": {
     "scrolled": true
    },
@@ -5534,7 +5534,7 @@
        "[4410 rows x 4 columns]"
       ]
      },
-     "execution_count": 69,
+     "execution_count": 50,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -5547,7 +5547,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 70,
+   "execution_count": 51,
    "metadata": {
     "scrolled": true
    },
@@ -5723,7 +5723,7 @@
        "[219 rows x 6 columns]"
       ]
      },
-     "execution_count": 70,
+     "execution_count": 51,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -5736,7 +5736,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 71,
+   "execution_count": 52,
    "metadata": {
     "scrolled": true
    },
@@ -6132,7 +6132,7 @@
        "[2208 rows x 20 columns]"
       ]
      },
-     "execution_count": 71,
+     "execution_count": 52,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -6145,7 +6145,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 72,
+   "execution_count": 53,
    "metadata": {
     "scrolled": true
    },
@@ -6445,7 +6445,7 @@
        "[171 rows x 12 columns]"
       ]
      },
-     "execution_count": 72,
+     "execution_count": 53,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -6458,7 +6458,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 73,
+   "execution_count": 54,
    "metadata": {
     "scrolled": true
    },
@@ -6758,7 +6758,7 @@
        "[172 rows x 12 columns]"
       ]
      },
-     "execution_count": 73,
+     "execution_count": 54,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -6771,7 +6771,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 74,
+   "execution_count": 55,
    "metadata": {
     "scrolled": true
    },
@@ -7205,7 +7205,7 @@
        "[2208 rows x 21 columns]"
       ]
      },
-     "execution_count": 74,
+     "execution_count": 55,
      "metadata": {},
      "output_type": "execute_result"
     }
