@@ -27,3 +27,4 @@ py3rosmsgs
 nbsphinx
 pandoc
 pandocfilters
+yolk3k

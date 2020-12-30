@@ -105,8 +105,8 @@ def get_latest_bagpy_version():
     from subprocess import check_output, CalledProcessError
 
     try:  # needs to work offline as well
-        result = check_output(["pip", "search", "bagpy"])
-        return "{result.split()[1]}"[3:-2]
+        result = check_output(["yolk", "-V", "bagpy"])
+        return result.split()[1].decode("utf-8")
     except CalledProcessError:
         return "0.0.0"
 
