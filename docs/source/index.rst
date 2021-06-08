@@ -8,7 +8,8 @@ bagpy - Reading rosbag files simplified
    :align: left
 
 **bagpy**, a python package provides specialized class ``bagreader`` to read and decode ROS messages from bagfiles in just a few lines of code.
-**bagpy** further allows to decode custom ROS messages which other is difficult without the custom ros message definition.
+**bagpy** further allows to decode custom ROS messages which is otherwise difficult without the custom ros message definition. Currently **bagpy**
+is the only package that doesn't need custom ROS message definition in order to decode custom message types.
 
 
 |
