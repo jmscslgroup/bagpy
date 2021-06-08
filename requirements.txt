@@ -5,7 +5,7 @@ importlib-resources
 Sphinx==3.2.1
 rinohtype
 numpy
-matplotlib==3.2.1
+matplotlib>=3.2.1
 seaborn>=0.9.0
 ipython
 bitstring>=3.1.6
