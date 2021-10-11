@@ -1203,21 +1203,23 @@ def _setplots(**kwargs):
     if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
 
         plt.style.use('default')
-        plt.rcParams['figure.figsize'] = [15*ncols, 6*nrows]
+        plt.rcParams['figure.figsize'] = [12*ncols, 6*nrows]
         plt.rcParams['font.size'] = 22.0 + 3*(ncols-1)
+        plt.rcParams["font.family"] = "serif"
+        plt.rcParams["mathtext.fontset"] = "dejavuserif"
         plt.rcParams['figure.facecolor'] = '#ffffff'
         #plt.rcParams[ 'font.family'] = 'Roboto'
         #plt.rcParams['font.weight'] = 'bold'
-        plt.rcParams['xtick.color'] = '#828282'
+        plt.rcParams['xtick.color'] = '#01071f'
         plt.rcParams['xtick.minor.visible'] = True
         plt.rcParams['ytick.minor.visible'] = True
         plt.rcParams['xtick.labelsize'] = 16 + 2*(ncols-1)
         plt.rcParams['ytick.labelsize'] = 16 + 2*(ncols-1)
-        plt.rcParams['ytick.color'] = '#828282'
+        plt.rcParams['ytick.color'] = '#01071f'
         plt.rcParams['axes.labelcolor'] = '#000000'
         plt.rcParams['text.color'] = '#000000'
         plt.rcParams['axes.labelcolor'] = '#000000'
-        plt.rcParams['grid.color'] = '#cfcfcf'
+        plt.rcParams['grid.color'] = '#f0f1f5'
         plt.rcParams['axes.labelsize'] = 20+ 3*(ncols-1)
         plt.rcParams['axes.titlesize'] = 25+ 3*(ncols-1)
         #plt.rcParams['axes.labelweight'] = 'bold'
@@ -1232,20 +1234,22 @@ def _setplots(**kwargs):
     else:
         plt.style.use('default')
         plt.rcParams['figure.figsize'] = [18*ncols, 6*nrows]
+        plt.rcParams["font.family"] = "serif"
+        plt.rcParams["mathtext.fontset"] = "dejavuserif"
         plt.rcParams['font.size'] = 12.0
         plt.rcParams['figure.facecolor'] = '#ffffff'
         #plt.rcParams[ 'font.family'] = 'Roboto'
         #plt.rcParams['font.weight'] = 'bold'
-        plt.rcParams['xtick.color'] = '#828282'
+        plt.rcParams['xtick.color'] = '#01071f'
         plt.rcParams['xtick.minor.visible'] = True
         plt.rcParams['ytick.minor.visible'] = True
         plt.rcParams['xtick.labelsize'] = 10
         plt.rcParams['ytick.labelsize'] = 10
-        plt.rcParams['ytick.color'] = '#828282'
+        plt.rcParams['ytick.color'] = '#01071f'
         plt.rcParams['axes.labelcolor'] = '#000000'
         plt.rcParams['text.color'] = '#000000'
         plt.rcParams['axes.labelcolor'] = '#000000'
-        plt.rcParams['grid.color'] = '#cfcfcf'
+        plt.rcParams['grid.color'] = '#f0f1f5'
         plt.rcParams['axes.labelsize'] = 10
         plt.rcParams['axes.titlesize'] = 10
         #plt.rcParams['axes.labelweight'] = 'bold'
@@ -1288,17 +1292,17 @@ def create_fig(num_of_subplots=1, **kwargs):
             a.minorticks_on()
             a.grid(which='major', linestyle='-', linewidth='0.25', color='dimgray')
             a.grid(which='minor', linestyle=':', linewidth='0.25', color='dimgray')
-            a.patch.set_facecolor('#efefef')
-            a.spines['bottom'].set_color('#828282')
-            a.spines['top'].set_color('#828282')
-            a.spines['right'].set_color('#828282')
-            a.spines['left'].set_color('#828282')
+            a.patch.set_facecolor('#fafafa')
+            a.spines['bottom'].set_color('#161616')
+            a.spines['top'].set_color('#161616')
+            a.spines['right'].set_color('#161616')
+            a.spines['left'].set_color('#161616')
     else:
         for a in ax:
             a.minorticks_on()
             a.grid(True, which='both')
             
-    fig.tight_layout(pad=1.0*nrows)
+    fig.tight_layout(pad=0.3*nrows)
     return fig, ax
 
 
