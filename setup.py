@@ -25,8 +25,7 @@ required_packages=[
         'ipython',
         'bitstring',
         'ytsphinx',
-        'py3rosmsgs',
-        'matplotlib==3.2.1'
+        'py3rosmsgs'
         ]
 
 if '3.' in sys.version:
