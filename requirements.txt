@@ -12,7 +12,6 @@ bitstring>=3.1.6
 sphinx_rtd_theme
 sphinx_autodoc_typehints==1.4.0
 recommonmark
-pathlib
 mkdocs
 sphinx_bootstrap_theme
 sphinx-markdown-parser
