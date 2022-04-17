@@ -36,7 +36,6 @@ if '3.' in sys.version:
     required_packages.append('sphinx_autodoc_typehints==1.4.0')
     required_packages.append('recommonmark')
     required_packages.append('rinohtype')
-    required_packages.append('pathlib')
     required_packages.append('mkdocs')
     required_packages.append('sphinx_bootstrap_theme')
     required_packages.append('sphinx-markdown-parser')
