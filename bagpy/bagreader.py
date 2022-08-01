@@ -138,7 +138,10 @@ class bagreader:
     Parameters
     ----------------
     bagfile: `string`
-        Bagreader constructor takes name of a bag file as an  argument. name of the bag file can be provided as the full  qualified path, relative path or just the file name.
+        Bagreader constructor takes name of a bag file as an  argument. name of the bag file can be provided as the full qualified path, relative path or just the file name.
+    
+    delimiter: `string`
+        Used delimiter in writing the csv.
 
     verbose: `bool`
         If True, prints some relevant information. Default: `True`
@@ -186,8 +189,9 @@ class bagreader:
 
     '''
 
-    def __init__(self , bagfile , verbose=True , tmp = False):
+    def __init__(self , bagfile , delimiter=",", verbose=True , tmp = False):
         self.bagfile = bagfile
+        self.delimiter = delimiter
         
         slashindices = find(bagfile, '/')
         
@@ -300,7 +304,7 @@ class bagreader:
             opencall = open(file_to_write, 'wb')
 
         with opencall as f:
-            writer = csv.writer(f, delimiter=',')
+            writer = csv.writer(f, delimiter=self.delimiter)
             writer.writerow(cols) # write the header
             for i, m in enumerate(msgs):
                 slots = m.__slots__
@@ -382,7 +386,7 @@ class bagreader:
                 opencall = open(file_to_write, 'wb')
 
             with opencall as f:
-                writer = csv.writer(f, delimiter=',')
+                writer = csv.writer(f, delimiter=self.delimiter)
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend): 
                     #msg_list[k] = msg
@@ -465,7 +469,7 @@ class bagreader:
                 opencall = open(file_to_write, 'wb')
 
             with opencall as f:
-                writer = csv.writer(f, delimiter=',')
+                writer = csv.writer(f, delimiter=self.delimiter)
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
                     
@@ -530,7 +534,7 @@ class bagreader:
                 opencall = open(file_to_write, 'wb')
 
             with opencall as f:
-                writer = csv.writer(f, delimiter=',')
+                writer = csv.writer(f, delimiter=self.delimiter)
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
                     
@@ -606,7 +610,7 @@ class bagreader:
                 opencall = open(file_to_write, 'wb')
 
             with opencall as f:
-                writer = csv.writer(f, delimiter=',')
+                writer = csv.writer(f, delimiter=self.delimiter)
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
                     new_row = [t.secs + t.nsecs*1e-9, 
@@ -680,7 +684,7 @@ class bagreader:
                 opencall = open(file_to_write, 'wb')
 
             with opencall as f:
-                writer = csv.writer(f, delimiter=',')
+                writer = csv.writer(f, delimiter=self.delimiter)
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
                     
@@ -745,7 +749,7 @@ class bagreader:
                 opencall = open(file_to_write, 'wb')
 
             with opencall as f:
-                writer = csv.writer(f, delimiter=',')
+                writer = csv.writer(f, delimiter=self.delimiter)
                 writer.writerow(column_names) # write the header
                 for topic, msg, t in self.reader.read_messages(topics=topics_to_read[i], start_time=tstart, end_time=tend):
                     new_row = [t.secs + t.nsecs*1e-9, 
