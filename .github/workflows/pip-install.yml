@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Testing pip install, updating requirements.txt
+    name: Testing pip install
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
