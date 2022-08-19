@@ -4,8 +4,8 @@ python:
   - "3.7"
 
 before_install:
-    - sudo apt-get -y install pandoc
-    - pip install -U pip
+    - python -m pip install --upgrade pip
+    - pip install -r requirements.txt
     - export PYTHONPATH=$PYTHONPATH:$(pwd)
 install:
   - pip install -e .[dev]
