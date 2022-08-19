@@ -7,7 +7,6 @@ before_install:
     - sudo apt-get -y install pandoc
     - pip install -U pip
     - export PYTHONPATH=$PYTHONPATH:$(pwd)
-    - pip install -r requirements.txt
     - pip install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 install:
   - pip install -e .[dev]
