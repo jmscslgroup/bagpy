@@ -24,23 +24,24 @@ required_packages=[
         'rospkg',
         'ipython',
         'bitstring',
-        'ytsphinx',
         'py3rosmsgs'
         ]
+
+extra_packages = {'dev':['ytsphinx']}
 
 if '3.' in sys.version:
     print("Building for Py3")
     required_packages.append('seaborn>=0.9.0')
-    required_packages.append('Sphinx==3.2.1')
-    required_packages.append('sphinx_rtd_theme')
-    required_packages.append('sphinx_autodoc_typehints==1.4.0')
-    required_packages.append('recommonmark')
-    required_packages.append('rinohtype')
-    required_packages.append('mkdocs')
-    required_packages.append('sphinx_bootstrap_theme')
-    required_packages.append('sphinx-markdown-parser')
-    required_packages.append('pymdown-extensions')
-    required_packages.append('m2r2')
+    extra_packages['dev'].append('Sphinx==3.2.1')
+    extra_packages['dev'].append('sphinx_rtd_theme')
+    extra_packages['dev'].append('sphinx_autodoc_typehints==1.4.0')
+    extra_packages['dev'].append('recommonmark')
+    extra_packages['dev'].append('rinohtype')
+    extra_packages['dev'].append('mkdocs')
+    extra_packages['dev'].append('sphinx_bootstrap_theme')
+    extra_packages['dev'].append('sphinx-markdown-parser')
+    extra_packages['dev'].append('pymdown-extensions')
+    extra_packages['dev'].append('m2r2')
 
 elif '2.' in sys.version:
     print("Building for Py2")
@@ -58,6 +59,7 @@ setuptools.setup(
     url="https://github.com/jmscslgroup/bagpy",
     packages=setuptools.find_packages(),
     install_requires=required_packages,
+    extras_require=extra_packages,
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 2",

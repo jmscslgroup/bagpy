@@ -2,21 +2,11 @@ pandas==0.25
 setuptools
 setuptools_scm
 importlib-resources
-Sphinx==3.2.1
-rinohtype
 numpy
 matplotlib>=3.3.1
 seaborn>=0.9.0
 ipython
 bitstring>=3.1.6
-sphinx_rtd_theme
-sphinx_autodoc_typehints==1.4.0
-recommonmark
-mkdocs
-sphinx_bootstrap_theme
-sphinx-markdown-parser
-pymdown-extensions
-m2r2
 ytsphinx
 python-dotenv
 pycryptodomex
@@ -27,3 +17,14 @@ nbsphinx
 pandoc
 pandocfilters
 yolk3k
+
+# Sphinx==3.2.1
+# sphinx_rtd_theme
+# sphinx_autodoc_typehints==1.4.0
+# recommonmark
+# rinohtype
+# mkdocs
+# sphinx_bootstrap_theme
+# sphinx-markdown-parser
+# pymdown-extensions
+# m2r2
