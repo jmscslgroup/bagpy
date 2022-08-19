@@ -16,6 +16,7 @@ v = Path(PACKAGE_NAME + "/version").open(encoding = "utf-8").read().splitlines()
 
 
 required_packages=[
+        'importlib-metadata>=4.12.0',
         'numpy',
         'pyserial>=3.4',
         'bitstring>=3.1.6',
