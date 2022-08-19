@@ -12,6 +12,5 @@ pycryptodomex
 pyyaml
 rospkg
 py3rosmsgs
-yolk3k
 jinja2<3.1
 pytest
