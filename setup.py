@@ -17,16 +17,19 @@ v = Path(PACKAGE_NAME + "/version").open(encoding = "utf-8").read().splitlines()
 
 required_packages=[
         'numpy',
-        'pyserial>=3.4',
-        'bitstring>=3.1.6',
+        'pyserial',
+        'bitstring',
         'pycryptodomex',
         'pyyaml',
         'rospkg',
         'ipython',
-        'bitstring',
         'py3rosmsgs',
         'jinja2<3.1',
-        'pytest'
+        'pytest',
+        'pandas',
+        'setuptools-scm',
+        'importlib-resources',
+        'matplotlib',
         ]
 
 extra_packages = {'dev':['ytsphinx',
