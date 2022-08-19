@@ -23,27 +23,27 @@ jobs:
         shell: bash
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.pytahon-version }}
-    - name: Install using pip
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -e .
-    # Install pandoc for building docs
-    - name: Install pandoc for Ubuntu
-      if: matrix.os == 'ubuntu-latest'
-      run: sudo apt install pandoc
-    - name: Install pandoc for Windows
-      if: matrix.os == 'windows-latest'
-      run: choco install pandoc --no-progress
-    - name: Install pandoc for MacOS
-      if: matrix.os == 'macos-latest'
-      run: brew install pandoc
-    - name: Test with pytest
-      run: |
-        cd docs
-        make html
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.pytahon-version }}
+      - name: Install using pip
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+      # Install pandoc for building docs
+      - name: Install pandoc for Ubuntu
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt install pandoc
+      - name: Install pandoc for Windows
+        if: matrix.os == 'windows-latest'
+        run: choco install pandoc --no-progress
+      - name: Install pandoc for MacOS
+        if: matrix.os == 'macos-latest'
+        run: brew install pandoc
+      - name: Test with pytest
+        run: |
+          cd docs
+          make html
