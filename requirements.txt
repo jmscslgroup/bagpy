@@ -1,4 +1,4 @@
-pandas==0.25
+pandas
 setuptools
 setuptools_scm
 importlib-resources
@@ -17,14 +17,5 @@ nbsphinx
 pandoc
 pandocfilters
 yolk3k
-
-# Sphinx==3.2.1
-# sphinx_rtd_theme
-# sphinx_autodoc_typehints==1.4.0
-# recommonmark
-# rinohtype
-# mkdocs
-# sphinx_bootstrap_theme
-# sphinx-markdown-parser
-# pymdown-extensions
-# m2r2
+jinja2<3.1
+pytest

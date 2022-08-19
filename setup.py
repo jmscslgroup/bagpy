@@ -24,7 +24,9 @@ required_packages=[
         'rospkg',
         'ipython',
         'bitstring',
-        'py3rosmsgs'
+        'py3rosmsgs',
+        'jinja2<3.1',
+        'pytest'
         ]
 
 extra_packages = {'dev':['ytsphinx']}
@@ -46,7 +48,6 @@ if '3.' in sys.version:
 elif '2.' in sys.version:
     print("Building for Py2")
     required_packages.append('seaborn')
-
 
 setuptools.setup(
     name='bagpy',

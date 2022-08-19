@@ -10,7 +10,7 @@ before_install:
     - pip install -r requirements.txt
     - pip install 'prompt-toolkit<2.1.0,>=2.0.0' --force-reinstall
 install:
-  - python setup.py install
+  - pip install -e .[dev]
 
 script:
   - cd docs
