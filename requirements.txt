@@ -1,4 +1,3 @@
-importlib-metadata>=4.12.0
 pandas
 setuptools
 setuptools_scm
@@ -8,15 +7,11 @@ matplotlib>=3.3.1
 seaborn>=0.9.0
 ipython
 bitstring>=3.1.6
-ytsphinx
 python-dotenv
 pycryptodomex
 pyyaml
 rospkg
 py3rosmsgs
-nbsphinx
-pandoc
-pandocfilters
 yolk3k
 jinja2<3.1
 pytest
