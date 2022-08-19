@@ -26,7 +26,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install -e .
+        pip install -e .[dev]
+    - name: Install pandoc for Ubuntu
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-18.04'
+      run: sudo apt install pandoc
+    - name: Install pandoc for Windows
+      if: matrix.os == 'windows-latest'
+      run: choco install pandoc --no-progress
+    - name: Install pandoc for MacOS
+      if: matrix.os == 'macos-latest'
+      run: brew install pandoc
     - name: Test on pytest
-      run:
-        pytest
+      run: |
+        cd docs
+        make html
