@@ -57,6 +57,7 @@ import pickle
 from packaging import version
 
 from pathlib import Path
+from transparentpath import Path as TPath
 version_src = ''
 
 try:
@@ -137,8 +138,10 @@ class bagreader:
 
     Parameters
     ----------------
-    bagfile: `string`
-        Bagreader constructor takes name of a bag file as an  argument. name of the bag file can be provided as the full qualified path, relative path or just the file name.
+    bagfile: `string` | `Path` | `transparentpath` | `file stream`
+        Bagreader constructor takes the path to a bagfile to open. This path may be relative or absolute and may be provide 
+        via a string, Path object or transparent path object. Additionally instead of providing a file path, a file stream 
+        or buffer stream can be provided. If the bagfile argument is a file or buffer stream, the datafolder parameter must be used.
     
     delimiter: `string`
         Used delimiter in writing the csv.
@@ -148,6 +151,10 @@ class bagreader:
     
     tmp: `bool`
         If True, creates directory in /tmp folder. Default: `False`
+
+    datafolder: `Path`
+        A file path or transparent path to the folder where the bag file can be extracted. If left None a folder will be created next 
+        to the given bagfile with the same name as the bagfile. 
 
     Attributes
     --------------
@@ -189,19 +196,19 @@ class bagreader:
 
     '''
 
-    def __init__(self , bagfile , delimiter=",", verbose=True , tmp = False):
+    def __init__(self , bagfile , delimiter=",", verbose=True , tmp = False, datafolder: Path = None):
         self.bagfile = bagfile
         self.delimiter = delimiter
         
-        slashindices = find(bagfile, '/')
-        
-        # length of slashindices list will be zero if a user has pass only bag file name , e.g. 2020-03-04-12-22-42.bag
-        if  len(slashindices) > 0:
-            self.filename =bagfile[slashindices[-1]:]
-            self.dir = bagfile[slashindices[0]:slashindices[-1]]
-        else:
-            self.filename = bagfile
-            self.dir = './'
+        if type(bagfile) == str:
+            self.bagfile = Path(bagfile)
+
+        # determine the directory
+        assert type(self.bagfile) in [Path, TPath] or datafolder is not None, "Either the bag file must be a file path or a file path must be given in datafolder"
+        if datafolder is not None:
+            self.datafolder = datafolder.absolute
+        elif type(self.bagfile) in [Path, TPath]:
+            self.datafolder = self.bagfile.absolute.parent / self.bagfile.stem
 
         self.reader = rosbag.Bag(self.bagfile)
 
@@ -223,24 +230,22 @@ class bagreader:
         self.start_time = self.reader.get_start_time()
         self.end_time = self.reader.get_end_time()
 
-        self.datafolder = bagfile[0:-4]
-
         if tmp:
-            self.datafolder = '/tmp/' + bagfile.split('/')[-1][0:-4]
+            self.datafolder = Path("/tmp") / self.datafolder.stem
 
         self.verbose = verbose
 
-        if os.path.exists(self.datafolder):
+        if self.datafolder.exists():
             if self.verbose:
-                print("[INFO]  Data folder {0} already exists. Not creating.".format(self.datafolder))
+                print(f"[INFO]  Data folder '{self.datafolder}' already exists. Not creating.")
         else:
             try:
-                os.mkdir(self.datafolder)
+                self.datafolder.mkdir(parents=True)
             except OSError:
-                print("[ERROR] Failed to create the data folder {0}.".format(self.datafolder))
+                print(f"[ERROR] Failed to create the data folder '{self.datafolder}'.")
             else:
                 if self.verbose:
-                    print("[INFO]  Successfully created the data folder {0}.".format(self.datafolder))
+                    print(f"[INFO]  Successfully created the data folder '{self.datafolder}'.")
  
     def message_by_topic(self, topic):
         '''
@@ -295,8 +300,7 @@ class bagreader:
             else:
                 cols.append(s)
         
-        tempfile = self.datafolder + "/" + topic.replace("/", "-") + ".csv"
-        file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
+        file_to_write = self.datafolder / (topic[1:].replace("/", "-") + ".csv")
 
         if sys.hexversion >= 0x3000000:
             opencall = open(file_to_write, "w", newline='')
@@ -375,8 +379,7 @@ class bagreader:
         all_msg = []
         csvlist = []
         for i in range(len(table_rows)):
-            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
+            file_to_write = self.datafolder / (topic[1:].replace("/", "-") + ".csv")
             #msg_list = [LaserScan() for count in range(message_counts[i])]
             k = 0
 
@@ -459,8 +462,7 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
+            file_to_write = self.datafolder / (topic[1:].replace("/", "-") + ".csv")
             k = 0
 
             if sys.hexversion >= 0x3000000:
@@ -524,8 +526,7 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
+            file_to_write = self.datafolder / (topic[1:].replace("/", "-") + ".csv")
             k = 0
 
             if sys.hexversion >= 0x3000000:
@@ -600,8 +601,7 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
+            file_to_write = self.datafolder / (topic[1:].replace("/", "-") + ".csv")
             k = 0
 
             if sys.hexversion >= 0x3000000:
@@ -674,8 +674,7 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
+            file_to_write = self.datafolder / (topic[1:].replace("/", "-") + ".csv")
             k = 0
 
             if sys.hexversion >= 0x3000000:
@@ -738,8 +737,7 @@ class bagreader:
 
         csvlist = []
         for i in range(len(table_rows)):
-            tempfile = self.datafolder + "/" + topics_to_read[i].replace("/", "-") + ".csv"
-            file_to_write = ntpath.dirname(tempfile) + '/' + ntpath.basename(tempfile)[1:]
+            file_to_write = self.datafolder / (topic[1:].replace("/", "-") + ".csv")
 
             k = 0
 
@@ -813,8 +811,8 @@ class bagreader:
                 axs[i].set_ylabel('Messages', fontsize=10)
         fig.tight_layout()
         suffix = ''
-        if len(self.datafolder) < 100:
-            suffix = '\n' + self.datafolder
+        if len(str(self.datafolder)) < 100:
+            suffix = '\n' + str(self.datafolder)
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
             fig.suptitle("Velocity Timeseries Plot"+suffix, fontsize = 14, y = 1.02)
         else:
@@ -822,12 +820,12 @@ class bagreader:
 
         if save_fig:
             current_fig = plt.gcf()
-            fileToSave = self.datafolder + "/" + _get_func_name()
+            fileToSave = self.datafolder / _get_func_name()
 
-            with open(fileToSave + ".pickle", 'wb') as f:
+            with open(str(fileToSave) + ".pickle", 'wb') as f:
                 pickle.dump(fig, f) 
-            current_fig.savefig(fileToSave + ".pdf", dpi = 100) 
-            current_fig.savefig(fileToSave + ".png", dpi = 100) 
+            current_fig.savefig(str(fileToSave) + ".pdf", dpi = 100) 
+            current_fig.savefig(str(fileToSave) + ".png", dpi = 100) 
 
         plt.show()
 
@@ -875,7 +873,7 @@ class bagreader:
                 axs[i].set_ylabel('Messages', fontsize=10)
         suffix = ''
         if len(self.datafolder) < 100:
-            suffix = '\n' + self.datafolder
+            suffix = '\n' + str(self.datafolder)
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
             fig.suptitle("Standard Messages Timeseries Plot"+suffix, fontsize = 14, y = 1.02)
         else:
@@ -883,7 +881,7 @@ class bagreader:
         fig.tight_layout()
         if save_fig:
             current_fig = plt.gcf()
-            fileToSave = self.datafolder + "/" + _get_func_name()
+            fileToSave = str(self.datafolder / _get_func_name())
 
             with open(fileToSave + ".pickle", 'wb') as f:
                 pickle.dump(fig, f) 
@@ -943,8 +941,8 @@ class bagreader:
                 axs[i].set_ylabel('Messages', fontsize=10)
 
         suffix = ''
-        if len(self.datafolder) < 100:
-            suffix = '\n' + self.datafolder
+        if len(str(self.datafolder)) < 100:
+            suffix = '\n' + str(self.datafolder)
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
             fig.suptitle("Odometry Timeseries Plot"+suffix, fontsize = 14, y = 1.02)
         else:
@@ -952,7 +950,7 @@ class bagreader:
         fig.tight_layout()
         if save_fig:
             current_fig = plt.gcf()
-            fileToSave = self.datafolder + "/" + _get_func_name()
+            fileToSave = str(self.datafolder / _get_func_name())
 
             with open(fileToSave + ".pickle", 'wb') as f:
                 pickle.dump(fig, f) 
@@ -1007,8 +1005,8 @@ class bagreader:
                 axs[i].set_ylabel('Messages', fontsize=10)
 
         suffix = ''
-        if len(self.datafolder) < 100:
-            suffix = '\n' + self.datafolder
+        if len(str(self.datafolder)) < 100:
+            suffix = '\n' + str(self.datafolder)
         if shell_type in ['ZMQInteractiveShell', 'TerminalInteractiveShell']:
             fig.suptitle("Wrench Timeseries Plot"+suffix, fontsize = 14, y = 1.02)
         else:
@@ -1016,7 +1014,7 @@ class bagreader:
         fig.tight_layout()
         if save_fig:
             current_fig = plt.gcf()
-            fileToSave = self.datafolder + "/" + _get_func_name()
+            fileToSave = str(self.datafolder / _get_func_name())
 
             with open(fileToSave + ".pickle", 'wb') as f:
                 pickle.dump(fig, f) 
