@@ -39,6 +39,7 @@ import time
 from io import BytesIO
 import csv
 import inspect
+from os import PathLike
 
 import rosbag
 from std_msgs.msg import String, Header
@@ -57,7 +58,6 @@ import pickle
 from packaging import version
 
 from pathlib import Path
-from transparentpath import Path as TPath
 version_src = ''
 
 try:
@@ -138,9 +138,9 @@ class bagreader:
 
     Parameters
     ----------------
-    bagfile: `string` | `Path` | `transparentpath` | `file stream`
+    bagfile: `string` | `pathlike` | `file stream`
         Bagreader constructor takes the path to a bagfile to open. This path may be relative or absolute and may be provide 
-        via a string, Path object or transparent path object. Additionally instead of providing a file path, a file stream 
+        via a string, Pathlike object. Additionally instead of providing a file path, a file stream 
         or buffer stream can be provided. If the bagfile argument is a file or buffer stream, the datafolder parameter must be used.
     
     delimiter: `string`
@@ -152,8 +152,8 @@ class bagreader:
     tmp: `bool`
         If True, creates directory in /tmp folder. Default: `False`
 
-    datafolder: `Path`
-        A file path or transparent path to the folder where the bag file can be extracted. If left None a folder will be created next 
+    datafolder: `Pathlike`
+        A file pathlike to the folder where the bag file can be extracted. If left None a folder will be created next 
         to the given bagfile with the same name as the bagfile. 
 
     Attributes
@@ -204,10 +204,10 @@ class bagreader:
             self.bagfile = Path(bagfile)
 
         # determine the directory
-        assert type(self.bagfile) in [Path, TPath] or datafolder is not None, "Either the bag file must be a file path or a file path must be given in datafolder"
+        # assert type(self.bagfile) in [Path, PathLike] or datafolder is not None, "Either the bag file must be a file path or a file path must be given in datafolder"
         if datafolder is not None:
             self.datafolder = datafolder.absolute
-        elif type(self.bagfile) in [Path, TPath]:
+        else:
             self.datafolder = self.bagfile.absolute.parent / self.bagfile.stem
 
         self.reader = rosbag.Bag(self.bagfile)

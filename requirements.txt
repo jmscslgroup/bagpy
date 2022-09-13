@@ -27,4 +27,3 @@ nbsphinx
 pandoc
 pandocfilters
 yolk3k
-transparentpath
