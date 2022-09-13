@@ -196,7 +196,7 @@ class bagreader:
 
     '''
 
-    def __init__(self , bagfile , delimiter=",", verbose=True , tmp = False, datafolder: Path = None):
+    def __init__(self , bagfile , delimiter=",", verbose=True , tmp = False, datafolder: PathLike = None):
         self.bagfile = bagfile
         self.delimiter = delimiter
         
@@ -206,9 +206,9 @@ class bagreader:
         # determine the directory
         # assert type(self.bagfile) in [Path, PathLike] or datafolder is not None, "Either the bag file must be a file path or a file path must be given in datafolder"
         if datafolder is not None:
-            self.datafolder = datafolder.absolute
+            self.datafolder = datafolder.absolute()
         else:
-            self.datafolder = self.bagfile.absolute.parent / self.bagfile.stem
+            self.datafolder = self.bagfile.absolute().parent / self.bagfile.stem
 
         self.reader = rosbag.Bag(self.bagfile)
 
