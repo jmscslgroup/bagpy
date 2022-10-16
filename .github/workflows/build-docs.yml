@@ -1,0 +1,42 @@
+name: build-docs
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build docs
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: ["3.6", "3.7.5", "3.10"]
+        os: [ubuntu-latest, ubuntu-18.04, macos-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install using pip with dev dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -e .[dev]
+    - name: Install pandoc for Ubuntu
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-18.04'
+      run: sudo apt install pandoc
+    - name: Install pandoc for Windows
+      if: matrix.os == 'windows-latest'
+      run: choco install pandoc --no-progress
+    - name: Install pandoc for MacOS
+      if: matrix.os == 'macos-latest'
+      run: brew install pandoc
+    - name: Build documentation
+      run: |
+        cd docs
+        make html
