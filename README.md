@@ -21,10 +21,10 @@ type of data the user is seeking.
 
 ## Requirements
 - Ubuntu 18.04 or later
-- Python 3.6 or higher. **Works best with Python 3.7.5**. With other versions, there are some dependency issues as how pip works has changed.
+- Python 3.6 or higher. **Now, the preferred version is Python 3.9**. With other versions, there are some dependency issues as how pip works has changed.
 - Python 2.x support not available. Python 3.x virtual environment is recommended for pip installation.
 - Works with Windows as well, how, I don't provide support for Windows. See my comment on an issue here: https://github.com/jmscslgroup/bagpy/issues/2#issuecomment-710095649
-
+- **Note: it is not compatible with ROS 2.**
 
 ## Installation
 ```
